@@ -25,7 +25,7 @@ export default defineConfig({
     VitePWA({
       base: './',
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.ico', 'pwa-180x180.svg'],
+      includeAssets: ['favicon.ico', 'pwa-180x180.png'],
       manifest: {
         name: 'Real Substance Properties',
         short_name: 'RSP',

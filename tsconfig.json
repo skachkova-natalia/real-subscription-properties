@@ -1,0 +1,40 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "src/*": ["src/*"],
+      "assets/*": ["src/assets/*"],
+      "components/*": ["src/components/*"],
+      "constants/*": ["src/constants/*"],
+      "core/*": ["src/core/*"],
+      "models/*": ["src/models/*"],
+      "pages/*": ["src/pages/*"],
+      "services/*": ["src/services/*"],
+      "types/*": ["src/types/*"],
+      "ui-kit/*": ["src/ui-kit/*"],
+      "utils/*": ["src/utils/*"]
+    },
+    "target": "ES2020",
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "useDefineForClassFields": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "strictNullChecks": true,
+    "noImplicitAny": false,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+  },
+  "include": [
+    "src"
+  ]
+}

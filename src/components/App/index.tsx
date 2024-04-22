@@ -1,11 +1,15 @@
+import {useGate} from 'effector-react';
 import './styled.css'
-import {SubscriptionTable} from 'components/Table';
+import '@models/init';
+import {AppGate} from '@models/app';
+import {PropertyTable} from '@components/PropertyTable';
 
 function App() {
+  useGate(AppGate);
 
   return (
     <>
-      <SubscriptionTable/>
+      <PropertyTable/>
     </>
   )
 }

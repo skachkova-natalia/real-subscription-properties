@@ -1,10 +1,15 @@
 import {bindAllMethods} from '@utils/binder';
-import {axiosApiInstance, BASE_URL} from '@core/api';
+import {axiosApiInstance} from '@core/api';
 
 export const propertyTableService = bindAllMethods({
+  async getAvailableSubstance(): Promise<void> {
+    return (
+      await axiosApiInstance.get(`http://rsp-api.online/getAvailableSubstances`)
+    ).data;
+  },
   async getTable(): Promise<void> {
     return (
-      await axiosApiInstance.get(`${BASE_URL}/product`)
+      await axiosApiInstance.get(`http://rsp-api.online/getAvailableSubstance`)
     ).data;
   },
 })

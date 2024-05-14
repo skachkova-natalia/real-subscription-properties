@@ -9,7 +9,7 @@ export function resetDomainStoresByEvents(
 }
 
 export function forwardPayload<State, E>() {
-  return (state: State, payload: E) => payload;
+  return (state: State, payload: E | undefined) => payload;
 }
 
 export function forwardErrorMessage() {

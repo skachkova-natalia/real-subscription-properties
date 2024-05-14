@@ -64,4 +64,14 @@ export default defineConfig({
       },
     },
   },
+  server: {
+    port: 3000,
+    // proxy: {
+    //   '/': {
+    //     target: 'http://rsp-api.online',
+    //     changeOrigin: true,
+    //     secure: false,
+    //   },
+    // },
+  },
 });

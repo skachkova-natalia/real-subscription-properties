@@ -1,7 +1,4 @@
-import axios, {
-  AxiosError,
-  AxiosResponse,
-} from 'axios';
+import axios, {AxiosError, AxiosResponse} from 'axios';
 
 export const BASE_URL = '/';
 

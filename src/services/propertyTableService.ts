@@ -6,7 +6,7 @@ import {TableResponse} from '@src/types/table';
 export const propertyTableService = bindAllMethods({
   async getAvailableSubstance(): Promise<SubstanceFiltersResponse> {
     return (
-      await axiosApiInstance.get(`http://rsp-api.online/getAvailableSubstances`)
+      await axiosApiInstance.get(`/api/getAvailableSubstances`)
     ).data;
   },
   async getCalcModesInfo(id: string): Promise<ModesResponse> {

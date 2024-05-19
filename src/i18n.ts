@@ -7,7 +7,15 @@ const resources = {
       value: 'Значение',
       dimension: 'Единица измерения',
       substance: 'Вещество',
-      parameterMode: 'Параметры',
+      parameter_mode: 'Параметры',
+      pressure: 'Pressure',
+      density: 'Density',
+      temperature: 'Temperature',
+      enthalpy: 'Enthalpy',
+      enthropy: 'Entropy',
+      saturation_pressure: 'Saturation pressure',
+      saturation_temperature: 'Saturation temperature',
+      steam_mass_fraction: 'Steam mass fraction',
     },
   },
   en: {
@@ -16,9 +24,17 @@ const resources = {
       value: 'Value',
       dimension: 'Dimension',
       substance: 'Substance',
-      parameterMode: 'Parameter mode',
-    }
-  }
+      parameter_mode: 'Parameter mode',
+      pressure: 'Pressure',
+      density: 'Density',
+      temperature: 'Temperature',
+      enthalpy: 'Enthalpy',
+      enthropy: 'Entropy',
+      saturation_pressure: 'Saturation pressure',
+      saturation_temperature: 'Saturation temperature',
+      steam_mass_fraction: 'Steam mass fraction',
+    },
+  },
 };
 
 i18n.init({

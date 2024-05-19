@@ -15,7 +15,6 @@ export default defineConfig({
       '@models': path.resolve(__dirname, './src/models'),
       '@pages': path.resolve(__dirname, './src/pages'),
       '@services': path.resolve(__dirname, './src/services'),
-      '@types': path.resolve(__dirname, './src/types'),
       '@ui-kit': path.resolve(__dirname, './src/ui-kit'),
       '@utils': path.resolve(__dirname, './src/utils'),
     },
@@ -66,12 +65,5 @@ export default defineConfig({
   },
   server: {
     port: 3000,
-    // proxy: {
-    //   '/': {
-    //     target: 'http://rsp-api.online',
-    //     changeOrigin: true,
-    //     secure: false,
-    //   },
-    // },
   },
 });

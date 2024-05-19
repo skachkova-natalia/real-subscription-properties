@@ -1,12 +1,25 @@
 import {combine, createDomain} from 'effector';
 import {propertyTableService} from '@services/propertyTableService';
+import {Filter, Mode} from '@src/types/filters';
 
 export const filtersDomain = createDomain();
 
 export const getAvailableSubstanceFx = filtersDomain.createEffect(propertyTableService.getAvailableSubstance);
+export const getCalcModesInfoFx = filtersDomain.createEffect(propertyTableService.getCalcModesInfo);
 
-export const $substances = filtersDomain.createStore([]);
+export const $substancesOptions = filtersDomain.createStore<Filter[]>([]);
+export const $currentSubstance = filtersDomain.createStore<string | null>(null);
+export const $modesOptions = filtersDomain.createStore<Filter[]>([]);
+export const $currentMode = filtersDomain.createStore<string | null>(null);
+export const $modesParams = filtersDomain.createStore<Mode[]>([]);
+
+export const setCurrentSubstance = filtersDomain.createEvent<string>();
+export const setCurrentMode = filtersDomain.createEvent<string>();
 
 export const $filters = combine({
-  substances: $substances,
+  substancesOptions: $substancesOptions,
+  currentSubstance: $currentSubstance,
+  modesParams: $modesParams,
+  modesOptions: $modesOptions,
+  currentMode: $currentMode,
 });

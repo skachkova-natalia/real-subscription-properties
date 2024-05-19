@@ -51,10 +51,10 @@ export function Filters() {
         {params.map((param) => (
           <Form.Item
             key={param}
-            label={i18next.t(param.toLowerCase().replaceAll(' ', '_'))}
             name={param}
+            label={i18next.t(param.toLowerCase().replaceAll(' ', '_'))}
           >
-            <Input />
+            <Input defaultValue='0'/>
           </Form.Item>
         ))}
         {params.length> 0 && <Form.Item>

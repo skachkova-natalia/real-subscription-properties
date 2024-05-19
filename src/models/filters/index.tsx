@@ -15,6 +15,7 @@ export const $modesParams = filtersDomain.createStore<Mode[]>([]);
 
 export const setCurrentSubstance = filtersDomain.createEvent<string>();
 export const setCurrentMode = filtersDomain.createEvent<string>();
+export const applyFilters = filtersDomain.createEvent<string[]>();
 
 export const $filters = combine({
   substancesOptions: $substancesOptions,

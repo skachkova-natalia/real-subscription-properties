@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import {Form} from 'antd';
 
 export const FiltersContainer = styled.div`
-  min-width: 750px;
+  min-width: 710px;
   display: flex;
   flex-direction: column;
   gap: 10px;

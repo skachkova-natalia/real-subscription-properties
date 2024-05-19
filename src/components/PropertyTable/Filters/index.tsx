@@ -1,7 +1,7 @@
 import {Button, Form, Input, Select} from 'antd';
 import i18next from 'i18next';
 import {useUnit} from 'effector-react';
-import {$filters, setCurrentMode, setCurrentSubstance} from '@models/filters';
+import {$filters, applyFilters, setCurrentMode, setCurrentSubstance} from '@models/filters';
 import {ArrowRightOutlined} from '@ant-design/icons';
 import * as S from './styled';
 import {useEffect, useState} from 'react';
@@ -45,7 +45,7 @@ export function Filters() {
       <S.StyledForm
         layout='inline'
         onFinish={(values) => {
-          console.log(values);
+          applyFilters(Object.values(values as object));
         }}
       >
         {params.map((param) => (
@@ -54,10 +54,10 @@ export function Filters() {
             name={param}
             label={i18next.t(param.toLowerCase().replaceAll(' ', '_'))}
           >
-            <Input defaultValue='0'/>
+            <Input style={{maxWidth: '100px'}} />
           </Form.Item>
         ))}
-        {params.length> 0 && <Form.Item>
+        {params.length > 0 && <Form.Item>
           <Button htmlType='submit' icon={<ArrowRightOutlined />} />
         </Form.Item>}
       </S.StyledForm>

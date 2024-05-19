@@ -1,22 +1,11 @@
 import i18next from 'i18next';
 import {Table} from 'antd';
 import {Filters} from '@components/PropertyTable/Filters';
+import {useUnit} from 'effector-react/effector-react.umd';
+import {$propertyTable} from '@models/propertyTable';
 
 export function PropertyTable() {
-  const dataSource = [
-  {
-    key: '1',
-    name: 'Mike',
-    age: 32,
-    address: '10 Downing Street',
-  },
-  {
-    key: '2',
-    name: 'John',
-    age: 42,
-    address: '10 Downing Street',
-  },
-];
+  const dataSource = useUnit($propertyTable);
 
   const columns = [
     {

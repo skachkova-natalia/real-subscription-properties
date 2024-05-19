@@ -11,12 +11,12 @@ export const propertyTableService = bindAllMethods({
   },
   async getCalcModesInfo(id: string): Promise<ModesResponse> {
     return (
-      await axiosApiInstance.get(`http://rsp-api.online/getCalcModesInfo?id=${id}`)
+      await axiosApiInstance.get(`/api/getCalcModesInfo?id=${id}`)
     ).data;
   },
   async getTable({substanceId, modeId, params}: TableFilters): Promise<TableResponse> {
     return (
-      await axiosApiInstance.post(`http://rsp-api.online/getPropertiesTable?substanceId=${substanceId}&modeId=${modeId}`, params)
+      await axiosApiInstance.post(`/api/getPropertiesTable?substanceId=${substanceId}&modeId=${modeId}`, params)
     ).data;
   },
 });

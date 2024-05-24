@@ -1,7 +1,13 @@
 import {bindAllMethods} from '@utils/binder';
 import {axiosApiInstance, BASE_URL} from '@core/api';
-import {ModesResponse, PropertiesFilters, SubstanceFiltersResponse, TableFilters} from '@src/types/filters';
-import {PropertiesListResponse, TableResponse} from '@src/types/table';
+import {
+  ModesResponse,
+  PropertiesFilters,
+  PropertiesListResponse,
+  SubstanceFiltersResponse,
+  TableFilters,
+} from '@src/types/filters';
+import {TableResponse} from '@src/types/table';
 
 export const propertyTableService = bindAllMethods({
   async getAvailableSubstance(): Promise<SubstanceFiltersResponse> {

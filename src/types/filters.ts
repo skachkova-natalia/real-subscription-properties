@@ -9,7 +9,7 @@ export interface SubstanceFiltersResponse {
 
 export interface Mode {
   value: string;
-  label: string[];
+  filter_params: string[];
 }
 
 export interface ModesResponse {
@@ -20,4 +20,17 @@ export interface TableFilters {
   substanceId: string;
   modeId: string;
   params: string[];
+}
+
+export interface PropertiesFilters {
+  substanceId: string;
+  modeId: string;
+}
+
+export interface PropertyDescription {
+  [key: string]: string;
+}
+
+export interface PropertiesListResponse {
+  data: PropertyDescription;
 }

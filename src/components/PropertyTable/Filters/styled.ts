@@ -6,6 +6,9 @@ export const FiltersContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
+  @media (max-width: 800px) {
+    min-width: auto;
+  }
 `;
 
 export const Filters = styled.div`
@@ -13,6 +16,9 @@ export const Filters = styled.div`
   flex-direction: row;
   align-items: center;
   gap: 16px;
+  @media (max-width: 800px) {
+    flex-wrap: wrap;
+  }
 `;
 
 export const SelectContainer = styled.div`

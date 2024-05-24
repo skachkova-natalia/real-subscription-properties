@@ -1,6 +1,6 @@
 export interface PropertyItem {
-  dimensionId: string;
-  property: string;
+  dimensionId?: string;
+  propertyId: string;
   value: number;
 }
 

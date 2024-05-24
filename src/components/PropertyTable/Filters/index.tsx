@@ -1,10 +1,10 @@
+import {useEffect, useState} from 'react';
+import {useUnit} from 'effector-react';
 import {Button, Form, Input, Select} from 'antd';
 import i18next from 'i18next';
-import {useUnit} from 'effector-react';
 import {$filters, applyFilters, setCurrentMode, setCurrentSubstance} from '@models/filters';
 import {ArrowRightOutlined} from '@ant-design/icons';
 import * as S from './styled';
-import {useEffect, useState} from 'react';
 
 export function Filters() {
   const {substancesOptions, currentSubstance, modesParams, modesOptions, currentMode} = useUnit($filters);
@@ -15,7 +15,7 @@ export function Filters() {
       setParams([]);
       return;
     }
-    setParams(modesParams.find((mode) => mode.value === currentMode)?.label || []);
+    setParams(modesParams.find((mode) => mode.value === currentMode)?.filter_params || []);
   }, [currentMode, modesParams]);
 
   return (

@@ -1,6 +1,6 @@
 import axios, {AxiosError, AxiosResponse} from 'axios';
 
-export const BASE_URL = '/';
+export const BASE_URL = 'https://rsp-api.online';
 
 export enum ApiResponseCode {
   SUCCESS = 0,

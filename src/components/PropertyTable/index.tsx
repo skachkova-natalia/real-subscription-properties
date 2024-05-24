@@ -3,9 +3,11 @@ import {Table} from 'antd';
 import {Filters} from '@components/PropertyTable/Filters';
 import {useUnit} from 'effector-react/effector-react.umd';
 import {$propertyTable} from '@models/propertyTable';
+import {$filters} from '@models/filters';
 
 export function PropertyTable() {
   const dataSource = useUnit($propertyTable);
+  const {propertiesList} = useUnit($filters);
 
   const columns = [
     {
@@ -17,14 +19,13 @@ export function PropertyTable() {
       title: i18next.t('value'),
       dataIndex: 'value',
       key: 'value',
-      editable: true,
+      render: (text) => <span>{i18next.t(propertiesList[text].toLowerCase().replaceAll(' ', '_'))}</span>,
     },
     {
       title: i18next.t('dimension'),
       dataIndex: 'dimension',
       key: 'dimension',
-      render: (text) => <a>{text}</a>,
-      editable: true,
+      render: () => <span>SI</span>,
     },
   ];
 

@@ -1,9 +1,9 @@
 import i18next from 'i18next';
-import {Table} from 'antd';
 import {Filters} from '@components/PropertyTable/Filters';
 import {useUnit} from 'effector-react/effector-react.umd';
 import {$propertyTable} from '@models/propertyTable';
 import {$filters} from '@models/filters';
+import * as S from './styled';
 
 export function PropertyTable() {
   const dataSource = useUnit($propertyTable);
@@ -16,7 +16,7 @@ export function PropertyTable() {
       title: i18next.t('property'),
       dataIndex: 'propertyId',
       key: 'propertyId',
-      render: (text) => <span>{i18next.t(propertiesList[text]?.toLowerCase().replaceAll(' ', '_'))}</span>,
+      render: (text) => <span>{i18next.t(propertiesList[text]?.toLowerCase().replaceAll(' ', '_').replaceAll('-', '_'))}</span>,
     },
     {
       title: i18next.t('value'),
@@ -34,6 +34,6 @@ export function PropertyTable() {
   return (
     <>
       <Filters />
-      <Table dataSource={dataSource} columns={columns} pagination={false}/>
+      <S.StyledTable dataSource={dataSource} columns={columns} pagination={false}/>
     </>);
 }

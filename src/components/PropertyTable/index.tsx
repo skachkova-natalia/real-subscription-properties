@@ -9,17 +9,19 @@ export function PropertyTable() {
   const dataSource = useUnit($propertyTable);
   const {propertiesList} = useUnit($filters);
 
+  console.log(dataSource);
+
   const columns = [
     {
       title: i18next.t('property'),
-      dataIndex: 'property',
-      key: 'property',
+      dataIndex: 'propertyId',
+      key: 'propertyId',
+      render: (text) => <span>{i18next.t(propertiesList[text]?.toLowerCase().replaceAll(' ', '_'))}</span>,
     },
     {
       title: i18next.t('value'),
       dataIndex: 'value',
       key: 'value',
-      render: (text) => <span>{i18next.t(propertiesList[text].toLowerCase().replaceAll(' ', '_'))}</span>,
     },
     {
       title: i18next.t('dimension'),

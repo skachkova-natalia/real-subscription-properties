@@ -33,7 +33,6 @@ async function onErrorInterceptor(e: AxiosError<ApiResponse>): Promise<AxiosResp
   let result: null | {[key: string]: unknown} = null;
   let detail: null | string = null;
   if (response) {
-    console.log(response);
     detail = response.data.detail;
     if (response.data.result) {
       result = response.data.result;

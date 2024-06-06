@@ -9,7 +9,6 @@ export function PropertyTable() {
   const {data, error, loading} = useUnit($propertyTable);
   const {propertiesList} = useUnit($filters);
 
-  console.log(error);
   const columns = [
     {
       title: i18next.t('property'),

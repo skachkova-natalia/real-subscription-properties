@@ -1,7 +1,8 @@
 export interface PropertyItem {
-  dimensionId?: string;
   propertyId: string;
   value: number;
+  dimension: string;
+  available_dimensions: string[];
 }
 
 export interface TableResponse {

@@ -6,11 +6,10 @@ import {$filters} from '@models/filters';
 import * as S from './styled';
 
 export function PropertyTable() {
-  const dataSource = useUnit($propertyTable);
+  const {data, error, loading} = useUnit($propertyTable);
   const {propertiesList} = useUnit($filters);
 
-  console.log(dataSource);
-
+  console.log(error);
   const columns = [
     {
       title: i18next.t('property'),
@@ -28,14 +27,19 @@ export function PropertyTable() {
       title: i18next.t('dimension'),
       dataIndex: 'dimension',
       key: 'dimension',
-      render: () => <span>SI</span>,
     },
   ];
 
   return (
     <S.TableContainer>
       <Filters />
-      <S.StyledTable dataSource={dataSource} columns={columns} pagination={false} />
+      {error && <S.Error>{error}</S.Error>}
+      <S.StyledTable
+        dataSource={data}
+        columns={columns}
+        loading={loading}
+        pagination={false}
+      />
     </S.TableContainer>
   );
 }

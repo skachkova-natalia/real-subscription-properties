@@ -30,4 +30,9 @@ export const propertyTableService = bindAllMethods({
       await axiosApiInstance.post(`${BASE_URL}/getPropertiesTable`, params)
     ).data;
   },
+  async getRowTable(params: TableFilters): Promise<TableResponse> {
+    return (
+      await axiosApiInstance.post(`${BASE_URL}/getPropertiesTable`, params)
+    ).data;
+  },
 });

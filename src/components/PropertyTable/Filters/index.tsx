@@ -23,7 +23,6 @@ export function Filters() {
     setDimensions(modesParams.find((mode) => mode.value === currentMode)?.available_param_dimension || []);
     setSelectedDimensions(modesParams.find((mode) => mode.value === currentMode)?.param_dimensions || []);
   }, [currentMode, modesParams]);
-  console.log(dimensions);
 
   return (
     <S.FiltersContainer>

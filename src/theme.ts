@@ -17,6 +17,11 @@ export const color = {
     s500: '#0057FF',
     s700: '#003399',
   },
+  secondary: {
+    danger: {
+      s600: '#CC0000',
+    },
+  },
 };
 
 export const font = {

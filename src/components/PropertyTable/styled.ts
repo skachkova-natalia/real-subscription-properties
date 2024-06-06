@@ -14,6 +14,11 @@ export const TableContainer = styled.div`
   }
 `;
 
+export const Error = styled.span`
+  color: ${color.secondary.danger.s600};
+  font-size: 12px;
+`;
+
 export const StyledTable = styled(Table)`
   width: 100%;
 

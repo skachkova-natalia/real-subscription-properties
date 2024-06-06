@@ -9,15 +9,14 @@ export enum ApiResponseCode {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface ApiResponse<T = any> {
   query_id: string;
-  code: ApiResponseCode;
   result: T;
   error?: string;
+  detail: string;
 }
 
 export interface ApiResponseError extends Error {
-  errorCode: ApiResponseCode | null;
-  httpCode: number | null;
   result?: {[key: string]: unknown};
+  error: string;
 }
 
 const axiosApiInstance = axios.create({
@@ -31,20 +30,18 @@ axiosApiInstance.interceptors.response.use((response) => response, onErrorInterc
 
 async function onErrorInterceptor(e: AxiosError<ApiResponse>): Promise<AxiosResponse<ApiResponse>> {
   const {response} = e;
-  let httpCode: null | number = null;
-  let errorCode: null | ApiResponseCode = null;
   let result: null | {[key: string]: unknown} = null;
+  let detail: null | string = null;
   if (response) {
-    httpCode = response.status;
-    errorCode = response.data.code;
+    console.log(response);
+    detail = response.data.detail;
     if (response.data.result) {
       result = response.data.result;
     }
   }
 
   const error = new Error() as ApiResponseError;
-  error.errorCode = errorCode;
-  error.httpCode = httpCode;
+  error.error = detail || '';
   if (result) {
     error.result = result;
   }

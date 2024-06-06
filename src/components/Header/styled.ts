@@ -7,6 +7,6 @@ export const Header = styled.div`
   gap: 8px;
   padding: 15px 100px;
   color: ${color.primary.s700};
-  border-bottom: 1px solid ${color.base.s100};
+  box-shadow: 0 1px 6px rgb(0 0 0 / 15%);
   ${H1}
 `;

@@ -12,6 +12,9 @@ export const TableContainer = styled.div`
   @media (max-width: ${breakpoint.tablet}) {
     padding: 40px 50px;
   }
+  @media (max-width: ${breakpoint.mobile}) {
+    padding: 30px;
+  }
 `;
 
 export const Error = styled.span`

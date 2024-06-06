@@ -10,6 +10,9 @@ export interface SubstanceFiltersResponse {
 export interface Mode {
   value: string;
   filter_params: string[];
+  param_literals: string[];
+  param_dimensions: string[];
+  available_param_dimension: string[][];
 }
 
 export interface ModesResponse {
@@ -19,7 +22,12 @@ export interface ModesResponse {
 export interface TableFilters {
   substanceId: string;
   modeId: string;
-  params: string[];
+  params: TableParamsFilters;
+}
+
+export interface TableParamsFilters {
+  param_values: string[];
+  param_dimensions: string[];
 }
 
 export interface PropertiesFilters {

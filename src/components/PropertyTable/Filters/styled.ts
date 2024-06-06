@@ -32,6 +32,14 @@ export const Label = styled.span`
   font-size: 14px;
 `;
 
+export const Parameters = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+`;
+
 export const StyledForm = styled(Form)`
   min-height: 32px;
+  gap: 15px;
 `;

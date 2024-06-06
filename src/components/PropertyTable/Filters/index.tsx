@@ -9,14 +9,21 @@ import * as S from './styled';
 export function Filters() {
   const {substancesOptions, currentSubstance, modesParams, modesOptions, currentMode} = useUnit($filters);
   const [params, setParams] = useState<string[]>([]);
+  const [dimensions, setDimensions] = useState<string[][]>([]);
+  const [selectedDimensions, setSelectedDimensions] = useState<string[]>([]);
 
   useEffect(() => {
     if (!currentMode) {
       setParams([]);
+      setDimensions([]);
+      setSelectedDimensions([]);
       return;
     }
     setParams(modesParams.find((mode) => mode.value === currentMode)?.filter_params || []);
+    setDimensions(modesParams.find((mode) => mode.value === currentMode)?.available_param_dimension || []);
+    setSelectedDimensions(modesParams.find((mode) => mode.value === currentMode)?.param_dimensions || []);
   }, [currentMode, modesParams]);
+  console.log(dimensions);
 
   return (
     <S.FiltersContainer>
@@ -45,17 +52,27 @@ export function Filters() {
       <S.StyledForm
         layout='inline'
         onFinish={(values) => {
-          applyFilters(Object.values(values as object));
+          applyFilters({
+            param_values: Object.values(values as object),
+            param_dimensions: selectedDimensions,
+          });
         }}
       >
-        {params.map((param) => (
-          <Form.Item
-            key={param}
-            name={param}
-            label={i18next.t(param.toLowerCase().replaceAll(' ', '_'))}
-          >
-            <Input style={{maxWidth: '100px'}} />
-          </Form.Item>
+        {params.map((param, paramIndex) => (
+          <S.Parameters key={param}>
+            <S.Label>{i18next.t(param.toLowerCase().replaceAll(' ', '_'))}</S.Label>
+            <Form.Item name={param}>
+              <Input style={{maxWidth: '100px'}} />
+            </Form.Item>
+            <Select
+              options={dimensions[paramIndex].map((dimension) => ({value: dimension, label: dimension}))}
+              value={selectedDimensions[paramIndex]}
+              onChange={(newValue) => {
+                const selected = selectedDimensions.map((e, eIndex) => eIndex === paramIndex ? newValue : e);
+                setSelectedDimensions(selected);
+              }}
+            />
+          </S.Parameters>
         ))}
         {params.length > 0 && <Form.Item>
           <Button htmlType='submit' icon={<ArrowRightOutlined />} />

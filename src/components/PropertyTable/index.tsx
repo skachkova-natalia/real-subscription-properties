@@ -16,7 +16,8 @@ export function PropertyTable() {
       title: i18next.t('property'),
       dataIndex: 'propertyId',
       key: 'propertyId',
-      render: (text) => <span>{i18next.t(propertiesList[text]?.toLowerCase().replaceAll(' ', '_').replaceAll('-', '_'))}</span>,
+      render: (text) =>
+        <span>{i18next.t(propertiesList[text]?.toLowerCase().replaceAll(' ', '_').replaceAll('-', '_'))}</span>,
     },
     {
       title: i18next.t('value'),
@@ -32,8 +33,9 @@ export function PropertyTable() {
   ];
 
   return (
-    <>
+    <S.TableContainer>
       <Filters />
-      <S.StyledTable dataSource={dataSource} columns={columns} pagination={false}/>
-    </>);
+      <S.StyledTable dataSource={dataSource} columns={columns} pagination={false} />
+    </S.TableContainer>
+  );
 }

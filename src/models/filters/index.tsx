@@ -1,6 +1,6 @@
 import {combine, createDomain} from 'effector';
 import {propertyTableService} from '@services/propertyTableService';
-import {Filter, Mode, PropertyDescription} from '@src/types/filters';
+import {Filter, Mode, PropertyDescription, TableParamsFilters} from '@src/types/filters';
 
 export const filtersDomain = createDomain();
 
@@ -17,7 +17,7 @@ export const $propertiesList = filtersDomain.createStore<PropertyDescription>({}
 
 export const setCurrentSubstance = filtersDomain.createEvent<string>();
 export const setCurrentMode = filtersDomain.createEvent<string>();
-export const applyFilters = filtersDomain.createEvent<string[]>();
+export const applyFilters = filtersDomain.createEvent<TableParamsFilters>({});
 
 export const $filters = combine({
   substancesOptions: $substancesOptions,

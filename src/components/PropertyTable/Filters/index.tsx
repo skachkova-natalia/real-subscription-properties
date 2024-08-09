@@ -1,12 +1,13 @@
 import {useEffect, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {useUnit} from 'effector-react';
 import {Button, Form, Input, Select} from 'antd';
-import i18next from 'i18next';
 import {$filters, applyFilters, setCurrentMode, setCurrentSubstance} from '@models/filters';
 import {ArrowRightOutlined} from '@ant-design/icons';
 import * as S from './styled';
 
 export function Filters() {
+  const {t} = useTranslation();
   const {substancesOptions, currentSubstance, modesParams, modesOptions, currentMode} = useUnit($filters);
   const [params, setParams] = useState<string[]>([]);
   const [dimensions, setDimensions] = useState<string[][]>([]);
@@ -28,22 +29,22 @@ export function Filters() {
     <S.FiltersContainer>
       <S.Filters>
         <S.SelectContainer>
-          <S.Label>{i18next.t('substance')}</S.Label>
+          <S.Label>{t('substance')}</S.Label>
           <Select
             options={substancesOptions}
             value={currentSubstance}
             onChange={(e) => setCurrentSubstance(e)}
-            placeholder={i18next.t('substance')}
+            placeholder={t('substance')}
             style={{width: 120}}
           />
         </S.SelectContainer>
         <S.SelectContainer>
-          <S.Label>{i18next.t('parameter_mode')}</S.Label>
+          <S.Label>{t('parameter_mode')}</S.Label>
           <Select
             options={modesOptions}
             value={currentMode}
             onChange={(e) => setCurrentMode(e)}
-            placeholder={i18next.t('parameter_mode')}
+            placeholder={t('parameter_mode')}
             style={{width: 120}}
           />
         </S.SelectContainer>
@@ -59,7 +60,7 @@ export function Filters() {
       >
         {params.map((param, paramIndex) => (
           <S.Parameters key={param}>
-            <S.Label>{i18next.t(param.toLowerCase().replaceAll(' ', '_'))}</S.Label>
+            <S.Label>{t(param.toLowerCase().replaceAll(' ', '_'))}</S.Label>
             <Form.Item name={param}>
               <Input
                 onKeyPress={(event) => {

@@ -1,9 +1,9 @@
-import {resetDomainStoresByEvents} from '@utils/effector';
-import {$data, $error, getTableFx, tableDomain} from '@models/propertyTable/index';
-import {AppGate} from '@models/app';
 import {sample} from 'effector';
-import {$currentMode, $currentSubstance, applyFilters, setCurrentMode, setCurrentSubstance} from '@models/filters';
+import {resetDomainStoresByEvents} from '@utils/effector';
 import {TableFilters} from '@src/types/filters';
+import {AppGate} from '@models/app';
+import {$currentMode, $currentSubstance, applyFilters, setCurrentMode, setCurrentSubstance} from '@models/filters';
+import {$data, $error, getTableFx, tableDomain} from '@models/propertyTable/index';
 
 resetDomainStoresByEvents(tableDomain, AppGate.close);
 
@@ -11,7 +11,7 @@ $data
   .on(getTableFx.doneData, (state, payload) => payload.data)
   .reset(setCurrentSubstance, setCurrentMode, applyFilters);
 $error
-  .on(getTableFx.failData, (state, payload) => payload.detail?.msg_user_ru)
+  .on(getTableFx.failData, (state, payload) => payload.detail)
   .reset(setCurrentSubstance, setCurrentMode, applyFilters, getTableFx.doneData);
 
 sample({

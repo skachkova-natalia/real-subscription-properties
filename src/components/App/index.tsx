@@ -11,7 +11,7 @@ function App() {
   return (
     <>
       <S.GlobalStyle />
-      <Header/>
+      <Header />
       <PropertyTable />
     </>
   );

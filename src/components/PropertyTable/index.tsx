@@ -1,4 +1,4 @@
-import i18next from 'i18next';
+import {useTranslation} from 'react-i18next';
 import {Filters} from '@components/PropertyTable/Filters';
 import {useUnit} from 'effector-react/effector-react.umd';
 import {$propertyTable} from '@models/propertyTable';
@@ -6,24 +6,25 @@ import {$filters} from '@models/filters';
 import * as S from './styled';
 
 export function PropertyTable() {
+  const {i18n, t} = useTranslation();
   const {data, error, loading} = useUnit($propertyTable);
   const {propertiesList} = useUnit($filters);
 
   const columns = [
     {
-      title: i18next.t('property'),
+      title: t('property'),
       dataIndex: 'propertyId',
       key: 'propertyId',
       render: (text) =>
-        <span>{i18next.t(propertiesList[text]?.toLowerCase().replaceAll(' ', '_').replaceAll('-', '_'))}</span>,
+        <span>{t(propertiesList[text]?.toLowerCase().replaceAll(' ', '_').replaceAll('-', '_'))}</span>,
     },
     {
-      title: i18next.t('value'),
+      title: t('value'),
       dataIndex: 'value',
       key: 'value',
     },
     {
-      title: i18next.t('dimension'),
+      title: t('dimension'),
       dataIndex: 'dimension',
       key: 'dimension',
     },
@@ -32,7 +33,7 @@ export function PropertyTable() {
   return (
     <S.TableContainer>
       <Filters />
-      {error && <S.Error>{error}</S.Error>}
+      {error && <S.Error>{error[`msg_user_${i18n.language}`]}</S.Error>}
       <S.StyledTable
         dataSource={data}
         columns={columns}

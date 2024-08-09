@@ -6,17 +6,25 @@ export enum ApiResponseCode {
   SUCCESS = 0,
 }
 
+interface ErrorDetail {
+  code: number;
+  type: string;
+  error_info: string;
+  msg_user_en: string;
+  msg_user_ru: string;
+}
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface ApiResponse<T = any> {
   query_id: string;
   result: T;
   error?: string;
-  detail: string;
+  detail: ErrorDetail;
 }
 
 export interface ApiResponseError extends Error {
   result?: {[key: string]: unknown};
-  error: string;
+  detail?: ErrorDetail;
 }
 
 const axiosApiInstance = axios.create({
@@ -31,7 +39,7 @@ axiosApiInstance.interceptors.response.use((response) => response, onErrorInterc
 async function onErrorInterceptor(e: AxiosError<ApiResponse>): Promise<AxiosResponse<ApiResponse>> {
   const {response} = e;
   let result: null | {[key: string]: unknown} = null;
-  let detail: null | string = null;
+  let detail: null | ErrorDetail = null;
   if (response) {
     detail = response.data.detail;
     if (response.data.result) {
@@ -40,7 +48,7 @@ async function onErrorInterceptor(e: AxiosError<ApiResponse>): Promise<AxiosResp
   }
 
   const error = new Error() as ApiResponseError;
-  error.error = detail || '';
+  error.detail = detail || undefined;
   if (result) {
     error.result = result;
   }

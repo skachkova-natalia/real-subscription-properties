@@ -11,7 +11,7 @@ $data
   .on(getTableFx.doneData, (state, payload) => payload.data)
   .reset(setCurrentSubstance, setCurrentMode, applyFilters);
 $error
-  .on(getTableFx.failData, (state, payload) => payload.error)
+  .on(getTableFx.failData, (state, payload) => payload.detail?.msg_user_ru)
   .reset(setCurrentSubstance, setCurrentMode, applyFilters, getTableFx.doneData);
 
 sample({

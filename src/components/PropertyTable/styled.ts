@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {Table} from 'antd';
+import {Button, Table} from 'antd';
 import {breakpoint, color} from '@src/theme';
 
 export const TableContainer = styled.div`
@@ -15,6 +15,20 @@ export const TableContainer = styled.div`
   @media (max-width: ${breakpoint.mobile}) {
     padding: 30px;
   }
+`;
+
+export const FilterContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+`;
+
+export const StyledButton = styled(Button)`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: ${color.primary.s700};
+  border: 1px solid ${color.primary.s700};
 `;
 
 export const Error = styled.span`

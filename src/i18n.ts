@@ -4,6 +4,7 @@ import {initReactI18next} from 'react-i18next';
 const resources = {
   ru: {
     translation: {
+      screenshot: 'Скриншот',
       property: 'Свойство',
       value: 'Значение',
       dimension: 'Единица измерения',
@@ -70,6 +71,7 @@ const resources = {
   },
   en: {
     translation: {
+      screenshot: 'Screenshot',
       property: 'Property',
       value: 'Value',
       dimension: 'Dimension',

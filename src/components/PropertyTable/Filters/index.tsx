@@ -61,7 +61,14 @@ export function Filters() {
           <S.Parameters key={param}>
             <S.Label>{i18next.t(param.toLowerCase().replaceAll(' ', '_'))}</S.Label>
             <Form.Item name={param}>
-              <Input style={{maxWidth: '100px'}} />
+              <Input
+                onKeyPress={(event) => {
+                  if (!/[0-9.e]/.test(event.key)) {
+                    event.preventDefault();
+                  }
+                }}
+                style={{maxWidth: '100px'}}
+              />
             </Form.Item>
             <Select
               options={dimensions[paramIndex].map((dimension) => ({value: dimension, label: dimension}))}

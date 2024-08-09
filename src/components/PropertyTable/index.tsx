@@ -4,6 +4,7 @@ import {useUnit} from 'effector-react/effector-react.umd';
 import {$propertyTable} from '@models/propertyTable';
 import {$filters} from '@models/filters';
 import * as S from './styled';
+import {Tooltip} from 'antd';
 
 export function PropertyTable() {
   const {i18n, t} = useTranslation();
@@ -22,6 +23,7 @@ export function PropertyTable() {
       title: t('value'),
       dataIndex: 'value',
       key: 'value',
+      render: (text) => <Tooltip title={text}>{Number(text).toFixed(3)}</Tooltip>,
     },
     {
       title: t('dimension'),

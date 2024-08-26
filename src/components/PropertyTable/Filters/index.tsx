@@ -69,6 +69,7 @@ export function Filters() {
                   }
                 }}
                 style={{maxWidth: '100px'}}
+                required
               />
             </Form.Item>
             <Select

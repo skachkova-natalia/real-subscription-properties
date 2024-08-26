@@ -26,5 +26,8 @@ export const ButtonsContainer = styled.div`
 `;
 
 export const Icon = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 4px;
   cursor: pointer;
 `;

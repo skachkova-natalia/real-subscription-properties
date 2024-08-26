@@ -1,14 +1,15 @@
 import {useCallback, useRef} from 'react';
 import {useTranslation} from 'react-i18next';
 import {useUnit} from 'effector-react/effector-react.umd';
-import {Tooltip} from 'antd';
 import {takeScreenShot} from '@utils/screenshot';
-import {$propertyTable} from '@models/propertyTable';
 import {$filters} from '@models/filters';
+import {$propertyTable} from '@models/propertyTable';
 import {Filters} from '@components/PropertyTable/Filters';
+import {ValueCell} from '@components/PropertyTable/Cells/ValueCell';
 import ScreenCaptureSvg from '@assets/screen-capture.svg?react';
 import {color} from '@src/theme';
 import * as S from './styled';
+import {DimensionCell} from '@components/PropertyTable/Cells/DimensionCell';
 
 export function PropertyTable() {
   const {i18n, t} = useTranslation();
@@ -40,13 +41,13 @@ export function PropertyTable() {
       title: t('value'),
       dataIndex: 'value',
       key: 'value',
-      render: (text) => <Tooltip title={text}>{Number(text).toFixed(3)}</Tooltip>,
+      render: ValueCell,
     },
     {
       title: t('dimension'),
       dataIndex: 'dimension',
       key: 'dimension',
-      render: (text) => text || '—',
+      render: DimensionCell,
     },
   ];
 
@@ -54,7 +55,7 @@ export function PropertyTable() {
     <S.TableContainer ref={tableRef}>
       <S.FilterContainer>
         <Filters />
-        {data.length > 0 && <S.StyledButton onClick={doScreenshot}>
+        {data?.length > 0 && <S.StyledButton onClick={doScreenshot}>
           <ScreenCaptureSvg width={16} height={16} fill={color.primary.s700} />
           {t('screenshot')}
         </S.StyledButton>}
@@ -65,6 +66,7 @@ export function PropertyTable() {
         columns={columns}
         loading={loading}
         pagination={false}
+        locale={{ emptyText: t('no_data') }}
       />
     </S.TableContainer>
   );

@@ -24,8 +24,9 @@ export function Header() {
         RSP
       </S.Title>
       <S.ButtonsContainer>
-        <S.Icon>
-          <LanguageSvg width={20} height={20} fill={color.primary.s700} onClick={changeLanguage} />
+        <S.Icon onClick={changeLanguage}>
+          {i18n.language}
+          <LanguageSvg width={20} height={20} fill={color.primary.s700} />
         </S.Icon>
       </S.ButtonsContainer>
     </S.Container>

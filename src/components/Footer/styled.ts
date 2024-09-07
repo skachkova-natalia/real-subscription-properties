@@ -17,7 +17,7 @@ export const Container = styled.div`
     padding: 15px 50px;
   }
   @media (max-width: ${breakpoint.mobile}) {
-    padding: 15px 30px;
+    padding: 10px 30px;
   }
 `;
 

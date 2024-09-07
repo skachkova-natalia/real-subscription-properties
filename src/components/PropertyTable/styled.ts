@@ -13,7 +13,7 @@ export const TableContainer = styled.div`
     padding: 40px 50px 60px;
   }
   @media (max-width: ${breakpoint.mobile}) {
-    padding: 12px 12px 60px;
+    padding: 12px 12px 50px;
   }
 `;
 

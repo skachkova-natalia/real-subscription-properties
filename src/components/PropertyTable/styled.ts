@@ -10,10 +10,10 @@ export const TableContainer = styled.div`
   font-family: Roboto, sans-serif;
 
   @media (max-width: ${breakpoint.tablet}) {
-    padding: 40px 50px;
+    padding: 40px 50px 60px;
   }
   @media (max-width: ${breakpoint.mobile}) {
-    padding: 12px;
+    padding: 12px 12px 60px;
   }
 `;
 

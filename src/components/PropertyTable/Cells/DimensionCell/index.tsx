@@ -5,11 +5,11 @@ import {PropertyItem} from '@src/types/table';
 import {getTableRow} from '@models/propertyTable';
 
 export function DimensionCell(value: string, row: PropertyItem) {
-  const dimensionOptions = row.available_dimensions.map((dimension) => ({
+  const dimensionOptions = row.available_dimensions?.map((dimension) => ({
     key: dimension,
     value: dimension,
     label: <MathJax>{MATHJAX_DIMENSIONS[dimension]}</MathJax>,
-  }));
+  })) || [];
 
   return (
     <MathJaxContext>

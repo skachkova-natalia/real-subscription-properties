@@ -22,7 +22,11 @@ export const Title = styled.div`
 `;
 
 export const ButtonsContainer = styled.div`
-  
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
 `;
 
 export const Icon = styled.div`

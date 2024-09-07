@@ -6,7 +6,7 @@ export const TableContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
-  padding: 40px 100px;
+  padding: 40px 100px 60px;
   font-family: Roboto, sans-serif;
 
   @media (max-width: ${breakpoint.tablet}) {

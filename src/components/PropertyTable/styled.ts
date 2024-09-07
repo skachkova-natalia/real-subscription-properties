@@ -19,11 +19,29 @@ export const TableContainer = styled.div`
 
 export const FilterContainer = styled.div`
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   gap: 20px;
+
+  @media (max-width: ${breakpoint.laptop}) {
+    flex-direction: column;
+  }
+`;
+
+export const ButtonsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+
+  @media (max-width: ${breakpoint.laptop}) {
+    flex-direction: row;
+  }
 `;
 
 export const StyledButton = styled(Button)`
+  width: 100%;
+  max-width: 125px;
   display: flex;
   align-items: center;
   gap: 10px;

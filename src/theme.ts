@@ -43,5 +43,6 @@ export const H1 = `
 export const breakpoint = {
   mobile: '480px',
   tablet: '768px',
+  laptop: '1080px',
   desktop: '1800px',
 };

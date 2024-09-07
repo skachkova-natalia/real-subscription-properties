@@ -1,4 +1,16 @@
-export enum LANGUAGE {
-  RU = 'ru',
-  EN = 'en'
-}
+export const MATHJAX_DIMENSIONS: Record<string, string> = {
+  'J*kg^-1': '\\(\\frac{J}{kg} \\)',
+  'kJ*kg^-1': '\\(\\frac{kJ}{kg} \\)',
+  'MJ*kg^-1': '\\(\\frac{MJ}{kg} \\)',
+  'J*kg^-1*K^-1': '\\(\\frac{J}{kg*K} \\)',
+  'kJ*kg^-1*K^-1': '\\(\\frac{kJ}{kg*K} \\)',
+  'MJ*kg^-1*K^-1': '\\(\\frac{MJ}{kg*K} \\)',
+  'Pa': 'Pa',
+  'kPa': 'kPa',
+  'MPa': 'MPa',
+  'bar': 'bar',
+  'K': 'K',
+  '°C': '°C',
+  '°F': '°F',
+  'kg*m^-3': '\\(\\frac{kg}{\\ m^{3}} \\)',
+};

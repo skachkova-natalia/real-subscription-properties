@@ -1,17 +1,26 @@
 import {Select} from 'antd';
+import {MathJax, MathJaxContext} from 'better-react-mathjax';
+import {MATHJAX_DIMENSIONS} from '@src/constants';
+import {PropertyItem} from '@src/types/table';
+import {getTableRow} from '@models/propertyTable';
 
-export function DimensionCell(value: string, row: any) {
+export function DimensionCell(value: string, row: PropertyItem) {
+  const dimensionOptions = row.available_dimensions.map((dimension) => ({
+    key: dimension,
+    value: dimension,
+    label: <MathJax>{MATHJAX_DIMENSIONS[dimension]}</MathJax>,
+  }));
+
   return (
-    <>
-      {row.available_dimensions && row.available_dimensions.length === 1 && row.dimension}
-      {row.available_dimensions && row.available_dimensions.length > 1 && <Select
-        options={row.available_dimensions.map((dimension) => ({value: dimension, label: dimension}))}
+    <MathJaxContext>
+      {row.available_dimensions && row.available_dimensions?.length > 0 && <Select
+        options={dimensionOptions}
         defaultValue={row.available_dimensions[0]}
         onChange={(newValue) => {
-          console.log(newValue);
+          getTableRow({property_dimension: newValue, property: row.propertyId})
         }}
       />}
-      {!row.available_dimensions && '—'}
-    </>
+      {(!row.available_dimensions || !row.available_dimensions?.length) && '—'}
+    </MathJaxContext>
   );
 }

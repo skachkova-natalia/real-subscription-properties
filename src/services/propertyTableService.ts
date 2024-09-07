@@ -5,7 +5,7 @@ import {
   PropertiesFilters,
   PropertiesListResponse,
   SubstanceFiltersResponse,
-  TableFilters,
+  TableFilters, TableRowFilters,
 } from '@src/types/filters';
 import {TableResponse} from '@src/types/table';
 
@@ -30,9 +30,9 @@ export const propertyTableService = bindAllMethods({
       await axiosApiInstance.post(`${BASE_URL}/getPropertiesTable`, params)
     ).data;
   },
-  async getRowTable(params: TableFilters): Promise<TableResponse> {
+  async getTableRow(params: TableRowFilters): Promise<TableResponse> {
     return (
-      await axiosApiInstance.post(`${BASE_URL}/getPropertiesTable`, params)
+      await axiosApiInstance.post(`${BASE_URL}/getPropertiesTableRow`, params)
     ).data;
   },
 });

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {Button, Table} from 'antd';
+import {Button} from 'antd';
 import {breakpoint, color} from '@src/theme';
 
 export const TableContainer = styled.div`
@@ -34,12 +34,4 @@ export const StyledButton = styled(Button)`
 export const Error = styled.span`
   color: ${color.secondary.danger.s600};
   font-size: 12px;
-`;
-
-export const StyledTable = styled(Table)`
-  width: 100%;
-
-  tr:nth-child(2n) td {
-    background-color: ${color.base.s10};
-  }
 `;

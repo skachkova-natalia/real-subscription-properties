@@ -1,13 +1,17 @@
 import {forwardPayload, resetDomainStoresByEvents} from '@utils/effector';
 import {
+  $appliedFilters,
   $currentMode,
   $currentSubstance,
   $modesOptions,
-  $modesParams, $propertiesList,
+  $modesParams,
+  $propertiesList,
   $substancesOptions,
+  applyFilters,
   filtersDomain,
   getAvailableSubstanceFx,
-  getCalcModesInfoFx, getPropertiesListFx,
+  getCalcModesInfoFx,
+  getPropertiesListFx,
   setCurrentMode,
   setCurrentSubstance,
 } from '@models/filters/index';
@@ -32,8 +36,9 @@ $currentMode
   .on(setCurrentMode, forwardPayload())
   .reset(setCurrentSubstance);
 $propertiesList
-  .on(getPropertiesListFx.doneData, (state, payload)=>payload.data)
+  .on(getPropertiesListFx.doneData, (state, payload) => payload.data)
   .reset(setCurrentSubstance, setCurrentMode);
+$appliedFilters.on(applyFilters, forwardPayload());
 
 sample({
   clock: AppGate.open,
@@ -48,6 +53,6 @@ sample({
 sample({
   clock: setCurrentMode,
   source: $currentSubstance,
-  fn: (substanceId, modeId)=>({substanceId, modeId} as PropertiesFilters),
+  fn: (substanceId, modeId) => ({substanceId, modeId} as PropertiesFilters),
   target: getPropertiesListFx,
 });

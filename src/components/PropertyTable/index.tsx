@@ -10,6 +10,9 @@ import ScreenCaptureSvg from '@assets/screen-capture.svg?react';
 import {color} from '@src/theme';
 import * as S from './styled';
 import {DimensionCell} from '@components/PropertyTable/Cells/DimensionCell';
+import {PropertyItem} from '@src/types/table';
+import {ColumnsType} from 'antd/es/table';
+import {Table} from 'antd';
 
 export function PropertyTable() {
   const {i18n, t} = useTranslation();
@@ -29,7 +32,7 @@ export function PropertyTable() {
     );
   }, []);
 
-  const columns = [
+  const COLUMNS: ColumnsType<PropertyItem> = [
     {
       title: t('property'),
       dataIndex: 'propertyId',
@@ -61,9 +64,9 @@ export function PropertyTable() {
         </S.StyledButton>}
       </S.FilterContainer>
       {error && <S.Error>{error[`msg_user_${i18n.language}`]}</S.Error>}
-      <S.StyledTable
+      <Table
         dataSource={data}
-        columns={columns}
+        columns={COLUMNS}
         loading={loading}
         pagination={false}
         locale={{ emptyText: t('no_data') }}

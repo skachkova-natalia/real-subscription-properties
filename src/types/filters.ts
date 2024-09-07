@@ -30,6 +30,17 @@ export interface TableParamsFilters {
   param_dimensions: string[];
 }
 
+export interface TableRowFilters {
+  substanceId: string;
+  modeId: string;
+  params: TableParamsFilters & TableRowParamsFilters;
+}
+
+export interface TableRowParamsFilters{
+  property: string;
+  property_dimension: string;
+}
+
 export interface PropertiesFilters {
   substanceId: string;
   modeId: string;

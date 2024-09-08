@@ -15,8 +15,9 @@ export function DimensionCell(value: string, row: PropertyItem) {
     <MathJaxContext>
       {row.available_dimensions && row.available_dimensions?.length > 0 && (
         <Select
+          key={`${value}`}
           options={dimensionOptions}
-          defaultValue={row.available_dimensions[0]}
+          value={value}
           onChange={(newValue) => {
             getTableRow({property_dimension: newValue, property: row.propertyId});
           }}

@@ -14,6 +14,7 @@ export function Filters() {
   const [params, setParams] = useState<string[]>([]);
   const [dimensions, setDimensions] = useState<string[][]>([]);
   const [selectedDimensions, setSelectedDimensions] = useState<string[]>([]);
+  const [key, setKey] = useState(true);
 
   useEffect(() => {
     if (!currentMode) {
@@ -72,7 +73,7 @@ export function Filters() {
             <Form.Item name={param}>
               <Input
                 type="number"
-                pattern="[0-9]*"
+                pattern="-[0-9]*"
                 onKeyPress={(event) => {
                   if (!/[0-9.e-]/.test(event.key)) {
                     event.preventDefault();
@@ -84,11 +85,13 @@ export function Filters() {
             </Form.Item>
             <MathJaxContext>
               <Select
+                key={`${key}`}
                 options={dimensionOptions(paramIndex)}
                 value={selectedDimensions[paramIndex]}
                 onChange={(newValue) => {
                   const selected = selectedDimensions.map((e, eIndex) => eIndex === paramIndex ? newValue : e);
                   setSelectedDimensions(selected);
+                  setKey((v) => !v);
                 }}
               />
             </MathJaxContext>

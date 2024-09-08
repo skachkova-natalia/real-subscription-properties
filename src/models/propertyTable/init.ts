@@ -15,7 +15,7 @@ import {$data, $error, getTableFx, getTableRow, getTableRowFx, tableDomain} from
 resetDomainStoresByEvents(tableDomain, AppGate.close);
 
 $data
-  .on(getTableFx.doneData, (state, payload) => payload.data)
+  .on(getTableFx.doneData, (state, payload) => payload.data.map((item) => ({...item, key: item.propertyId})))
   .on(getTableRowFx.doneData, (state, payload) => state.map((item) => {
       if (item.propertyId === payload.data?.propertyId) {
         return {...item, value: payload.data.value};

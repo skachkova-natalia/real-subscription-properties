@@ -4,6 +4,7 @@ export interface TableError {
 }
 
 export interface PropertyItem {
+  key?: string;
   propertyId: string;
   value: number;
   dimension: string;

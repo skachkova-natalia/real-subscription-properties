@@ -10,7 +10,6 @@ export function ValueCell(value: string) {
     }
     return value;
   };
-  console.log(value, Number.parseFloat(value).toExponential(3));
 
   return (
     <Tooltip title={getValue()}>{Number.parseFloat(value).toExponential(3)}</Tooltip>

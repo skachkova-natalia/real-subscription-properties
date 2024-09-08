@@ -12,10 +12,9 @@ export function DimensionCell(value: string, row: PropertyItem) {
   })) || [];
 
   return (
-    <MathJaxContext>
+    <MathJaxContext key={`${value}`}>
       {row.available_dimensions && row.available_dimensions?.length > 0 && (
         <Select
-          key={`${value}`}
           options={dimensionOptions}
           value={value}
           onChange={(newValue) => {

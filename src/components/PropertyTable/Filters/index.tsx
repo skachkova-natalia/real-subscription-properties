@@ -83,9 +83,8 @@ export function Filters() {
                 required
               />
             </Form.Item>
-            <MathJaxContext>
+            <MathJaxContext key={`${key}`}>
               <Select
-                key={`${key}`}
                 options={dimensionOptions(paramIndex)}
                 value={selectedDimensions[paramIndex]}
                 onChange={(newValue) => {

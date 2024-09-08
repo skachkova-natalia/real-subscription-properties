@@ -11,6 +11,9 @@ export const TableContainer = styled.div`
 
   @media (max-width: ${breakpoint.tablet}) {
     padding: 40px 50px 60px;
+    .ant-table {
+      font-size: 12px;
+    }
   }
   @media (max-width: ${breakpoint.mobile}) {
     padding: 12px 12px 50px;

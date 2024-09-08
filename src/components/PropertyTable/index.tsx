@@ -19,7 +19,7 @@ import * as S from './styled';
 export function PropertyTable() {
   const {i18n, t} = useTranslation();
   const {data, error, loading} = useUnit($propertyTable);
-  const {propertiesList} = useUnit($filters);
+  const {propertiesList, currentSubstance, substancesOptions} = useUnit($filters);
 
   const tableRef = useRef(null);
 
@@ -51,8 +51,8 @@ export function PropertyTable() {
     }
     takeScreenShot(
       tableRef.current,
-      'png',
-      `table`,
+      '',
+      `Таблица свойств вещества ${substancesOptions.find((e)=>e.value===currentSubstance)?.label}`,
     );
   }, []);
 

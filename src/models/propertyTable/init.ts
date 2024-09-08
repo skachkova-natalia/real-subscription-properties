@@ -17,8 +17,8 @@ resetDomainStoresByEvents(tableDomain, AppGate.close);
 $data
   .on(getTableFx.doneData, (state, payload) => payload.data)
   .on(getTableRowFx.doneData, (state, payload) => state.map((item) => {
-      if (!!payload.data.length && item.propertyId === payload.data[0].propertyId) {
-        return {...item, value: payload.data[0].value};
+      if (item.propertyId === payload.data?.propertyId) {
+        return {...item, value: payload.data.value};
       }
       return item;
     }),

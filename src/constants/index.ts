@@ -6,6 +6,7 @@ export const MATHJAX_DIMENSIONS: Record<string, string> = {
   'kJ*kg^-1*K^-1': '\\(\\frac{kJ}{kg⋅K} \\)',
   'MJ*kg^-1*K^-1': '\\(\\frac{MJ}{kg⋅K} \\)',
   'Pa': 'Pa',
+  'Pa*s': 'Pa⋅s',
   'kPa': 'kPa',
   'MPa': 'MPa',
   'bar': 'bar',
@@ -13,4 +14,10 @@ export const MATHJAX_DIMENSIONS: Record<string, string> = {
   '°C': '°C',
   '°F': '°F',
   'kg*m^-3': '\\(\\frac{kg}{\\ m^{3}} \\)',
+  'm^3*kg^-1': '\\(\\frac{\\ m^{3}}{kg} \\)',
+  'm*s^-1': '\\(\\frac{m}{s} \\)',
+  'm^2*s^-1': '\\(\\frac{m^{2}}{s} \\)',
+  'Wt*m^-1': '\\(\\frac{Wt}{m} \\)',
+  'kWt*m^-1': '\\(\\frac{kWt}{m} \\)',
+  'MWt*m^-1': '\\(\\frac{MWt}{m} \\)',
 };

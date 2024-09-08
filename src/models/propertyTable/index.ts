@@ -8,8 +8,7 @@ export const tableDomain = createDomain();
 
 export const getTableFx = tableDomain.createEffect<typeof propertyTableService.getTable,
   ApiResponseError>(propertyTableService.getTable);
-export const getTableRowFx = tableDomain.createEffect<typeof propertyTableService.getTable,
-  ApiResponseError>(propertyTableService.getTableRow);
+export const getTableRowFx = tableDomain.createEffect(propertyTableService.getTableRow);
 
 export const getTableRow = tableDomain.createEvent<TableRowParamsFilters>();
 

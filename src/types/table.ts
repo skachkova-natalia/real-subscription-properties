@@ -13,3 +13,10 @@ export interface PropertyItem {
 export interface TableResponse {
   data: PropertyItem[];
 }
+
+export interface TableRowResponse {
+  data: {
+    propertyId: string;
+    value: number;
+  }
+}

@@ -3,6 +3,7 @@ import AtomSvg from '@assets/atom.svg?react';
 import LanguageSvg from '@assets/language.svg?react';
 import {color} from '@src/theme';
 import * as S from './styled';
+import {useNavigate} from 'react-router';
 
 enum LANGUAGE {
   RU = 'ru',
@@ -11,6 +12,7 @@ enum LANGUAGE {
 
 export function Header() {
   const {i18n} = useTranslation();
+  const navigate = useNavigate();
 
   const changeLanguage = () => {
     const language = i18n.language === LANGUAGE.EN ? LANGUAGE.RU : LANGUAGE.EN;
@@ -19,7 +21,7 @@ export function Header() {
 
   return (
     <S.Container>
-      <S.Title>
+      <S.Title onClick={() => navigate('/')}>
         <AtomSvg width={30} height={30} fill={color.primary.s700} />
         RSP
       </S.Title>

@@ -6,19 +6,20 @@ export const Container = styled.div`
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  padding: 15px 100px;
+  padding: 10px 100px;
   color: ${color.primary.s700};
-  box-shadow: 0 1px 6px rgb(0 0 0 / 15%);
+  box-shadow: 0 5px 6px rgb(0 0 0 / 15%);
   @media (max-width: ${breakpoint.tablet}) {
-    padding: 15px 50px;
+    padding: 10px 50px;
   }
   @media (max-width: ${breakpoint.mobile}) {
-    padding: 15px 30px;
+    padding: 10px 30px;
   }
 `;
 
 export const Title = styled.div`
   ${H1};
+  cursor: pointer;
 `;
 
 export const ButtonsContainer = styled.div`

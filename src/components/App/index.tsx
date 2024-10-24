@@ -1,9 +1,10 @@
 import {useGate} from 'effector-react';
+import {Outlet} from 'react-router-dom';
 import '@models/init';
 import {AppGate} from '@models/app';
 import {Header} from '@components/Header';
-import {PropertyTable} from '@components/PropertyTable';
 import {Footer} from '@components/Footer';
+import {UserInfo} from '@components/UserInfo';
 import * as S from './styled';
 
 function App() {
@@ -12,8 +13,9 @@ function App() {
   return (
     <>
       <S.GlobalStyle />
+      <UserInfo />
       <Header />
-      <PropertyTable />
+      <Outlet />
       <Footer />
     </>
   );

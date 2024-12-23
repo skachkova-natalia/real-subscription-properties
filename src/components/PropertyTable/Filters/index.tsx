@@ -72,8 +72,6 @@ export function Filters() {
             <S.Label>{t(param.toLowerCase().replaceAll(' ', '_'))}</S.Label>
             <Form.Item name={param}>
               <Input
-                type="number"
-                pattern="-[0-9]*"
                 onKeyPress={(event) => {
                   if (!/[0-9.e-]/.test(event.key)) {
                     event.preventDefault();

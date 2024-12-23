@@ -13,26 +13,35 @@ export function Filters() {
   const {substancesOptions, currentSubstance, modesParams, modesOptions, currentMode} = useUnit($filters);
   const [params, setParams] = useState<string[]>([]);
   const [dimensions, setDimensions] = useState<string[][]>([]);
-  const [selectedDimensions, setSelectedDimensions] = useState<string[]>([]);
+  const [selectedDimensions, setSelectedDimensions] = useState<{[key: string]: string}>({});
   const [key, setKey] = useState(true);
 
   useEffect(() => {
     if (!currentMode) {
       setParams([]);
       setDimensions([]);
-      setSelectedDimensions([]);
+      setSelectedDimensions({});
       return;
     }
-    setParams(modesParams.find((mode) => mode.value === currentMode)?.filter_params || []);
-    setDimensions(modesParams.find((mode) => mode.value === currentMode)?.available_param_dimension || []);
-    setSelectedDimensions(modesParams.find((mode) => mode.value === currentMode)?.param_dimensions || []);
+    const modeParams = modesParams.find((mode) => mode.value === currentMode);
+    if (modeParams) {
+      setParams(modeParams.filter_params || []);
+      setDimensions(modeParams.available_param_dimension || []);
+      setSelectedDimensions(modeParams.param_dimensions.reduce((acc, dimension, index) => {
+        const param = modeParams.filter_params[index];
+        if (selectedDimensions[param]) {
+          return acc;
+        }
+        return ({...acc, [param]: dimension});
+      }, selectedDimensions));
+    }
   }, [currentMode, modesParams]);
 
   const dimensionOptions = (index) => dimensions[index].map((dimension) => ({
     key: dimension,
     value: dimension,
     label: <MathJax>{MATHJAX_DIMENSIONS[dimension]}</MathJax>,
-  }))
+  }));
 
   return (
     <S.FiltersContainer>
@@ -63,7 +72,7 @@ export function Filters() {
         onFinish={(values) => {
           applyFilters({
             param_values: Object.values(values as object),
-            param_dimensions: selectedDimensions,
+            param_dimensions: params.map((param) => selectedDimensions[param]),
           });
         }}
       >
@@ -84,10 +93,9 @@ export function Filters() {
             <MathJaxContext key={`${key}`}>
               <Select
                 options={dimensionOptions(paramIndex)}
-                value={selectedDimensions[paramIndex]}
+                value={selectedDimensions[param]}
                 onChange={(newValue) => {
-                  const selected = selectedDimensions.map((e, eIndex) => eIndex === paramIndex ? newValue : e);
-                  setSelectedDimensions(selected);
+                  setSelectedDimensions({...selectedDimensions, [param]: newValue});
                   setKey((v) => !v);
                 }}
               />

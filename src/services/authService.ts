@@ -5,12 +5,12 @@ import {User, UserExtended} from '@src/types/user';
 export const authService = bindAllMethods({
   async login(params: User): Promise<void> {
     return (
-      await axiosApiInstance.post(`${BASE_URL}/auth/login`, params)
+      await axiosApiInstance.post(`${BASE_URL}/login/token`, params)
     ).data;
   },
   async register(params: UserExtended): Promise<void> {
     return (
-      await axiosApiInstance.post(`${BASE_URL}/auth/register`, params)
+      await axiosApiInstance.post(`${BASE_URL}/user`, params)
     ).data;
   },
   async logout(): Promise<void> {

@@ -31,6 +31,11 @@ export const FilterContainer = styled.div`
   }
 `;
 
+export const SettingsContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+
 export const ButtonsContainer = styled.div`
   display: flex;
   flex-direction: column;

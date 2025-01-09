@@ -4,7 +4,7 @@ import {useUnit} from 'effector-react';
 import {Button, Form, Input, Select} from 'antd';
 import {MathJax, MathJaxContext} from 'better-react-mathjax';
 import {MATHJAX_DIMENSIONS} from '@src/constants';
-import {$filters, applyFilters, setCurrentMode, setCurrentSubstance} from '@models/filters';
+import {$filters, applyFilters, setCurrentMode, setCurrentSubstance} from '@models/propertyTable/filters';
 import {ArrowRightOutlined} from '@ant-design/icons';
 import * as S from './styled';
 

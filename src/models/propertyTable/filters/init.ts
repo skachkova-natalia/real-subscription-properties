@@ -14,7 +14,7 @@ import {
   getPropertiesListFx,
   setCurrentMode,
   setCurrentSubstance,
-} from '@models/filters/index';
+} from '@models/propertyTable/filters/index';
 import {AppGate} from '@models/app';
 import {sample} from 'effector';
 import {PropertiesFilters} from '@src/types/filters';

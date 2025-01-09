@@ -2,7 +2,7 @@ import {Select} from 'antd';
 import {MathJax, MathJaxContext} from 'better-react-mathjax';
 import {MATHJAX_DIMENSIONS} from '@src/constants';
 import {PropertyItem} from '@src/types/table';
-import {getTableRow} from '@models/propertyTable';
+import {getTableRow} from '@models/propertyTable/table';
 
 export function DimensionCell(value: string, row: PropertyItem) {
   const dimensionOptions = row.available_dimensions?.map((dimension) => ({

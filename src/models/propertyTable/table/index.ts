@@ -10,8 +10,10 @@ export const getTableFx = tableDomain.createEffect<typeof propertyTableService.g
   ApiResponseError>(propertyTableService.getTable);
 export const getTableRowFx = tableDomain.createEffect(propertyTableService.getTableRow);
 
+export const setSelectedProperties = tableDomain.createEvent<string[]>();
 export const getTableRow = tableDomain.createEvent<TableRowParamsFilters>();
 
+export const $selectedProperties = tableDomain.createStore<string[]>([]);
 export const $data = tableDomain.createStore<PropertyItem[]>([]);
 export const $error = tableDomain.createStore<TableError | null>(null);
 

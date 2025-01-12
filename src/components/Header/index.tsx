@@ -1,9 +1,9 @@
 import {useTranslation} from 'react-i18next';
-import AtomSvg from '@assets/atom.svg?react';
+import {useNavigate} from 'react-router';
+import LogoSvg from '@assets/logo.svg?react';
 import LanguageSvg from '@assets/language.svg?react';
 import {color} from '@src/theme';
 import * as S from './styled';
-import {useNavigate} from 'react-router';
 
 enum LANGUAGE {
   RU = 'ru',
@@ -22,7 +22,7 @@ export function Header() {
   return (
     <S.Container>
       <S.Title onClick={() => navigate('/')}>
-        <AtomSvg width={30} height={30} fill={color.primary.s700} />
+        <LogoSvg width={40} height={40} />
         RSP
       </S.Title>
       <S.ButtonsContainer>

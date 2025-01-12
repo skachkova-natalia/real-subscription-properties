@@ -6,6 +6,7 @@ import {
   $modesOptions,
   $modesParams,
   $propertiesList,
+  $selectedProperties,
   $substancesOptions,
   applyFilters,
   filtersDomain,
@@ -14,20 +15,21 @@ import {
   getPropertiesListFx,
   setCurrentMode,
   setCurrentSubstance,
-} from '@models/filters/index';
+  setSelectedProperties,
+} from '@models/propertyTable/filters/index';
 import {AppGate} from '@models/app';
 import {sample} from 'effector';
 import {PropertiesFilters} from '@src/types/filters';
 
 resetDomainStoresByEvents(filtersDomain, AppGate.close);
 
-$substancesOptions.on(getAvailableSubstanceFx.doneData, (state, payload) => payload.data);
+$substancesOptions.on(getAvailableSubstanceFx.doneData, (_, payload) => payload.data);
 $currentSubstance.on(setCurrentSubstance, forwardPayload());
 $modesParams
-  .on(getCalcModesInfoFx.doneData, (state, payload) => payload.data)
+  .on(getCalcModesInfoFx.doneData, (_, payload) => payload.data)
   .reset(setCurrentSubstance);
 $modesOptions
-  .on(getCalcModesInfoFx.doneData, (state, payload) => payload.data.map((filter) => ({
+  .on(getCalcModesInfoFx.doneData, (_, payload) => payload.data.map((filter) => ({
     value: filter.value,
     label: `f(${filter.value.split('').join(',')})`,
   })))
@@ -36,7 +38,11 @@ $currentMode
   .on(setCurrentMode, forwardPayload())
   .reset(setCurrentSubstance);
 $propertiesList
-  .on(getPropertiesListFx.doneData, (state, payload) => payload.data)
+  .on(getPropertiesListFx.doneData, (_, payload) => payload.data)
+  .reset(setCurrentSubstance, setCurrentMode);
+$selectedProperties
+  .on(setSelectedProperties, forwardPayload())
+  .on(getPropertiesListFx.doneData, (_, payload) => Object.keys(payload.data))
   .reset(setCurrentSubstance, setCurrentMode);
 $appliedFilters.on(applyFilters, forwardPayload());
 

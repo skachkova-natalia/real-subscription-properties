@@ -18,6 +18,9 @@ export const Container = styled.div`
 `;
 
 export const Title = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 10px;
   ${H1};
   cursor: pointer;
 `;

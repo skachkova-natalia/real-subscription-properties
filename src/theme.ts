@@ -14,8 +14,8 @@ export const color = {
   primary: {
     s20: '#F5F8FF',
     s100: '#CCDDFF',
-    s500: '#0057FF',
-    s700: '#003399',
+    s500: '#0196C5',
+    s700: '#0376BE',
   },
   secondary: {
     danger: {

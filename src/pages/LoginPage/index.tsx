@@ -1,9 +1,12 @@
+import {useTranslation} from 'react-i18next';
 import {Button, Form, Input} from 'antd';
 import {login} from '@models/auth';
-import * as S from './styled';
 import {color} from '@src/theme';
+import * as S from './styled';
 
 export function LoginPage() {
+  const {t} = useTranslation();
+
   return (
     <S.Container>
       <Form
@@ -12,14 +15,14 @@ export function LoginPage() {
         autoComplete='off'
       >
         <Form.Item
-          label='Логин'
+          label={t('login')}
           name='username'
           rules={[{required: true, message: 'Обязательное поле'}]}
         >
           <Input />
         </Form.Item>
         <Form.Item
-          label='Пароль'
+          label={t('password')}
           name='password'
           rules={[{required: true, message: 'Обязательное поле'}]}
         >
@@ -27,11 +30,11 @@ export function LoginPage() {
         </Form.Item>
         <S.ButtonContainer>
           <Button htmlType='submit' type='primary' style={{backgroundColor: color.primary.s700}}>
-            Вход
+            {t('sign_in')}
           </Button>
           <S.StyledNavLink to='/register'>
             <Button htmlType='submit' style={{width: '100%'}}>
-              Регистрация
+              {t('registration')}
             </Button>
           </S.StyledNavLink>
         </S.ButtonContainer>

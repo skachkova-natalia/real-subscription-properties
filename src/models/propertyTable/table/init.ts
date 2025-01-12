@@ -1,5 +1,5 @@
 import {sample} from 'effector';
-import {forwardPayload, resetDomainStoresByEvents} from '@utils/effector';
+import {resetDomainStoresByEvents} from '@utils/effector';
 import {TableFilters, TableRowFilters} from '@src/types/filters';
 import {AppGate} from '@models/app';
 import {
@@ -10,19 +10,10 @@ import {
   setCurrentMode,
   setCurrentSubstance,
 } from '@models/propertyTable/filters';
-import {
-  $data,
-  $error,
-  $selectedProperties,
-  getTableFx,
-  getTableRow,
-  getTableRowFx, setSelectedProperties,
-  tableDomain,
-} from '@models/propertyTable/table/index';
+import {$data, $error, getTableFx, getTableRow, getTableRowFx, tableDomain} from '@models/propertyTable/table/index';
 
 resetDomainStoresByEvents(tableDomain, AppGate.close);
 
-$selectedProperties.on(setSelectedProperties, forwardPayload());
 $data
   .on(getTableFx.doneData, (_, payload) => payload.data.map((item) => ({...item, key: item.propertyId})))
   .on(getTableRowFx.doneData, (state, payload) => state.map((item) => {

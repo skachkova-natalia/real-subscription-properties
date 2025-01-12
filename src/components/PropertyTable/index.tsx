@@ -1,4 +1,4 @@
-import {useCallback, useRef} from 'react';
+import {useCallback, useEffect, useRef, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {useUnit} from 'effector-react';
 import {Button, Table, Tooltip} from 'antd';
@@ -22,7 +22,8 @@ import * as S from './styled';
 export function PropertyTable() {
   const {i18n, t} = useTranslation();
   const {data, error, loading} = useUnit($propertyTable);
-  const {propertiesList, currentSubstance, substancesOptions} = useUnit($filters);
+  const {propertiesList, selectedProperties, currentSubstance, substancesOptions} = useUnit($filters);
+  const [dataSource, setDataSource] = useState<PropertyItem[]>([]);
 
   const tableRef = useRef(null);
 
@@ -32,7 +33,7 @@ export function PropertyTable() {
       dataIndex: 'propertyId',
       key: 'propertyId',
       render: (text) =>
-        <span>{t(propertiesList[text]?.toLowerCase().replaceAll(' ', '_').replaceAll('-', '_'))}</span>,
+        <span>{t(`properties.${propertiesList[text]?.toLowerCase().replaceAll(' ', '_').replaceAll('-', '_')}`)}</span>,
     },
     {
       title: t('value'),
@@ -47,6 +48,10 @@ export function PropertyTable() {
       render: DimensionCell,
     },
   ];
+
+  useEffect(() => {
+    setDataSource(data.filter((e)=>selectedProperties.includes(e.propertyId)));
+  }, [data, selectedProperties]);
 
   const doScreenshot = useCallback(() => {
     if (tableRef?.current === null) {
@@ -93,13 +98,13 @@ export function PropertyTable() {
           <Tooltip title='Настройка строк таблицы'>
             <Button onClick={() => openTableSettingsModal()}>
               <SettingOutlined />
-              Настройки
+              {t('settings')}
             </Button>
           </Tooltip>
         </S.SettingsContainer>
         {error && <S.Error>{error[`msg_user_${i18n.language}`]}</S.Error>}
         <Table
-          dataSource={data}
+          dataSource={dataSource}
           columns={COLUMNS}
           loading={loading}
           pagination={false}

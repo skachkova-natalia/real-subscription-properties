@@ -78,7 +78,7 @@ export function Filters() {
       >
         {params.map((param, paramIndex) => (
           <S.Parameters key={param}>
-            <S.Label>{t(param.toLowerCase().replaceAll(' ', '_'))}</S.Label>
+            <S.Label>{t(`properties.${param.toLowerCase().replaceAll(' ', '_')}`)}</S.Label>
             <Form.Item name={param}>
               <Input
                 onKeyPress={(event) => {

@@ -1,8 +1,11 @@
 import {Button, Form, Input} from 'antd';
 import {register} from '@models/auth';
 import * as S from './styled';
+import {useTranslation} from 'react-i18next';
 
 export function RegisterPage() {
+  const {t} = useTranslation();
+
   return (
     <S.Container>
       <Form
@@ -18,21 +21,21 @@ export function RegisterPage() {
           <Input />
         </Form.Item>
         <Form.Item
-          label='Логин'
+          label={t('login')}
           name='username'
           rules={[{required: true, message: 'Обязательное поле'}]}
         >
           <Input />
         </Form.Item>
         <Form.Item
-          label='Пароль'
+          label={t('password')}
           name='password'
           rules={[{required: true, message: 'Обязательное поле'}]}
         >
           <Input.Password />
         </Form.Item>
         <Button htmlType='submit' style={{width: '100%'}}>
-          Зарегистрироваться
+          {t('register')}
         </Button>
       </Form>
     </S.Container>

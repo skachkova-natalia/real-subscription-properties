@@ -50,7 +50,7 @@ export function PropertyTable() {
   ];
 
   useEffect(() => {
-    setDataSource(data.filter((e)=>selectedProperties.includes(e.propertyId)));
+    setDataSource(data.filter((e) => selectedProperties.includes(e.propertyId)));
   }, [data, selectedProperties]);
 
   const doScreenshot = useCallback(() => {
@@ -94,14 +94,14 @@ export function PropertyTable() {
             </S.ButtonsContainer>
           )}
         </S.FilterContainer>
-        <S.SettingsContainer>
+        {Object.keys(propertiesList).length > 0 && <S.SettingsContainer>
           <Tooltip title='Настройка строк таблицы'>
             <Button onClick={() => openTableSettingsModal()}>
               <SettingOutlined />
               {t('settings')}
             </Button>
           </Tooltip>
-        </S.SettingsContainer>
+        </S.SettingsContainer>}
         {error && <S.Error>{error[`msg_user_${i18n.language}`]}</S.Error>}
         <Table
           dataSource={dataSource}

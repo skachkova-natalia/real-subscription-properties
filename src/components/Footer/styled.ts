@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import {breakpoint, color} from '@src/theme';
 
-export const Container = styled.div`
+export const Container = styled.footer`
   position: fixed;
   bottom: 0;
   width: 100%;

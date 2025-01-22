@@ -22,7 +22,7 @@ export function RegisterPage() {
         </Form.Item>
         <Form.Item
           label={t('login')}
-          name='username'
+          name='name'
           rules={[{required: true, message: 'Обязательное поле'}]}
         >
           <Input />

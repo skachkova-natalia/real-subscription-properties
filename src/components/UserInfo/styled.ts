@@ -12,6 +12,12 @@ export const User = styled.div`
   border-bottom: 1px solid #dfe5eb;
 `;
 
+export const UserInfo = styled.div`
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+`;
+
 export const StyledNavLink = styled(NavLink)`
   text-decoration: none;
   color: ${color.base.s600};

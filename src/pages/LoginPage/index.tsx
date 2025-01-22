@@ -1,11 +1,19 @@
 import {useTranslation} from 'react-i18next';
 import {Button, Form, Input} from 'antd';
-import {login} from '@models/auth';
+import {$user, login} from '@models/auth';
 import {color} from '@src/theme';
 import * as S from './styled';
+import {useUnit} from 'effector-react';
+import {useNavigate} from 'react-router';
 
 export function LoginPage() {
   const {t} = useTranslation();
+  const user = useUnit($user);
+  const navigate = useNavigate();
+
+  if (user) {
+    navigate('/');
+  }
 
   return (
     <S.Container>
@@ -15,8 +23,8 @@ export function LoginPage() {
         autoComplete='off'
       >
         <Form.Item
-          label={t('login')}
-          name='username'
+          label='E-mail'
+          name='email'
           rules={[{required: true, message: 'Обязательное поле'}]}
         >
           <Input />

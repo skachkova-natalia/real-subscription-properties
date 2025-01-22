@@ -1,6 +1,6 @@
-import axios, {AxiosError, AxiosResponse} from 'axios';
+import axios, {AxiosError, AxiosResponse, InternalAxiosRequestConfig} from 'axios';
 
-export const BASE_URL = 'https://rsp-api.online';
+export const BASE_URL = 'https://rsp-api.online/dev';
 
 export enum ApiResponseCode {
   SUCCESS = 0,
@@ -26,6 +26,7 @@ export interface ApiResponseError extends Error {
   result?: {[key: string]: unknown};
   detail?: ErrorDetail;
 }
+export const REFRESH_ACCESS_TOKEN_ROUTE = `/login/refresh_tokens`;
 
 const axiosApiInstance = axios.create({
   headers: {
@@ -34,7 +35,26 @@ const axiosApiInstance = axios.create({
   },
 });
 
+axiosApiInstance.interceptors.request.use(onRequestInterceptor);
 axiosApiInstance.interceptors.response.use((response) => response, onErrorInterceptor);
+
+async function onRequestInterceptor(
+  clientConfig: InternalAxiosRequestConfig,
+): Promise<InternalAxiosRequestConfig> {
+  const {url} = clientConfig;
+  let accessToken = getTokens()?.accessToken;
+  console.log(accessToken);
+
+  if (url === REFRESH_ACCESS_TOKEN_ROUTE) {
+    accessToken = getTokens()?.refreshToken;
+  }
+
+  if (accessToken && clientConfig.headers) {
+    clientConfig.headers.Authorization = `Bearer ${accessToken}`;
+  }
+
+  return clientConfig;
+}
 
 async function onErrorInterceptor(e: AxiosError<ApiResponse>): Promise<AxiosResponse<ApiResponse>> {
   const {response} = e;
@@ -53,6 +73,26 @@ async function onErrorInterceptor(e: AxiosError<ApiResponse>): Promise<AxiosResp
     error.result = result;
   }
   throw error;
+}
+
+export function getTokens() {
+  try {
+    const {access_token, refresh_token} = JSON.parse(
+      localStorage.getItem('token') || '{}',
+    );
+    return {
+      accessToken: access_token || '',
+      refreshToken: refresh_token || '',
+    };
+  } catch (error) {
+    window.location.href = '/';
+    return {};
+  }
+}
+
+export function logout() {
+  localStorage.removeItem('token');
+  window.location.href = '/';
 }
 
 export {axiosApiInstance};

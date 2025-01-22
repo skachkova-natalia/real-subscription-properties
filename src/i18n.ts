@@ -8,6 +8,7 @@ const resources = {
         select_all: 'Выбрать все',
         apply: 'Применить',
         cancel: 'Отмена',
+        no_data: 'Нет данных'
       },
       sign_in: 'Войти',
       sign_out: 'Выход',
@@ -98,6 +99,7 @@ const resources = {
         select_all: 'Select all',
         apply: 'Apply',
         cancel: 'Cancel',
+        no_data: 'No data'
       },
       sign_in: 'Sign in',
       sign_out: 'Sign out',

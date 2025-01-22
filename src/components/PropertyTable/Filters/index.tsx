@@ -10,7 +10,7 @@ import * as S from './styled';
 
 export function Filters() {
   const {t} = useTranslation();
-  const {substancesOptions, currentSubstance, modesParams, modesOptions, currentMode} = useUnit($filters);
+  const {loadingSubstances, substancesOptions, currentSubstance, loadingModesParams, modesParams, modesOptions, currentMode} = useUnit($filters);
   const [params, setParams] = useState<string[]>([]);
   const [dimensions, setDimensions] = useState<string[][]>([]);
   const [selectedDimensions, setSelectedDimensions] = useState<{[key: string]: string}>({});
@@ -54,6 +54,8 @@ export function Filters() {
             onChange={(e) => setCurrentSubstance(e)}
             placeholder={t('substance')}
             style={{width: 120}}
+            loading={loadingSubstances}
+            notFoundContent={t('no_data')}
           />
         </S.SelectContainer>
         <S.SelectContainer>
@@ -64,6 +66,8 @@ export function Filters() {
             onChange={(e) => setCurrentMode(e)}
             placeholder={t('parameter_mode')}
             style={{width: 120}}
+            loading={loadingModesParams}
+            notFoundContent={t('no_data')}
           />
         </S.SelectContainer>
       </S.Filters>

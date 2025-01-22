@@ -24,8 +24,10 @@ export const applyFilters = filtersDomain.createEvent<TableParamsFilters>({});
 
 export const $filters = combine({
   substancesOptions: $substancesOptions,
+  loadingSubstances: getAvailableSubstanceFx.pending,
   currentSubstance: $currentSubstance,
   modesParams: $modesParams,
+  loadingModesParams: getCalcModesInfoFx.pending,
   modesOptions: $modesOptions,
   currentMode: $currentMode,
   propertiesList: $propertiesList,

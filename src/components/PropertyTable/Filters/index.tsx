@@ -10,7 +10,15 @@ import * as S from './styled';
 
 export function Filters() {
   const {t} = useTranslation();
-  const {loadingSubstances, substancesOptions, currentSubstance, loadingModesParams, modesParams, modesOptions, currentMode} = useUnit($filters);
+  const {
+    loadingSubstances,
+    substancesOptions,
+    currentSubstance,
+    loadingModesParams,
+    modesParams,
+    modesOptions,
+    currentMode,
+  } = useUnit($filters);
   const [params, setParams] = useState<string[]>([]);
   const [dimensions, setDimensions] = useState<string[][]>([]);
   const [selectedDimensions, setSelectedDimensions] = useState<{[key: string]: string}>({});
@@ -94,16 +102,18 @@ export function Filters() {
                 required
               />
             </Form.Item>
-            <MathJaxContext key={`${key}`}>
-              <Select
-                options={dimensionOptions(paramIndex)}
-                value={selectedDimensions[param]}
-                onChange={(newValue) => {
-                  setSelectedDimensions({...selectedDimensions, [param]: newValue});
-                  setKey((v) => !v);
-                }}
-              />
-            </MathJaxContext>
+            {dimensionOptions(paramIndex).length > 0 && (
+              <MathJaxContext key={`${key}`}>
+                <Select
+                  options={dimensionOptions(paramIndex)}
+                  value={selectedDimensions[param]}
+                  onChange={(newValue) => {
+                    setSelectedDimensions({...selectedDimensions, [param]: newValue});
+                    setKey((v) => !v);
+                  }}
+                />
+              </MathJaxContext>
+            )}
           </S.Parameters>
         ))}
         {params.length > 0 && <Form.Item>

@@ -43,7 +43,6 @@ async function onRequestInterceptor(
 ): Promise<InternalAxiosRequestConfig> {
   const {url} = clientConfig;
   let accessToken = getTokens()?.accessToken;
-  console.log(accessToken);
 
   if (url === REFRESH_ACCESS_TOKEN_ROUTE) {
     accessToken = getTokens()?.refreshToken;

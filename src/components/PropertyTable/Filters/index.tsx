@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {useUnit} from 'effector-react';
-import {Button, Form, Input, Select} from 'antd';
+import {Button, Form, InputNumber, Select} from 'antd';
 import {MathJax, MathJaxContext} from 'better-react-mathjax';
 import {MATHJAX_DIMENSIONS} from '@src/constants';
 import {$filters, applyFilters, setCurrentMode, setCurrentSubstance} from '@models/propertyTable/filters';
@@ -92,13 +92,8 @@ export function Filters() {
           <S.Parameters key={param}>
             <S.Label>{t(`properties.${param.toLowerCase().replaceAll(' ', '_')}`)}</S.Label>
             <Form.Item name={param}>
-              <Input
-                onKeyPress={(event) => {
-                  if (!/[0-9.e-]/.test(event.key)) {
-                    event.preventDefault();
-                  }
-                }}
-                style={{maxWidth: '100px'}}
+              <InputNumber
+                style={{width: '120px'}}
                 required
               />
             </Form.Item>

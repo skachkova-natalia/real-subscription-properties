@@ -34,7 +34,7 @@ export const Label = styled.span`
 
 export const Parameters = styled.div`
   display: grid;
-  grid-template-columns: minmax(90px, max-content) 100px 70px;
+  grid-template-columns: minmax(90px, max-content) 120px 70px;
   align-items: center;
   gap: 4px;
 `;

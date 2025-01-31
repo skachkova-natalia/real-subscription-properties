@@ -22,29 +22,27 @@ export function ValueCell({value}: Props) {
 
   const getValue = () => {
     if (value === 'NaN') {
-      return '—';
+      return 'NaN';
     }
     if (value === 'Infinity') {
       return '∞';
     }
-    return value;
+    return Number.parseFloat(value).toExponential(3);
   };
 
   return (
-    <Tooltip title={getValue()}>
-      <Tooltip
-        title={t('common.copied')}
-        placement="right"
-        open={open}
-      >
-        <S.Value onClick={() => {
-          navigator.clipboard.writeText(value);
-          setOpen(true);
-          setSeconds(5);
-        }}>
-          {Number.parseFloat(value).toExponential(3)}
-        </S.Value>
-      </Tooltip>
+    <Tooltip
+      title={t('common.copied')}
+      placement='right'
+      open={open}
+    >
+      <S.Value onClick={() => {
+        navigator.clipboard.writeText(value);
+        setOpen(true);
+        setSeconds(10);
+      }}>
+        {getValue()}
+      </S.Value>
     </Tooltip>
   );
 }

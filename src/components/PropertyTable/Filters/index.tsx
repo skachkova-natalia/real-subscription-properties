@@ -83,7 +83,7 @@ export function Filters() {
         layout='inline'
         onFinish={(values) => {
           applyFilters({
-            param_values: Object.values(values as object),
+            param_values: Object.values(values as object).map((value) => value.replace(',', '.')),
             param_dimensions: params.map((param) => selectedDimensions[param]),
           });
         }}
@@ -93,6 +93,12 @@ export function Filters() {
             <S.Label>{t(`properties.${param.toLowerCase().replaceAll(' ', '_')}`)}</S.Label>
             <Form.Item name={param}>
               <Input
+                onKeyPress={(e) => {
+                  const value = (e.target as HTMLInputElement).value || '';
+                  if (!/[0-9.,e-]/.test(e.key) || ((value.includes('.') || value.includes(',')) && (e.key === '.' || e.key === ',')) || value.includes('e') && e.key === 'e') {
+                    e.preventDefault();
+                  }
+                }}
                 style={{width: '120px'}}
                 inputMode='decimal'
                 required

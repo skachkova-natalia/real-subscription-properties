@@ -49,7 +49,7 @@ export function Filters() {
     value: dimension,
     label: <MathJax>{MATHJAX_DIMENSIONS[dimension]}</MathJax>,
   }));
-  console.log(selectedDimensions);
+
   return (
     <S.FiltersContainer>
       <S.Filters>

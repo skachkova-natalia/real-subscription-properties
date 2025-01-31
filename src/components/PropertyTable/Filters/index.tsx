@@ -28,7 +28,6 @@ export function Filters() {
     if (!currentMode) {
       setParams([]);
       setDimensions([]);
-      setSelectedDimensions({});
       return;
     }
     const modeParams = modesParams.find((mode) => mode.value === currentMode);
@@ -50,7 +49,7 @@ export function Filters() {
     value: dimension,
     label: <MathJax>{MATHJAX_DIMENSIONS[dimension]}</MathJax>,
   }));
-
+  console.log(selectedDimensions);
   return (
     <S.FiltersContainer>
       <S.Filters>

@@ -18,6 +18,7 @@ import {openTableSettingsModal} from '@models/propertyTable/settings';
 import {SettingOutlined} from '@ant-design/icons';
 import {SettingsModal} from '@components/PropertyTable/SettingsModal';
 import * as S from './styled';
+import {PropertyCell} from '@components/PropertyTable/Cells/PropertyCell';
 
 export function PropertyTable() {
   const {i18n, t} = useTranslation();
@@ -33,13 +34,13 @@ export function PropertyTable() {
       dataIndex: 'propertyId',
       key: 'propertyId',
       render: (text) =>
-        <span>{t(`properties.${propertiesList[text]?.toLowerCase().replaceAll(' ', '_').replaceAll('-', '_')}`)}</span>,
+        <PropertyCell value={t(`properties.${propertiesList[text]?.toLowerCase().replaceAll(' ', '_').replaceAll('-', '_')}`)} />,
     },
     {
       title: t('value'),
       dataIndex: 'value',
       key: 'value',
-      render: ValueCell,
+      render: (text) => <ValueCell value={text} />,
     },
     {
       title: t('dimension'),

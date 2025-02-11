@@ -1,7 +1,7 @@
 import {useCallback, useEffect, useRef, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {useUnit} from 'effector-react';
-import {Button, Table, Tooltip} from 'antd';
+import {Button, Table} from 'antd';
 import {ColumnsType} from 'antd/es/table';
 import * as XLSX from 'xlsx';
 import {PropertyItem} from '@src/types/table';
@@ -34,7 +34,8 @@ export function PropertyTable() {
       dataIndex: 'propertyId',
       key: 'propertyId',
       render: (text) =>
-        <PropertyCell value={t(`properties.${propertiesList[text]?.toLowerCase().replaceAll(' ', '_').replaceAll('-', '_')}`)} />,
+        <PropertyCell
+          value={t(`properties.${propertiesList[text]?.toLowerCase().replaceAll(' ', '_').replaceAll('-', '_')}`)} />,
     },
     {
       title: t('value'),
@@ -96,12 +97,10 @@ export function PropertyTable() {
           )}
         </S.FilterContainer>
         {Object.keys(propertiesList).length > 0 && <S.SettingsContainer>
-          <Tooltip title='Настройка строк таблицы'>
-            <Button onClick={() => openTableSettingsModal()}>
-              <SettingOutlined />
-              {t('settings')}
-            </Button>
-          </Tooltip>
+          <Button onClick={() => openTableSettingsModal()}>
+            <SettingOutlined />
+            {t('settings')}
+          </Button>
         </S.SettingsContainer>}
         {error && <S.Error>{error[`msg_user_${i18n.language}`]}</S.Error>}
         <Table

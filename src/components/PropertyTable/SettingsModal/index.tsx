@@ -21,7 +21,7 @@ export function SettingsModal() {
       value: prop,
       label: t(`properties.${propertiesList[prop]?.toLowerCase().replaceAll(' ', '_').replaceAll('-', '_')}`),
     })) || []);
-  }, [propertiesList]);
+  }, [propertiesList, t]);
 
   useEffect(() => {
     setPropertiesValue(selectedProperties);

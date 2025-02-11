@@ -9,7 +9,7 @@ export function RegisterPage() {
   return (
     <S.Container>
       <Form
-        style={{minWidth: 360, maxWidth: 600}}
+        style={{minWidth: 440, maxWidth: 600}}
         onFinish={register}
         autoComplete='off'
       >
@@ -19,7 +19,7 @@ export function RegisterPage() {
           rules={[
             {
               type: 'email',
-              message: 'Введите email. Например, name@company.ru',
+              message: 'Некорректный формат почты. Пример: name@company.ru',
             },
             {
               required: true,

@@ -3,12 +3,17 @@ export interface Filter {
   label: string;
 }
 
+export interface Substance extends Filter{
+  description: string;
+}
+
 export interface SubstanceFiltersResponse {
-  data: Filter[];
+  data: Substance[];
 }
 
 export interface Mode {
   value: string;
+  description: string;
   filter_params: string[];
   param_literals: string[];
   param_dimensions: string[];

@@ -23,15 +23,18 @@ import {PropertiesFilters} from '@src/types/filters';
 
 resetDomainStoresByEvents(filtersDomain, AppGate.close);
 
-$substancesOptions.on(getAvailableSubstanceFx.doneData, (_, payload) => payload.data);
+$substancesOptions.on(getAvailableSubstanceFx.doneData, (_, payload) => payload.data.map((substance)=>({
+  value:substance.value,
+  label: `${substance.label} (${substance.description})`
+})));
 $currentSubstance.on(setCurrentSubstance, forwardPayload());
 $modesParams
   .on(getCalcModesInfoFx.doneData, (_, payload) => payload.data)
   .reset(setCurrentSubstance);
 $modesOptions
-  .on(getCalcModesInfoFx.doneData, (_, payload) => payload.data.map((filter) => ({
-    value: filter.value,
-    label: `f(${filter.value.split('').join(',')})`,
+  .on(getCalcModesInfoFx.doneData, (_, payload) => payload.data.map((mode) => ({
+    value: mode.value,
+    label: `f(${mode.value.split('').join(',')}) - ${mode.description}`,
   })))
   .reset(setCurrentSubstance);
 $currentMode

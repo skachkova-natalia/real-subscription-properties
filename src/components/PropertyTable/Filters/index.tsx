@@ -53,30 +53,29 @@ export function Filters() {
   return (
     <S.FiltersContainer>
       <S.Filters>
-        <S.SelectContainer>
-          <S.Label>{t('substance')}</S.Label>
-          <Select
-            options={substancesOptions}
-            value={currentSubstance}
-            onChange={(e) => setCurrentSubstance(e)}
-            placeholder={t('substance')}
-            style={{width: 120}}
-            loading={loadingSubstances}
-            notFoundContent={t('no_data')}
-          />
-        </S.SelectContainer>
-        <S.SelectContainer>
-          <S.Label>{t('parameter_mode')}</S.Label>
-          <Select
-            options={modesOptions}
-            value={currentMode}
-            onChange={(e) => setCurrentMode(e)}
-            placeholder={t('parameter_mode')}
-            style={{width: 120}}
-            loading={loadingModesParams}
-            notFoundContent={t('no_data')}
-          />
-        </S.SelectContainer>
+        <Select
+          options={substancesOptions}
+          value={currentSubstance}
+          onChange={(e) => setCurrentSubstance(e)}
+          placeholder={t('substance')}
+          style={{width: window.innerWidth > 768 ? 180 : 360}}
+          loading={loadingSubstances}
+          notFoundContent={t('no_data')}
+        />
+        <Select
+          value={currentMode}
+          onChange={(e) => setCurrentMode(e)}
+          placeholder={t('parameter_mode')}
+          style={{width: window.innerWidth > 920 ? 680 : 360}}
+          listItemHeight={45}
+          listHeight={250}
+          loading={loadingModesParams}
+          notFoundContent={t('no_data')}
+        >
+          {modesOptions.map((option) => (
+            <Select.Option value={option.value}>{option.label}</Select.Option>
+          ))}
+        </Select>
       </S.Filters>
       <S.StyledForm
         layout='inline'

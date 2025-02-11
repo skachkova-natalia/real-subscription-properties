@@ -17,6 +17,9 @@ export const GlobalStyle = createGlobalStyle`
     #root {
       overflow-x: hidden;
     }
+    .ant-select-item-option-content {
+      white-space: wrap !important;
+    }
   }
 
   html {

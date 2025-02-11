@@ -9,14 +9,22 @@ export function RegisterPage() {
   return (
     <S.Container>
       <Form
-        style={{maxWidth: 600}}
+        style={{minWidth: 360, maxWidth: 600}}
         onFinish={register}
         autoComplete='off'
       >
         <Form.Item
           label='E-mail'
           name='email'
-          rules={[{required: true, message: 'Обязательное поле', type: 'email'}]}
+          rules={[
+            {
+              type: 'email',
+              message: 'Введите email. Например, name@company.ru',
+            },
+            {
+              required: true,
+              message: 'Обязательное поле',
+            },]}
         >
           <Input />
         </Form.Item>

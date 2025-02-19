@@ -1,8 +1,9 @@
 import {combine, createDomain} from 'effector';
 import {ApiResponseError} from '@core/api';
 import {TableRowParamsFilters} from '@src/types/filters';
-import {PropertyItem, TableError} from '@src/types/table';
+import {PropertyItem} from '@src/types/table';
 import {propertyTableService} from '@services/propertyTableService';
+import {ErrorDescription} from '@src/types/common';
 
 export const tableDomain = createDomain();
 
@@ -13,7 +14,7 @@ export const getTableRowFx = tableDomain.createEffect(propertyTableService.getTa
 export const getTableRow = tableDomain.createEvent<TableRowParamsFilters>();
 
 export const $data = tableDomain.createStore<PropertyItem[]>([]);
-export const $error = tableDomain.createStore<TableError | null>(null);
+export const $error = tableDomain.createStore<ErrorDescription | null>(null);
 
 export const $propertyTable = combine({
   data: $data,

@@ -1,15 +1,17 @@
-import {Button, Form, Input} from 'antd';
-import {register} from '@models/auth';
+import {Button, Form, Input, Typography} from 'antd';
+import {$registerError, register} from '@models/auth';
 import * as S from './styled';
 import {useTranslation} from 'react-i18next';
+import {useUnit} from 'effector-react';
 
 export function RegisterPage() {
-  const {t} = useTranslation();
+  const {t, i18n} = useTranslation();
+  const error = useUnit($registerError);
 
   return (
     <S.Container>
       <Form
-        style={{minWidth: 440, maxWidth: 600}}
+        style={{minWidth: 350, maxWidth: 350}}
         onFinish={register}
         autoComplete='off'
       >
@@ -42,6 +44,7 @@ export function RegisterPage() {
         >
           <Input.Password />
         </Form.Item>
+        {error && <Typography.Text type="danger">{error[`msg_user_${i18n.language}`]}</Typography.Text>}
         <Button htmlType='submit' style={{width: '100%'}}>
           {t('register')}
         </Button>

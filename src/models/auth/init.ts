@@ -1,5 +1,16 @@
 import {forwardPayload, resetDomainStoresByEvents} from '@utils/effector';
-import {$tokens, $user, authDomain, getUserInfoFx, login, loginFx, register, registerFx} from '@models/auth/index';
+import {
+  $loginError,
+  $registerError,
+  $tokens,
+  $user,
+  authDomain,
+  getUserInfoFx,
+  login,
+  loginFx,
+  register,
+  registerFx,
+} from '@models/auth/index';
 import {AppGate} from '@models/app';
 import {sample} from 'effector';
 
@@ -16,6 +27,12 @@ $tokens
     return payload;
   });
 $user.on(getUserInfoFx.doneData, forwardPayload());
+$registerError
+  .on(registerFx.failData, (_, payload) => payload.detail)
+  .reset(registerFx);
+$loginError
+  .on(loginFx.failData, (_, payload) => payload.detail)
+  .reset(loginFx);
 
 sample({
   clock: [AppGate.open, loginFx.doneData, registerFx.doneData],

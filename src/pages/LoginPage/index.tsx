@@ -1,15 +1,16 @@
 import {useTranslation} from 'react-i18next';
-import {Button, Form, Input} from 'antd';
-import {$user, login} from '@models/auth';
+import {Button, Form, Input, Typography} from 'antd';
+import {$loginError, $user, login} from '@models/auth';
 import {color} from '@src/theme';
 import * as S from './styled';
 import {useUnit} from 'effector-react';
 import {useNavigate} from 'react-router';
 
 export function LoginPage() {
-  const {t} = useTranslation();
+  const {t, i18n} = useTranslation();
   const user = useUnit($user);
   const navigate = useNavigate();
+  const error = useUnit($loginError);
 
   if (user) {
     navigate('/');
@@ -36,6 +37,7 @@ export function LoginPage() {
         >
           <Input.Password />
         </Form.Item>
+        {error && <Typography.Text type="danger">{error[`msg_user_${i18n.language}`]}</Typography.Text>}
         <S.ButtonContainer>
           <Button htmlType='submit' type='primary' style={{backgroundColor: color.primary.s700}}>
             {t('sign_in')}

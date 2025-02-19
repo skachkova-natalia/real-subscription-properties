@@ -1,8 +1,3 @@
-export interface TableError {
-  msg_user_ru: string;
-  msg_user_en: string;
-}
-
 export interface PropertyItem {
   key?: string;
   propertyId: string;

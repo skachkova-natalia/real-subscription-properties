@@ -1,6 +1,6 @@
 import {useTranslation} from 'react-i18next';
-import {Button, Form, Input, Typography} from 'antd';
-import {$loginError, $user, login} from '@models/auth';
+import {Alert, Button, Form, Input, Typography} from 'antd';
+import {$loginPage, $user, login} from '@models/auth';
 import {color} from '@src/theme';
 import * as S from './styled';
 import {useUnit} from 'effector-react';
@@ -10,7 +10,7 @@ export function LoginPage() {
   const {t, i18n} = useTranslation();
   const user = useUnit($user);
   const navigate = useNavigate();
-  const error = useUnit($loginError);
+  const {isRegistered, error} = useUnit($loginPage);
 
   if (user) {
     navigate('/');
@@ -18,6 +18,13 @@ export function LoginPage() {
 
   return (
     <S.Container>
+      {isRegistered && (
+        <Alert
+          message='Пользователь зарегистрирован. Для продолжения работы необходимо войти в систему'
+          type='success'
+          showIcon
+        />
+      )}
       <Form
         style={{maxWidth: 600}}
         onFinish={login}
@@ -37,7 +44,7 @@ export function LoginPage() {
         >
           <Input.Password />
         </Form.Item>
-        {error && <Typography.Text type="danger">{error[`msg_user_${i18n.language}`]}</Typography.Text>}
+        {error && <Typography.Text type='danger'>{error[`msg_user_${i18n.language}`]}</Typography.Text>}
         <S.ButtonContainer>
           <Button htmlType='submit' type='primary' style={{backgroundColor: color.primary.s700}}>
             {t('sign_in')}

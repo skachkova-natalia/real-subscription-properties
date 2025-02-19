@@ -1,7 +1,7 @@
 import {useUnit} from 'effector-react/effector-react.umd';
 import {$user} from '@models/auth';
 import {Alert, Typography} from 'antd';
-import {sendVerifyEmail} from '@models/userAccount';
+import {sendVerifyEmail} from '@models/user';
 import * as S from './styled';
 
 export function ProfilePage() {

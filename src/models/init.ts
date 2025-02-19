@@ -1,3 +1,4 @@
 import './auth/init';
 import './propertyTable/init';
-import './userAccount/init';
+import './registration/init';
+import './user/init';

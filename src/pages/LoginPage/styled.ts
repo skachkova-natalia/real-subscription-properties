@@ -9,6 +9,7 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+    gap: 24px;
 `;
 
 export const StyledNavLink = styled(NavLink)`

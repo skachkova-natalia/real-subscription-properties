@@ -4,12 +4,12 @@ import {
   sendVerifyEmailErrorFx,
   sendVerifyEmailFx,
   sendVerifyEmailSuccessFx,
-  userAccountDomain,
-} from '@models/userAccount/index';
+  userDomain,
+} from '@models/user/index';
 import {AppGate} from '@models/app';
 import {sample} from 'effector';
 
-resetDomainStoresByEvents(userAccountDomain, AppGate.close);
+resetDomainStoresByEvents(userDomain, AppGate.close);
 
 sample({
   clock: sendVerifyEmail,

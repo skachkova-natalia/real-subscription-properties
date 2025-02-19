@@ -11,6 +11,12 @@ const resources = {
         no_data: 'Нет данных',
         copied: 'Скопировано'
       },
+      user: {
+        verify_email: 'Верификация почты',
+        reset_password: 'Сброс пароля',
+        change_email: 'Смена почты',
+        personal_account: 'Личный кабинет',
+      },
       sign_in: 'Войти',
       sign_out: 'Выход',
       registration: 'Регистрация',
@@ -102,6 +108,12 @@ const resources = {
         cancel: 'Cancel',
         no_data: 'No data',
         copied: 'Copied'
+      },
+      user: {
+        verify_email: 'Verify e-mail',
+        reset_password: 'Reset password',
+        change_email: 'Change e-mail',
+        personal_account: 'Personal account',
       },
       sign_in: 'Sign in',
       sign_out: 'Sign out',

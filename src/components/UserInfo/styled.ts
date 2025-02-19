@@ -16,6 +16,7 @@ export const UserInfo = styled.div`
     display: flex;
     flex-direction: row;
     gap: 4px;
+    cursor: pointer;
 `;
 
 export const StyledNavLink = styled(NavLink)`

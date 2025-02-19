@@ -3,6 +3,7 @@ import App from '@components/App';
 import {TablePage} from '@pages/TablePage';
 import {LoginPage} from '@pages/LoginPage';
 import {RegisterPage} from '@pages/RegisterPage';
+import {ProfilePage} from '@pages/ProfilePage';
 
 export const router = createBrowserRouter([{
   element: <App />,
@@ -19,6 +20,10 @@ export const router = createBrowserRouter([{
     {
       path: '/register',
       element: <RegisterPage />,
+    },
+    {
+      path: '/profile',
+      element: <ProfilePage />,
     },
   ],
 },

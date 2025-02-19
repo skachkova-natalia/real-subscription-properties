@@ -58,6 +58,6 @@ export const StyledButton = styled(Button)`
 `;
 
 export const Error = styled.span`
-  color: ${color.secondary.danger.s600};
+  color: ${color.secondary.danger};
   font-size: 12px;
 `;

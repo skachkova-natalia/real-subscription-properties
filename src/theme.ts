@@ -18,9 +18,7 @@ export const color = {
     s700: '#0376BE',
   },
   secondary: {
-    danger: {
-      s600: '#CC0000',
-    },
+    danger:'#ff4d4f',
   },
 };
 

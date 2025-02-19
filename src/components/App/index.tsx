@@ -6,6 +6,13 @@ import {Header} from '@components/Header';
 import {Footer} from '@components/Footer';
 import {UserInfo} from '@components/UserInfo';
 import * as S from './styled';
+import {notification} from 'antd';
+
+notification.config({
+  placement: 'topLeft',
+  duration: 3,
+  rtl: false,
+});
 
 function App() {
   useGate(AppGate);

@@ -23,4 +23,7 @@ export const MATHJAX_DIMENSIONS: Record<string, string> = {
   'Wt*m^-1': '\\(\\frac{Wt}{m} \\)',
   'kWt*m^-1': '\\(\\frac{kWt}{m} \\)',
   'MWt*m^-1': '\\(\\frac{MWt}{m} \\)',
+  'W*m^-1': '\\(\\frac{W}{m} \\)',
+  'kW*m^-1': '\\(\\frac{kW}{m} \\)',
+  'MW*m^-1': '\\(\\frac{MW}{m} \\)',
 };

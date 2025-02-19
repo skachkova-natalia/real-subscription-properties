@@ -73,7 +73,7 @@ export function Filters() {
           notFoundContent={t('no_data')}
         >
           {modesOptions.map((option) => (
-            <Select.Option value={option.value}>{option.label}</Select.Option>
+            <Select.Option key={option.value} value={option.value}>{option.label}</Select.Option>
           ))}
         </Select>
       </S.Filters>

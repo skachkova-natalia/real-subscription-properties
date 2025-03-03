@@ -3,8 +3,6 @@ import {Outlet} from 'react-router-dom';
 import '@models/init';
 import {AppGate} from '@models/app';
 import {Header} from '@components/Header';
-import {Footer} from '@components/Footer';
-import {UserInfo} from '@components/UserInfo';
 import * as S from './styled';
 import {notification} from 'antd';
 
@@ -20,10 +18,9 @@ function App() {
   return (
     <>
       <S.GlobalStyle />
-      <UserInfo />
       <Header />
       <Outlet />
-      <Footer />
+      {/*<Footer />*/}
     </>
   );
 }

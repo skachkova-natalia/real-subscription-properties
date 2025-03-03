@@ -1,14 +1,11 @@
 import styled from 'styled-components';
-import {breakpoint, color, H1} from '@src/theme';
+import {breakpoint} from '@src/theme';
+import {Typography} from 'antd';
 
-export const Container = styled.header`
+export const StyledHeader = styled.header`
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  padding: 10px 100px;
-  color: ${color.primary.s700};
-  box-shadow: 0 5px 6px rgb(0 0 0 / 15%);
+  flex-direction: column;
+  box-shadow: 0 1px 1px rgb(0 0 0 / 15%);
   @media (max-width: ${breakpoint.tablet}) {
     padding: 10px 50px;
   }
@@ -17,12 +14,28 @@ export const Container = styled.header`
   }
 `;
 
-export const Title = styled.div`
+export const ContactInfo = styled.div`
+  display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 16px;
+`;
+
+export const StyledTitle = styled(Typography.Title)`
     display: flex;
     align-items: center;
-    gap: 10px;
-  ${H1};
-  cursor: pointer;
+    gap: 4px;
+  &.ant-typography {
+      margin: 10px;
+    color: ${props => props.color || '#0278BE'};
+  }
+`;
+
+export const MenuContainer = styled.div`
+  display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 `;
 
 export const ButtonsContainer = styled.div`
@@ -31,11 +44,4 @@ export const ButtonsContainer = styled.div`
   justify-content: flex-end;
   align-items: center;
   gap: 10px;
-`;
-
-export const Icon = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  cursor: pointer;
 `;

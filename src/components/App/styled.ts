@@ -1,5 +1,5 @@
 import {createGlobalStyle} from 'styled-components';
-import {color, font} from '@src/theme';
+import {font} from '@src/theme';
 
 export const GlobalStyle = createGlobalStyle`
   *,
@@ -10,9 +10,9 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    background-color: ${color.base.s10};
     color: #000;
     margin: 0;
+      padding: 20px 60px;
 
     #root {
       overflow-x: hidden;

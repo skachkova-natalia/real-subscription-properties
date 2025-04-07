@@ -5,7 +5,7 @@ import {breakpoint} from '@src/theme';
 export const HamburgerMenu = styled(Button)`
   display: none !important;
   @media (max-width: ${breakpoint.mobile}) {
-    display: block;
+    display: block !important;
   }
 `;
 

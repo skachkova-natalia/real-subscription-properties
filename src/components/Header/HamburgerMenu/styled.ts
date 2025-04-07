@@ -3,7 +3,7 @@ import {Button} from 'antd';
 import {breakpoint} from '@src/theme';
 
 export const HamburgerMenu = styled(Button)`
-  display: none;
+  display: none !important;
   @media (max-width: ${breakpoint.mobile}) {
     display: block;
   }

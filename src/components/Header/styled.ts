@@ -10,16 +10,22 @@ export const StyledHeader = styled.header`
     padding: 10px 50px;
   }
   @media (max-width: ${breakpoint.mobile}) {
-    padding: 10px 30px;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 0;
   }
 `;
 
 export const ContactInfo = styled.div`
   display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 16px;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 16px;
+  @media (max-width: ${breakpoint.mobile}) {
+    display: none;
+  }
 `;
 
 export const StyledTitle = styled(Typography.Title)`
@@ -44,4 +50,7 @@ export const ButtonsContainer = styled.div`
   justify-content: flex-end;
   align-items: center;
   gap: 10px;
+  @media (max-width: ${breakpoint.mobile}) {
+    display: none;
+  }
 `;

@@ -6,6 +6,7 @@ import * as S from './styled';
 import {Button, Typography} from 'antd';
 import TelegramIconSvg from '@assets/telegramIcon.svg?react';
 import {NavLink} from 'react-router-dom';
+import {HamburgerMenu} from '@components/Header/HamburgerMenu';
 
 export function Header() {
   const {t} = useTranslation();
@@ -13,6 +14,7 @@ export function Header() {
 
   return (
     <S.StyledHeader>
+      <HamburgerMenu />
       <S.ContactInfo>
         <Button icon={<TelegramIconSvg width={14} height={14} fill={color.base.s600} />}>Напишите нам в
           Telegram</Button>

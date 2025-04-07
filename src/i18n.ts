@@ -17,7 +17,7 @@ const resources = {
         change_email: 'Смена почты',
         personal_account: 'Личный кабинет',
       },
-      sign_in: 'Войти',
+      sign_in: 'Вход',
       sign_out: 'Выход',
       registration: 'Регистрация',
       register: 'Зарегистрироваться',

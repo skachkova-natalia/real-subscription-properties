@@ -4,13 +4,13 @@ import {breakpoint, color} from '@src/theme';
 export const Container = styled.footer`
   position: fixed;
   bottom: 0;
+  left: 0;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 10px;
-  padding: 10px 100px;
-  background-color: ${color.base.s10};
+  gap: 16px;
+  padding: 10px 40px;
   box-shadow: 0 1px 6px rgb(0 0 0 / 15%);
 
   @media (max-width: ${breakpoint.tablet}) {
@@ -35,4 +35,12 @@ export const A = styled.a`
   svg:hover {
     fill: ${color.primary.s700};
   }
+`;
+
+export const Language = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
 `;

@@ -5,6 +5,7 @@ import {AppGate} from '@models/app';
 import {Header} from '@components/Header';
 import * as S from './styled';
 import {notification} from 'antd';
+import {Footer} from '@components/Footer';
 
 notification.config({
   placement: 'topLeft',
@@ -20,7 +21,7 @@ function App() {
       <S.GlobalStyle />
       <Header />
       <Outlet />
-      {/*<Footer />*/}
+      <Footer />
     </>
   );
 }

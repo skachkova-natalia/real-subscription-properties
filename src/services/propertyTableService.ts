@@ -12,7 +12,7 @@ import {TableResponse, TableRowResponse} from '@src/types/table';
 export const propertyTableService = bindAllMethods({
   async getAvailableSubstance(): Promise<SubstanceFiltersResponse> {
     return (
-      await axiosApiInstance.get(`${BASE_URL}/getAvailableSubstances`)
+      await axiosApiInstance.get(`${BASE_URL}/get_available_substances`)
     ).data;
   },
   async getCalcModesInfo(id: string): Promise<ModesResponse> {

@@ -3,8 +3,10 @@ export interface Filter {
   label: string;
 }
 
-export interface Substance extends Filter{
-  description: string;
+export interface Substance {
+  name_en: string;
+  name_ru: string;
+  substance_name: string;
 }
 
 export interface SubstanceFiltersResponse {

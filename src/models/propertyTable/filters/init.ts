@@ -6,7 +6,7 @@ import {
   $modesOptions,
   $modesParams,
   $propertiesList,
-  $selectedProperties,
+  $selectedProperties, $substances,
   $substancesOptions,
   applyFilters,
   filtersDomain,
@@ -17,16 +17,18 @@ import {
   setCurrentSubstance,
   setSelectedProperties,
 } from '@models/propertyTable/filters/index';
-import {AppGate} from '@models/app';
+import {AppGate, changeAppLanguage} from '@models/app';
 import {sample} from 'effector';
 import {PropertiesFilters} from '@src/types/filters';
+import i18n from 'i18next';
 
 resetDomainStoresByEvents(filtersDomain, AppGate.close);
 
-$substancesOptions.on(getAvailableSubstanceFx.doneData, (_, payload) => payload.data.map((substance)=>({
-  value:substance.value,
-  label: `${substance.label} (${substance.description})`
-})));
+$substances.on(getAvailableSubstanceFx.doneData, (_, payload) => payload.data);
+// $substancesOptions.on(getAvailableSubstanceFx.doneData, (_, payload) => payload.data.map((substance) => ({
+//   value: substance.substance_name,
+//   label: `${substance[`name_${i18n.language}`]} (${substance.substance_name})`,
+// })));
 $currentSubstance.on(setCurrentSubstance, forwardPayload());
 $modesParams
   .on(getCalcModesInfoFx.doneData, (_, payload) => payload.data)
@@ -53,6 +55,16 @@ sample({
   clock: AppGate.open,
   target: getAvailableSubstanceFx,
 });
+
+sample({
+  clock: [$substances, changeAppLanguage],
+  source: $substances,
+  fn: (substances) => substances.map((substance) => ({
+    value: substance.substance_name,
+    label: `${substance[`name_${i18n.language}`]} (${substance.substance_name})`,
+  })),
+  target: $substancesOptions,
+})
 
 sample({
   clock: setCurrentSubstance,

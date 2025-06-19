@@ -29,9 +29,6 @@ resetDomainStoresByEvents(filtersDomain, AppGate.close);
 $substances.on(getAvailableSubstanceFx.doneData, (_, payload) => payload.data);
 $currentSubstance.on(setCurrentSubstance, forwardPayload());
 $modes.on(getCalcModesInfoFx.doneData, (_, payload) => payload.data);
-// $modesParams
-//   .on(getCalcModesInfoFx.doneData, (_, payload) => payload.data)
-//   .reset(setCurrentSubstance);
 $currentMode
   .on(setCurrentMode, forwardPayload())
   .reset(setCurrentSubstance);
@@ -40,7 +37,7 @@ $propertiesList
   .reset(setCurrentSubstance, setCurrentMode);
 $selectedProperties
   .on(setSelectedProperties, forwardPayload())
-  .on(getPropertiesListFx.doneData, (_, payload) => Object.keys(payload.data))
+  .on(getPropertiesListFx.doneData, (_, payload) => payload.data.map((e) => e.literal))
   .reset(setCurrentSubstance, setCurrentMode);
 $appliedFilters.on(applyFilters, forwardPayload());
 
@@ -84,6 +81,6 @@ sample({
 sample({
   clock: setCurrentMode,
   source: $currentSubstance,
-  fn: (substanceId, modeId) => ({substanceId, modeId} as PropertiesFilters),
+  fn: (substance_name, mode_name) => ({substance_name, mode_name} as PropertiesFilters),
   target: getPropertiesListFx,
 });

@@ -22,7 +22,7 @@ export const propertyTableService = bindAllMethods({
   },
   async getPropertiesList({substance_name, mode_name}: PropertiesFilters): Promise<PropertiesListResponse> {
     return (
-      await axiosApiInstance.get(`${BASE_URL}/getPropertiesLists?substance_name=${substance_name}&mode_name=${mode_name}`)
+      await axiosApiInstance.get(`${BASE_URL}/get_properties_lists?substance_name=${substance_name}&mode_name=${mode_name}`)
     ).data;
   },
   async getTable(params: TableFilters): Promise<TableResponse> {

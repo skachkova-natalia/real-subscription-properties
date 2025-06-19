@@ -1,6 +1,13 @@
 import {combine, createDomain} from 'effector';
 import {propertyTableService} from '@services/propertyTableService';
-import {Filter, Mode, Parameter, PropertyDescription, Substance, TableParamsFilters} from '@src/types/filters';
+import {
+  Filter,
+  Mode,
+  Parameter,
+  PropertyItem,
+  Substance,
+  TableParamsFilters,
+} from '@src/types/filters';
 
 export const filtersDomain = createDomain();
 
@@ -15,7 +22,7 @@ export const $modes = filtersDomain.createStore<Mode[]>([]);
 export const $modesOptions = filtersDomain.createStore<Filter[]>([]);
 export const $currentMode = filtersDomain.createStore<string | null>(null);
 export const $modesParams = filtersDomain.createStore<Parameter[]>([]);
-export const $propertiesList = filtersDomain.createStore<PropertyDescription>({});
+export const $propertiesList = filtersDomain.createStore<PropertyItem[]>([]);
 export const $selectedProperties = filtersDomain.createStore<string[]>([]);
 export const $appliedFilters = filtersDomain.createStore<TableParamsFilters>({param_values: [], param_dimensions: []});
 

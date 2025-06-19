@@ -58,10 +58,13 @@ export interface PropertiesFilters {
   mode_name: string;
 }
 
-export interface PropertyDescription {
-  [key: string]: string;
+export interface PropertiesListResponse {
+  data: PropertyItem[];
 }
 
-export interface PropertiesListResponse {
-  data: PropertyDescription;
+export interface PropertyItem {
+  literal: string;
+  name_en: string;
+  name_ru: string;
+  dimension_si: string;
 }

@@ -6,6 +6,7 @@ import {$filters, setSelectedProperties} from '@models/propertyTable/filters';
 import {$tableSettingsModal, closeTableSettingsModal} from '@models/propertyTable/settings';
 import {CheckboxOptionType, CheckboxValueType} from 'antd/es/checkbox/Group';
 import * as S from './styled';
+import i18n from 'i18next';
 
 export function SettingsModal() {
   const {t} = useTranslation();
@@ -17,9 +18,9 @@ export function SettingsModal() {
   const indeterminate = propertiesValue.length > 0 && propertiesValue.length < options.length;
 
   useEffect(() => {
-    setOptions(Object.keys(propertiesList)?.map((prop) => ({
-      value: prop,
-      label: t(`properties.${propertiesList[prop]?.toLowerCase().replaceAll(' ', '_').replaceAll('-', '_')}`),
+    setOptions(propertiesList.map((prop) => ({
+      value: prop.literal,
+      label: prop[`name_${i18n.language}`],
     })) || []);
   }, [propertiesList, t]);
 
@@ -52,7 +53,7 @@ export function SettingsModal() {
         </Button>,
       ]}
     >
-      {!Object.keys(propertiesList).length && (
+      {!propertiesList.length && (
         <>{t('messages.need_to_select_parameter')}</>
       )}
       {options.length > 0 && (

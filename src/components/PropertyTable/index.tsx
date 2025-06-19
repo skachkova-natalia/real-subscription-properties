@@ -35,7 +35,7 @@ export function PropertyTable() {
       key: 'propertyId',
       render: (text) =>
         <PropertyCell
-          value={t(`properties.${propertiesList[text]?.toLowerCase().replaceAll(' ', '_').replaceAll('-', '_')}`)} />,
+          value={t(`properties.${propertiesList[text]}`)} />,
     },
     {
       title: t('value'),

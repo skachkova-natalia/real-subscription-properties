@@ -4,9 +4,10 @@ import {useUnit} from 'effector-react';
 import {Button, Form, Input, Select} from 'antd';
 import {MathJax, MathJaxContext} from 'better-react-mathjax';
 import {MATHJAX_DIMENSIONS} from '@src/constants';
-import {$filters, applyFilters, setCurrentMode, setCurrentSubstance} from '@models/propertyTable/filters';
-import {ArrowRightOutlined} from '@ant-design/icons';
+import {$filters, setCurrentMode, setCurrentSubstance} from '@models/propertyTable/filters';
 import * as S from './styled';
+import i18n from 'i18next';
+import {ArrowRightOutlined} from '@ant-design/icons';
 
 export function Filters() {
   const {t} = useTranslation();
@@ -19,32 +20,19 @@ export function Filters() {
     modesOptions,
     currentMode,
   } = useUnit($filters);
-  const [params, setParams] = useState<string[]>([]);
-  const [dimensions, setDimensions] = useState<string[][]>([]);
   const [selectedDimensions, setSelectedDimensions] = useState<{[key: string]: string}>({});
   const [key, setKey] = useState(true);
 
   useEffect(() => {
-    if (!currentMode) {
-      setParams([]);
-      setDimensions([]);
-      return;
-    }
-    const modeParams = modesParams.find((mode) => mode.value === currentMode);
-    if (modeParams) {
-      setParams(modeParams.filter_params || []);
-      setDimensions(modeParams.available_param_dimension || []);
-      setSelectedDimensions(modeParams.param_dimensions.reduce((acc, dimension, index) => {
-        const param = modeParams.filter_params[index];
-        if (selectedDimensions[param]) {
-          return acc;
-        }
-        return ({...acc, [param]: dimension});
-      }, selectedDimensions));
-    }
+    setSelectedDimensions(modesParams.reduce((acc, param) => {
+      if (selectedDimensions[param.id]) {
+        return acc;
+      }
+      return ({...acc, [param.id]: param.unit?.[0] || ''});
+    }, selectedDimensions));
   }, [currentMode, modesParams]);
 
-  const dimensionOptions = (index) => dimensions[index].map((dimension) => ({
+  const dimensionOptions = (units) => units.map((dimension) => ({
     key: dimension,
     value: dimension,
     label: <MathJax>{MATHJAX_DIMENSIONS[dimension]}</MathJax>,
@@ -80,16 +68,17 @@ export function Filters() {
       <S.StyledForm
         layout='inline'
         onFinish={(values) => {
-          applyFilters({
-            param_values: Object.values(values as object).map((value) => value.replace(',', '.')),
-            param_dimensions: params.map((param) => selectedDimensions[param]),
-          });
+          console.log(values);
+          // applyFilters({
+          //   param_values: Object.values(values as object).map((value) => value.replace(',', '.')),
+          //   param_dimensions: params.map((param) => selectedDimensions[param]),
+          // });
         }}
       >
-        {params.map((param, paramIndex) => (
-          <S.Parameters key={param}>
-            <S.Label>{t(`properties.${param.toLowerCase().replaceAll(' ', '_')}`)}</S.Label>
-            <Form.Item name={param}>
+        {modesParams.map((param) => (
+          <S.Parameters key={param.id}>
+            <S.Label>{param[`name_${i18n.language}`]}</S.Label>
+            <Form.Item name={param.id}>
               <Input
                 onKeyPress={(e) => {
                   const value = (e.target as HTMLInputElement).value || '';
@@ -102,13 +91,13 @@ export function Filters() {
                 required
               />
             </Form.Item>
-            {dimensionOptions(paramIndex).length > 0 && (
+            {param.unit.length > 0 && (
               <MathJaxContext key={`${key}`}>
                 <Select
-                  options={dimensionOptions(paramIndex)}
-                  value={selectedDimensions[param]}
+                  options={dimensionOptions(param.unit)}
+                  value={selectedDimensions[param.id]}
                   onChange={(newValue) => {
-                    setSelectedDimensions({...selectedDimensions, [param]: newValue});
+                    setSelectedDimensions({...selectedDimensions, [param.id]: newValue});
                     setKey((v) => !v);
                   }}
                 />
@@ -116,7 +105,7 @@ export function Filters() {
             )}
           </S.Parameters>
         ))}
-        {params.length > 0 && <Form.Item>
+        {modesParams.length > 0 && <Form.Item>
           <Button htmlType='submit' icon={<ArrowRightOutlined />} />
         </Form.Item>}
       </S.StyledForm>

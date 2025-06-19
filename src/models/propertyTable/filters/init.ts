@@ -3,10 +3,12 @@ import {
   $appliedFilters,
   $currentMode,
   $currentSubstance,
+  $modes,
   $modesOptions,
   $modesParams,
   $propertiesList,
-  $selectedProperties, $substances,
+  $selectedProperties,
+  $substances,
   $substancesOptions,
   applyFilters,
   filtersDomain,
@@ -25,20 +27,11 @@ import i18n from 'i18next';
 resetDomainStoresByEvents(filtersDomain, AppGate.close);
 
 $substances.on(getAvailableSubstanceFx.doneData, (_, payload) => payload.data);
-// $substancesOptions.on(getAvailableSubstanceFx.doneData, (_, payload) => payload.data.map((substance) => ({
-//   value: substance.substance_name,
-//   label: `${substance[`name_${i18n.language}`]} (${substance.substance_name})`,
-// })));
 $currentSubstance.on(setCurrentSubstance, forwardPayload());
-$modesParams
-  .on(getCalcModesInfoFx.doneData, (_, payload) => payload.data)
-  .reset(setCurrentSubstance);
-$modesOptions
-  .on(getCalcModesInfoFx.doneData, (_, payload) => payload.data.map((mode) => ({
-    value: mode.value,
-    label: `f(${mode.value.split('').join(',')}) - ${mode.description}`,
-  })))
-  .reset(setCurrentSubstance);
+$modes.on(getCalcModesInfoFx.doneData, (_, payload) => payload.data);
+// $modesParams
+//   .on(getCalcModesInfoFx.doneData, (_, payload) => payload.data)
+//   .reset(setCurrentSubstance);
 $currentMode
   .on(setCurrentMode, forwardPayload())
   .reset(setCurrentSubstance);
@@ -64,7 +57,24 @@ sample({
     label: `${substance[`name_${i18n.language}`]} (${substance.substance_name})`,
   })),
   target: $substancesOptions,
-})
+});
+
+sample({
+  clock: [$modes, changeAppLanguage],
+  source: $modes,
+  fn: (modes) => modes.map((mode) => ({
+    value: mode.mode_name,
+    label: `${mode.mode_name} - ${mode[`description_${i18n.language}`]}`,
+  })),
+  target: $modesOptions,
+});
+
+sample({
+  clock: [$currentMode, changeAppLanguage],
+  source: {modes: $modes, currentMode: $currentMode},
+  fn: ({modes, currentMode}) => modes.find((mode) => mode.mode_name === currentMode)?.parameters || [],
+  target: $modesParams,
+});
 
 sample({
   clock: setCurrentSubstance,

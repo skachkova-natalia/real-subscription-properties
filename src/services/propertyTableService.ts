@@ -15,14 +15,14 @@ export const propertyTableService = bindAllMethods({
       await axiosApiInstance.get(`${BASE_URL}/get_available_substances`)
     ).data;
   },
-  async getCalcModesInfo(id: string): Promise<ModesResponse> {
+  async getCalcModesInfo(substance_name: string): Promise<ModesResponse> {
     return (
-      await axiosApiInstance.get(`${BASE_URL}/getCalcModesInfo?id=${id}`)
+      await axiosApiInstance.get(`${BASE_URL}/get_calc_modes_info?substance_name=${substance_name}`)
     ).data;
   },
-  async getPropertiesList({substanceId, modeId}: PropertiesFilters): Promise<PropertiesListResponse> {
+  async getPropertiesList({substance_name, mode_name}: PropertiesFilters): Promise<PropertiesListResponse> {
     return (
-      await axiosApiInstance.get(`${BASE_URL}/getPropertiesLists?substanceId=${substanceId}&modeId=${modeId}`)
+      await axiosApiInstance.get(`${BASE_URL}/getPropertiesLists?substance_name=${substance_name}&mode_name=${mode_name}`)
     ).data;
   },
   async getTable(params: TableFilters): Promise<TableResponse> {

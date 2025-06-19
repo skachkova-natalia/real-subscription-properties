@@ -13,17 +13,22 @@ export interface SubstanceFiltersResponse {
   data: Substance[];
 }
 
-export interface Mode {
-  value: string;
-  description: string;
-  filter_params: string[];
-  param_literals: string[];
-  param_dimensions: string[];
-  available_param_dimension: string[][];
-}
-
 export interface ModesResponse {
   data: Mode[];
+}
+
+export interface Mode {
+  mode_name: string;
+  description_ru: string;
+  description_en: string;
+  parameters: Parameter[];
+}
+
+export interface Parameter {
+  id: string;
+  name_en: string;
+  name_ru: string;
+  unit: string[];
 }
 
 export interface TableFilters {
@@ -49,8 +54,8 @@ export interface TableRowParamsFilters{
 }
 
 export interface PropertiesFilters {
-  substanceId: string;
-  modeId: string;
+  substance_name: string;
+  mode_name: string;
 }
 
 export interface PropertyDescription {

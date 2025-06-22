@@ -7,10 +7,14 @@ import {Button, Typography} from 'antd';
 import TelegramIconSvg from '@assets/telegramIcon.svg?react';
 import {NavLink} from 'react-router-dom';
 import {HamburgerMenu} from '@components/Header/HamburgerMenu';
+import {useUnit} from 'effector-react';
+import {$user} from '@models/auth';
+import {UserInfo} from '@components/UserInfo';
 
 export function Header() {
   const {t} = useTranslation();
   const navigate = useNavigate();
+  const user = useUnit($user);
 
   return (
     <S.StyledHeader>
@@ -25,14 +29,20 @@ export function Header() {
           <LogoSvg width={40} height={40} />
           RSP
         </S.StyledTitle>
-        <S.ButtonsContainer>
-          <Button type='primary'>
-            <NavLink to='/login'>{t('sign_in')}</NavLink>
-          </Button>
-          <Button onClick={()=>{}} >
-            <NavLink to='/register'>{t('registration')}</NavLink>
-          </Button>
-        </S.ButtonsContainer>
+        {!user && (
+          <S.ButtonsContainer>
+            <Button type='primary'>
+              <NavLink to='/login'>{t('sign_in')}</NavLink>
+            </Button>
+            <Button onClick={() => {
+            }}>
+              <NavLink to='/register'>{t('registration')}</NavLink>
+            </Button>
+          </S.ButtonsContainer>
+        )}
+        {!!user && (
+          <UserInfo />
+        )}
       </S.MenuContainer>
     </S.StyledHeader>
   );

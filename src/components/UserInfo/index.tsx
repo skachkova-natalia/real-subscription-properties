@@ -8,8 +8,8 @@ import {Dropdown, MenuProps} from 'antd';
 import {NavLink} from 'react-router-dom';
 
 export function UserInfo() {
-  const user = useUnit($user);
   const {t} = useTranslation();
+  const user = useUnit($user);
 
   const userActions: MenuProps['items'] = [
     {
@@ -35,8 +35,11 @@ export function UserInfo() {
     <S.User>
       {!user && <S.StyledNavLink to='/login'>{t('sign_in')}</S.StyledNavLink>}
       {!!user && (
-        <Dropdown menu={{items: userActions}}>
-          <S.UserInfo><UserOutlined />{user.name}</S.UserInfo>
+        <Dropdown menu={{items: userActions}} arrow={false}>
+          <S.UserInfo>
+            <UserOutlined />
+            {user.name}
+          </S.UserInfo>
         </Dropdown>
       )}
     </S.User>

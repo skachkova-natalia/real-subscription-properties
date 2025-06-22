@@ -31,6 +31,7 @@ const resources = {
       substance: 'Вещество',
       parameter_mode: 'Параметры',
       no_data: 'Нет данных',
+      table: 'Таблица',
       table_settings: 'Настройка таблицы',
       properties: {
         pressure: 'Давление',
@@ -129,6 +130,7 @@ const resources = {
       substance: 'Substance',
       parameter_mode: 'Parameter mode',
       no_data: 'No data',
+      table: 'Table',
       table_settings: 'Table settings',
       properties: {
         pressure: 'Pressure',

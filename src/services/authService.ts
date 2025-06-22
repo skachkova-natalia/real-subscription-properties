@@ -14,6 +14,12 @@ export const authService = bindAllMethods({
       await axiosApiInstance.post(`${BASE_URL}/user/`, params)
     ).data;
   },
+  async verify(verify_token: string | null): Promise<void> {
+    console.log('verify');
+    return (
+      await axiosApiInstance.get(`${BASE_URL}/auth/verify_user`, {params: {verify_token}})
+    ).data;
+  },
   async getUserInfo(): Promise<UserFull> {
     return (
       await axiosApiInstance.get(`${BASE_URL}/user/me`)

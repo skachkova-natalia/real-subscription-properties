@@ -54,14 +54,16 @@ export function HamburgerMenu() {
               </S.ButtonsContainer>
             )}
             <Menu
-              style={{width: 256}}
               mode='inline'
               items={items}
               onClick={() => setIsMenuOpen(false)}
             />
             <S.Footer>
             {!!user && (
-              <>{user.name}</>
+              <S.UserInfo>
+                <UserOutlined />
+                {user.name}
+              </S.UserInfo>
             )}
             <S.ContactInfo>
               <Button icon={<TelegramIconSvg width={14} height={14} fill={color.base.s600} />}>Напишите нам в

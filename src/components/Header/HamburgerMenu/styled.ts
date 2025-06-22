@@ -24,6 +24,18 @@ export const ButtonsContainer = styled.div`
   gap: 8px;
 `;
 
+export const Footer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+`;
+
+export const UserInfo = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+`;
+
 export const ContactInfo = styled.div`
   display: flex;
   flex-direction: column;

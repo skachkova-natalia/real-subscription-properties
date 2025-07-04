@@ -29,11 +29,13 @@ export const ContactInfo = styled.div`
 `;
 
 export const StyledTitle = styled(Typography.Title)`
-    display: flex;
-    align-items: center;
-    gap: 4px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+
   &.ant-typography {
-      margin: 10px;
+    margin: 10px;
     color: ${props => props.color || '#0278BE'};
   }
 `;

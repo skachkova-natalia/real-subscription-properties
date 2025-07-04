@@ -1,39 +1,50 @@
-import {Button, Form, Input} from 'antd';
+import {Alert,  Form, Input} from 'antd';
 import {color} from '@src/theme';
 import {useTranslation} from 'react-i18next';
-import {$sendingChangeEmail, sendChangeEmail} from '@models/user';
+import {$changingEmail, sendChangeEmail} from '@models/user';
 import * as S from './styled';
 import {useUnit} from 'effector-react';
+import i18n from 'i18next';
 
 export default function ChangeEmailSection() {
   const {t} = useTranslation();
-  const loading = useUnit($sendingChangeEmail)
+  const {sending, error} = useUnit($changingEmail);
 
   return (
-    <Form
-      layout='horizontal'
-      style={{maxWidth: 600}}
-      onFinish={sendChangeEmail}
-      autoComplete='off'
-    >
-      <S.FormContainer>
-        <Form.Item
-          label='Новый E-mail'
-          name='new_email'
-          rules={[
-            {required: true, message: 'Обязательное поле'},
-            {
-              type: 'email',
-              message: 'Некорректный формат почты. Пример: name@company.ru',
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-        <Button htmlType='submit' type='primary' loading={loading} style={{backgroundColor: color.primary.s700}}>
-          {t('user.change_email')}
-        </Button>
-      </S.FormContainer>
-    </Form>
+    <>
+      {error && (
+        <Alert
+          message={error[`msg_user_${i18n.language}`]}
+          type='error'
+          showIcon
+        />
+      )}
+      <Form
+        layout='vertical'
+        validateTrigger='onBlur'
+        autoComplete='off'
+        onFinish={sendChangeEmail}
+        style={{maxWidth: 600}}
+      >
+        <S.FormContainer>
+          <Form.Item
+            label='Новый E-mail'
+            name='new_email'
+            rules={[
+              {required: true, message: 'Обязательное поле'},
+              {
+                type: 'email',
+                message: 'Некорректный формат почты. Пример: name@company.ru',
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+          <S.StyledButton htmlType='submit' type='primary' loading={sending} style={{backgroundColor: color.primary.s700}}>
+            {t('user.change_email')}
+          </S.StyledButton>
+        </S.FormContainer>
+      </Form>
+    </>
   );
 }

@@ -10,13 +10,17 @@ import {
   sendChangeEmail,
   sendResetPassword,
   sendResetPasswordFx,
-  sendResetPasswordSuccessFx,
+  sendResetPasswordSuccessFx, $changeEmailError,
 } from '@models/user/index';
 import {AppGate} from '@models/app';
 import {sample} from 'effector';
 import {$user} from '@models/auth';
 
 resetDomainStoresByEvents(userDomain, AppGate.close);
+
+$changeEmailError
+  .on(sendChangeEmailFx.failData, (_, payload) => payload.detail || null)
+  .reset(sendChangeEmailFx);
 
 sample({
   clock: sendVerifyEmail,

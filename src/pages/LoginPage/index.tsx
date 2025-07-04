@@ -26,9 +26,10 @@ export function LoginPage() {
         />
       )}
       <Form
-        style={{maxWidth: 600}}
-        onFinish={login}
         autoComplete='off'
+        validateTrigger='onBlur'
+        onFinish={login}
+        style={{maxWidth: 600}}
       >
         <Form.Item
           label='E-mail'

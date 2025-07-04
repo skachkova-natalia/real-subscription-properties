@@ -21,7 +21,3 @@ export const $loginPage = combine({
   isRegistered: $isRegistered,
   error: $loginError,
 })
-
-export const $profilePage = combine({
-  loading: getUserInfoFx.pending,
-})

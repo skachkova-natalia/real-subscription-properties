@@ -12,6 +12,7 @@ import {
 import {AppGate} from '@models/app';
 import {sample} from 'effector';
 import {registerFx} from '@models/registration';
+import {changeEmailFx} from '@models/changeEmail';
 
 resetDomainStoresByEvents(authDomain, AppGate.close);
 
@@ -34,7 +35,7 @@ $loginError
   .reset(loginFx);
 
 sample({
-  clock: [AppGate.open, loginFx.doneData],
+  clock: [AppGate.open, loginFx.doneData, changeEmailFx.doneData],
   source: $tokens,
   filter: (tokens) => !!tokens.access_token,
   target: getUserInfoFx,

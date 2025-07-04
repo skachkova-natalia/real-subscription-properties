@@ -5,6 +5,7 @@ import {LoginPage} from '@pages/LoginPage';
 import {RegisterPage} from '@pages/RegisterPage';
 import {ProfilePage} from '@pages/ProfilePage';
 import VerificationPage from '@pages/VerificationPage';
+import ChangeEmailPage from '@pages/ChangeEmailPage';
 
 export const router = createBrowserRouter([{
   element: <App />,
@@ -29,6 +30,10 @@ export const router = createBrowserRouter([{
     {
       path: '/verify',
       element: <VerificationPage />,
+    },
+    {
+      path: '/change-email',
+      element: <ChangeEmailPage />,
     },
   ],
 },

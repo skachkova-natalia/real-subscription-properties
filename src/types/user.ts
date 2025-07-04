@@ -14,3 +14,12 @@ export interface UserFull extends UserExtended {
   registered_at: string;
   roles: string[];
 }
+
+export interface SendChangeEmailParams {
+  new_email: string;
+}
+
+export interface ChangeEmailParams {
+  password: string;
+  token_change: string;
+}

@@ -1,12 +1,17 @@
 import {createDomain} from 'effector';
 import {userService} from '@services/userService';
 import {showErrorNotification, showSuccessNotification} from '@utils/notification';
+import {SendChangeEmailParams} from '@src/types/user';
 
 export const userDomain = createDomain();
 
 export const sendVerifyEmailFx = userDomain.createEffect(userService.sendVerifyEmail);
+export const sendChangeEmailFx = userDomain.createEffect(userService.sendChangeEmail);
 export const sendVerifyEmailSuccessFx = userDomain.createEffect({handler: () => showSuccessNotification('Письмо для подтверждения учётной записи было отправлено на почту')});
-export const sendVerifyEmailErrorFx = userDomain.createEffect({handler: () => showErrorNotification('Что-то пошло не так. Попробуйте ещё раз.')});
-export const verifyEmailFx = userDomain.createEffect(userService.verifyEmail);
+export const sendChangeEmailSuccessFx = userDomain.createEffect({handler: () => showSuccessNotification('Письмо было отправлено на указанную почту')});
+export const errorFx = userDomain.createEffect({handler: () => showErrorNotification('Что-то пошло не так. Попробуйте ещё раз.')});
 
 export const sendVerifyEmail = userDomain.createEvent();
+export const sendChangeEmail = userDomain.createEvent<SendChangeEmailParams>();
+
+export const $sendingChangeEmail = sendChangeEmailFx.pending;

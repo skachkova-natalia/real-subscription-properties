@@ -1,10 +1,10 @@
 import {resetDomainStoresByEvents} from '@utils/effector';
 import {
   sendVerifyEmail,
-  sendVerifyEmailErrorFx,
+  errorFx,
   sendVerifyEmailFx,
   sendVerifyEmailSuccessFx,
-  userDomain,
+  userDomain, sendChangeEmailFx, sendChangeEmailSuccessFx, sendChangeEmail,
 } from '@models/user/index';
 import {AppGate} from '@models/app';
 import {sample} from 'effector';
@@ -22,6 +22,16 @@ sample({
 });
 
 sample({
-  clock: sendVerifyEmailFx.fail,
-  target: sendVerifyEmailErrorFx,
+  clock: sendChangeEmail,
+  target: sendChangeEmailFx,
+});
+
+sample({
+  clock: sendChangeEmailFx.done,
+  target: sendChangeEmailSuccessFx,
+});
+
+sample({
+  clock: [sendVerifyEmailFx.fail, sendChangeEmailFx.fail],
+  target: errorFx,
 });

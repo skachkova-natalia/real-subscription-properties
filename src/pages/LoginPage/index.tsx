@@ -33,7 +33,13 @@ export function LoginPage() {
         <Form.Item
           label='E-mail'
           name='email'
-          rules={[{required: true, message: 'Обязательное поле'}]}
+          rules={[
+            {required: true, message: 'Обязательное поле'},
+            {
+              type: 'email',
+              message: 'Некорректный формат почты. Пример: name@company.ru',
+            },
+          ]}
         >
           <Input />
         </Form.Item>

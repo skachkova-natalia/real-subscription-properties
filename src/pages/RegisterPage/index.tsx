@@ -29,12 +29,12 @@ export function RegisterPage() {
           name='email'
           rules={[
             {
-              type: 'email',
-              message: 'Некорректный формат почты. Пример: name@company.ru',
-            },
-            {
               required: true,
               message: 'Обязательное поле',
+            },
+            {
+              type: 'email',
+              message: 'Некорректный формат почты. Пример: name@company.ru',
             }]}
         >
           <Input />

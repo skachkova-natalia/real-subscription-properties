@@ -4,10 +4,17 @@ import {
   errorFx,
   sendVerifyEmailFx,
   sendVerifyEmailSuccessFx,
-  userDomain, sendChangeEmailFx, sendChangeEmailSuccessFx, sendChangeEmail,
+  userDomain,
+  sendChangeEmailFx,
+  sendChangeEmailSuccessFx,
+  sendChangeEmail,
+  sendResetPassword,
+  sendResetPasswordFx,
+  sendResetPasswordSuccessFx,
 } from '@models/user/index';
 import {AppGate} from '@models/app';
 import {sample} from 'effector';
+import {$user} from '@models/auth';
 
 resetDomainStoresByEvents(userDomain, AppGate.close);
 
@@ -32,6 +39,19 @@ sample({
 });
 
 sample({
-  clock: [sendVerifyEmailFx.fail, sendChangeEmailFx.fail],
+  clock: sendResetPassword,
+  source: $user,
+  filter: (user) => !!user?.email,
+  fn: (user) => user?.email || '',
+  target: sendResetPasswordFx,
+});
+
+sample({
+  clock: sendResetPasswordFx.done,
+  target: sendResetPasswordSuccessFx,
+});
+
+sample({
+  clock: [sendVerifyEmailFx.fail, sendChangeEmailFx.fail, sendResetPasswordFx.fail],
   target: errorFx,
 });

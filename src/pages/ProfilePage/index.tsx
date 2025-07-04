@@ -1,7 +1,7 @@
 import {useUnit} from 'effector-react/effector-react.umd';
 import {$profilePage, $user} from '@models/auth';
 import {Alert, Button, Spin, Typography} from 'antd';
-import {sendVerifyEmail} from '@models/user';
+import {$sendingResetPassword, sendResetPassword, sendVerifyEmail} from '@models/user';
 import * as S from './styled';
 import {useTranslation} from 'react-i18next';
 import {LoadingOutlined} from '@ant-design/icons';
@@ -14,6 +14,7 @@ export function ProfilePage() {
   const navigate = useNavigate();
   const {loading} = useUnit($profilePage);
   const user = useUnit($user);
+  const sendingResetPassword = useUnit($sendingResetPassword);
   const [showNewEmail, setShowNewEmail] = useState<boolean>(false);
 
   if (!user && !loading) {
@@ -21,7 +22,7 @@ export function ProfilePage() {
   }
 
   return (
-    <Spin indicator={<LoadingOutlined spin />} spinning={!loading}>
+    <Spin indicator={<LoadingOutlined spin />} spinning={loading}>
       <S.MainContainer>
         {!!user && !user?.is_verified && (
           <Alert
@@ -41,7 +42,7 @@ export function ProfilePage() {
           )}
         </S.Email>
         {showNewEmail && (<ChangeEmailSection />)}
-        <Button>
+        <Button loading={sendingResetPassword} onClick={() => sendResetPassword()}>
           {t('user.reset_password')}
         </Button>
       </S.MainContainer>

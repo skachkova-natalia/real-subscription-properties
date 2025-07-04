@@ -33,4 +33,10 @@ export const userService = bindAllMethods({
       await axiosApiInstance.get(`${BASE_URL}/auth/recovery_account`)
     ).data;
   },
+
+  async sendResetPassword(email: string): Promise<UserFull> {
+    return (
+      await axiosApiInstance.post(`${BASE_URL}/auth/recovery_account_request`, {email})
+    ).data;
+  },
 });

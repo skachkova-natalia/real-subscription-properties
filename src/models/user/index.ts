@@ -7,11 +7,16 @@ export const userDomain = createDomain();
 
 export const sendVerifyEmailFx = userDomain.createEffect(userService.sendVerifyEmail);
 export const sendChangeEmailFx = userDomain.createEffect(userService.sendChangeEmail);
+export const sendResetPasswordFx = userDomain.createEffect(userService.sendResetPassword);
+
 export const sendVerifyEmailSuccessFx = userDomain.createEffect({handler: () => showSuccessNotification('Письмо для подтверждения учётной записи было отправлено на почту')});
 export const sendChangeEmailSuccessFx = userDomain.createEffect({handler: () => showSuccessNotification('Письмо было отправлено на указанную почту')});
+export const sendResetPasswordSuccessFx = userDomain.createEffect({handler: () => showSuccessNotification('Письмо для сброса пароля было отправлено на почту')});
 export const errorFx = userDomain.createEffect({handler: () => showErrorNotification('Что-то пошло не так. Попробуйте ещё раз.')});
 
 export const sendVerifyEmail = userDomain.createEvent();
 export const sendChangeEmail = userDomain.createEvent<SendChangeEmailParams>();
+export const sendResetPassword = userDomain.createEvent();
 
 export const $sendingChangeEmail = sendChangeEmailFx.pending;
+export const $sendingResetPassword = sendResetPasswordFx.pending;

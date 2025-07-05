@@ -4,7 +4,7 @@ import {useUnit} from 'effector-react';
 import {Button, Form, Input, Select} from 'antd';
 import {MathJax, MathJaxContext} from 'better-react-mathjax';
 import {MATHJAX_DIMENSIONS} from '@src/constants';
-import {$filters, setCurrentMode, setCurrentSubstance} from '@models/propertyTable/filters';
+import {$filters, applyFilters, setCurrentMode, setCurrentSubstance} from '@models/propertyTable/filters';
 import * as S from './styled';
 import i18n from 'i18next';
 import {ArrowRightOutlined} from '@ant-design/icons';
@@ -68,11 +68,12 @@ export function Filters() {
       <S.StyledForm
         layout='inline'
         onFinish={(values) => {
-          console.log(values);
-          // applyFilters({
-          //   param_values: Object.values(values as object).map((value) => value.replace(',', '.')),
-          //   param_dimensions: params.map((param) => selectedDimensions[param]),
-          // });
+          const filters = Object.keys(values || {}).map((key) => ({
+            id: key,
+            values: Number(values?.[key]),
+            param_dimension: selectedDimensions[key],
+          }))
+          applyFilters(filters);
         }}
       >
         {modesParams.map((param) => (

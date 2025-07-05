@@ -6,7 +6,7 @@ import {
   Parameter,
   PropertyItem,
   Substance,
-  TableParamsFilters,
+  TableParamFilters,
 } from '@src/types/filters';
 
 export const filtersDomain = createDomain();
@@ -24,12 +24,12 @@ export const $currentMode = filtersDomain.createStore<string | null>(null);
 export const $modesParams = filtersDomain.createStore<Parameter[]>([]);
 export const $propertiesList = filtersDomain.createStore<PropertyItem[]>([]);
 export const $selectedProperties = filtersDomain.createStore<string[]>([]);
-export const $appliedFilters = filtersDomain.createStore<TableParamsFilters>({param_values: [], param_dimensions: []});
+export const $appliedFilters = filtersDomain.createStore<TableParamFilters[]>([]);
 
 export const setCurrentSubstance = filtersDomain.createEvent<string>();
 export const setCurrentMode = filtersDomain.createEvent<string>();
 export const setSelectedProperties = filtersDomain.createEvent<string[]>();
-export const applyFilters = filtersDomain.createEvent<TableParamsFilters>({});
+export const applyFilters = filtersDomain.createEvent<TableParamFilters[]>();
 
 export const $filters = combine({
   substancesOptions: $substancesOptions,

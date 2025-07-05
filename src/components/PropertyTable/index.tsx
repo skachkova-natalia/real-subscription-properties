@@ -102,7 +102,7 @@ export function PropertyTable() {
             {t('settings')}
           </Button>
         </S.SettingsContainer>}
-        {error && <S.Error>{error[`msg_user_${i18n.language}`]}</S.Error>}
+        {error && <S.Error>{error.msg[`${i18n.language}`]}</S.Error>}
         <Table
           dataSource={dataSource}
           columns={COLUMNS}

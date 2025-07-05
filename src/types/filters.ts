@@ -37,20 +37,21 @@ export interface Unit {
 }
 
 export interface TableFilters {
-  substanceId: string;
-  modeId: string;
-  params: TableParamsFilters;
+  substance_name: string;
+  mode_name: string;
+  params: TableParamFilters[];
 }
 
-export interface TableParamsFilters {
-  param_values: string[];
-  param_dimensions: string[];
+export interface TableParamFilters {
+  id: string;
+  values: number;
+  param_dimension: string;
 }
 
 export interface TableRowFilters {
   substanceId: string;
   modeId: string;
-  params: TableParamsFilters & TableRowParamsFilters;
+  params: TableParamFilters & TableRowParamsFilters;
 }
 
 export interface TableRowParamsFilters{

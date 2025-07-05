@@ -1,4 +1,5 @@
 import axios, {AxiosError, AxiosResponse, InternalAxiosRequestConfig} from 'axios';
+import {LocaleTranslation} from '@src/types/common';
 
 export const BASE_URL = 'https://rsp-api.online/dev';
 
@@ -10,8 +11,7 @@ interface ErrorDetail {
   code: number;
   type: string;
   error_info: string;
-  msg_user_en: string;
-  msg_user_ru: string;
+  msg: LocaleTranslation;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

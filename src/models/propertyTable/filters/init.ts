@@ -61,7 +61,7 @@ sample({
   source: $modes,
   fn: (modes) => modes.map((mode) => ({
     value: mode.mode_name,
-    label: `${mode.mode_name} - ${mode[`description_${i18n.language}`]}`,
+    label: `${mode.mode_name} - ${mode.description[`${i18n.language}`]}`,
   })),
   target: $modesOptions,
 });

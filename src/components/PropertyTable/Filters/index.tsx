@@ -28,7 +28,7 @@ export function Filters() {
       if (selectedDimensions[param.id]) {
         return acc;
       }
-      return ({...acc, [param.id]: param.unit?.[0] || ''});
+      return ({...acc, [param.id]: param.units?.units_simple?.[0] || ''});
     }, selectedDimensions));
   }, [currentMode, modesParams]);
 
@@ -77,7 +77,7 @@ export function Filters() {
       >
         {modesParams.map((param) => (
           <S.Parameters key={param.id}>
-            <S.Label>{param[`name_${i18n.language}`]}</S.Label>
+            <S.Label>{param.name[`${i18n.language}`]}</S.Label>
             <Form.Item name={param.id}>
               <Input
                 onKeyPress={(e) => {
@@ -91,10 +91,10 @@ export function Filters() {
                 required
               />
             </Form.Item>
-            {param.unit.length > 0 && (
+            {param.units?.units_simple?.length > 0 && (
               <MathJaxContext key={`${key}`}>
                 <Select
-                  options={dimensionOptions(param.unit)}
+                  options={dimensionOptions(param.units.units_simple)}
                   value={selectedDimensions[param.id]}
                   onChange={(newValue) => {
                     setSelectedDimensions({...selectedDimensions, [param.id]: newValue});

@@ -1,3 +1,5 @@
+import {LocaleTranslation} from '@src/types/common';
+
 export interface Filter {
   value: string;
   label: string;
@@ -19,16 +21,19 @@ export interface ModesResponse {
 
 export interface Mode {
   mode_name: string;
-  description_ru: string;
-  description_en: string;
+  description: LocaleTranslation;
   parameters: Parameter[];
 }
 
 export interface Parameter {
   id: string;
-  name_en: string;
-  name_ru: string;
-  unit: string[];
+  name: LocaleTranslation;
+  units: Unit;
+}
+
+export interface Unit {
+  units_latex: string[];
+  units_simple: string[];
 }
 
 export interface TableFilters {

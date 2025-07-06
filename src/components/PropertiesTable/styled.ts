@@ -6,28 +6,12 @@ export const TableContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
-  padding: 40px 100px 60px;
   font-family: Roboto, sans-serif;
 
   @media (max-width: ${breakpoint.tablet}) {
-    padding: 40px 50px 60px;
     .ant-table {
       font-size: 12px;
     }
-  }
-  @media (max-width: ${breakpoint.mobile}) {
-    padding: 12px 12px 50px;
-  }
-`;
-
-export const FilterContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  gap: 20px;
-
-  @media (max-width: ${breakpoint.laptop}) {
-    flex-direction: column;
   }
 `;
 
@@ -39,6 +23,7 @@ export const SettingsContainer = styled.div`
 export const ButtonsContainer = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: flex-end;
   align-items: center;
   gap: 10px;
 

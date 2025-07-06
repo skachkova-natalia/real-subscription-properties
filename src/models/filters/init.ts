@@ -18,7 +18,7 @@ import {
   setCurrentMode,
   setCurrentSubstance,
   setSelectedProperties,
-} from '@models/propertyTable/filters/index';
+} from '@models/filters/index';
 import {AppGate, changeAppLanguage} from '@models/app';
 import {sample} from 'effector';
 import {PropertiesFilters} from '@src/types/filters';

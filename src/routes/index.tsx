@@ -1,11 +1,11 @@
 import {createBrowserRouter} from 'react-router-dom';
 import App from '@components/App';
-import {TablePage} from '@pages/TablePage';
 import {LoginPage} from '@pages/LoginPage';
 import {RegisterPage} from '@pages/RegisterPage';
 import {ProfilePage} from '@pages/ProfilePage';
 import VerificationPage from '@pages/VerificationPage';
 import ChangeEmailPage from '@pages/ChangeEmailPage';
+import CalculatorPage from '@pages/CalculatorPage';
 
 export const router = createBrowserRouter([{
   element: <App />,
@@ -13,7 +13,7 @@ export const router = createBrowserRouter([{
   children: [
     {
       path: '/',
-      element: <TablePage />,
+      element: <CalculatorPage />,
     },
     {
       path: '/login',

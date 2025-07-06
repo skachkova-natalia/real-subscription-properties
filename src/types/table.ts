@@ -1,9 +1,18 @@
+import {LocaleTranslation} from '@src/types/common';
+
 export interface PropertyItem {
   key?: string;
-  propertyId: string;
+  property_literal: string;
+  property_name: LocaleTranslation;
+  dimension: {
+    unit_simple: string;
+    unit_latex: string;
+  };
   value: number;
-  dimension: string;
-  available_dimensions: string[];
+  available_dimensions: {
+    units_simple: string[];
+    units_latex: string[];
+  };
 }
 
 export interface TableResponse {
@@ -15,5 +24,5 @@ export interface TableRowResponse {
     propertyId: string;
     value: number;
     dimension: string;
-  }
+  };
 }

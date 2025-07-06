@@ -16,7 +16,7 @@ export const getTableRow = tableDomain.createEvent<TableRowParamsFilters>();
 export const $data = tableDomain.createStore<PropertyItem[]>([]);
 export const $error = tableDomain.createStore<ErrorDescription | null>(null);
 
-export const $propertyTable = combine({
+export const $propertiesTable = combine({
   data: $data,
   error: $error,
   loading: getTableFx.pending,

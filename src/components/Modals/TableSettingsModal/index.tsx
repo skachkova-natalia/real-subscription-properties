@@ -2,13 +2,13 @@ import {useEffect, useState} from 'react';
 import {useUnit} from 'effector-react';
 import {useTranslation} from 'react-i18next';
 import {Button, Checkbox, CheckboxProps, Modal} from 'antd';
-import {$filters, setSelectedProperties} from '@models/propertyTable/filters';
-import {$tableSettingsModal, closeTableSettingsModal} from '@models/propertyTable/settings';
 import {CheckboxOptionType, CheckboxValueType} from 'antd/es/checkbox/Group';
 import * as S from './styled';
 import i18n from 'i18next';
+import {$tableSettingsModal, closeTableSettingsModal} from '@models/modals/tableSettingsModal';
+import {$filters, setSelectedProperties} from '@models/filters';
 
-export function SettingsModal() {
+export function TableSettingsModal() {
   const {t} = useTranslation();
   const {isOpen} = useUnit($tableSettingsModal);
   const {propertiesList, selectedProperties} = useUnit($filters);
@@ -20,7 +20,7 @@ export function SettingsModal() {
   useEffect(() => {
     setOptions(propertiesList.map((prop) => ({
       value: prop.literal,
-      label: prop[`name_${i18n.language}`],
+      label: prop.name[i18n.language],
     })) || []);
   }, [propertiesList, t]);
 

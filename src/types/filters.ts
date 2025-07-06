@@ -70,7 +70,9 @@ export interface PropertiesListResponse {
 
 export interface PropertyItem {
   literal: string;
-  name_en: string;
-  name_ru: string;
-  dimension_si: string;
+  name: LocaleTranslation;
+  dimension_si: {
+    unit_simple: string;
+    unit_latex: string;
+  }
 }

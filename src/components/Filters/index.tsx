@@ -4,10 +4,10 @@ import {useUnit} from 'effector-react';
 import {Button, Form, Input, Select} from 'antd';
 import {MathJax, MathJaxContext} from 'better-react-mathjax';
 import {MATHJAX_DIMENSIONS} from '@src/constants';
-import {$filters, applyFilters, setCurrentMode, setCurrentSubstance} from '@models/propertyTable/filters';
 import * as S from './styled';
 import i18n from 'i18next';
 import {ArrowRightOutlined} from '@ant-design/icons';
+import {$filters, applyFilters, setCurrentMode, setCurrentSubstance} from '@models/filters';
 
 export function Filters() {
   const {t} = useTranslation();

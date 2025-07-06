@@ -8,20 +8,20 @@ import {
   applyFilters,
   setCurrentMode,
   setCurrentSubstance,
-} from '@models/propertyTable/filters';
-import {$data, $error, getTableFx, getTableRowFx, tableDomain} from '@models/propertyTable/table/index';
+} from '@models/filters';
+import {$data, $error, getTableFx, tableDomain} from '@models/propertiesTable/index';
 
 resetDomainStoresByEvents(tableDomain, AppGate.close);
 
 $data
-  .on(getTableFx.doneData, (_, payload) => payload.data.map((item) => ({...item, key: item.propertyId})))
-  .on(getTableRowFx.doneData, (state, payload) => state.map((item) => {
-      if (item.propertyId === payload.data?.propertyId) {
-        return {...item, value: payload.data.value, dimension: payload.data.dimension};
-      }
-      return item;
-    }),
-  )
+  .on(getTableFx.doneData, (_, payload) => payload.data.map((item) => ({...item, key: item.property_literal})))
+  // .on(getTableRowFx.doneData, (state, payload) => state.map((item) => {
+  //     if (item.propertyId === payload.data?.propertyId) {
+  //       return {...item, value: payload.data.value, dimension: payload.data.dimension};
+  //     }
+  //     return item;
+  //   }),
+  // )
   .reset(setCurrentSubstance, setCurrentMode, applyFilters);
 $error
   .on(getTableFx.failData, (_, payload) => payload.detail)

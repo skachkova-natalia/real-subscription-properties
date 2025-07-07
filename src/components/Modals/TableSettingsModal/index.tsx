@@ -2,7 +2,7 @@ import {useEffect, useState} from 'react';
 import {useUnit} from 'effector-react';
 import {useTranslation} from 'react-i18next';
 import {Button, Checkbox, CheckboxProps, Modal} from 'antd';
-import {CheckboxOptionType, CheckboxValueType} from 'antd/es/checkbox/Group';
+import {CheckboxOptionType} from 'antd/es/checkbox/Group';
 import * as S from './styled';
 import i18n from 'i18next';
 import {$tableSettingsModal, closeTableSettingsModal} from '@models/modals/tableSettingsModal';
@@ -13,7 +13,7 @@ export function TableSettingsModal() {
   const {isOpen} = useUnit($tableSettingsModal);
   const {propertiesList, selectedProperties} = useUnit($filters);
   const [options, setOptions] = useState<CheckboxOptionType[]>([]);
-  const [propertiesValue, setPropertiesValue] = useState<CheckboxValueType[]>([]);
+  const [propertiesValue, setPropertiesValue] = useState<string[]>([]);
   const checkedAll = options.length === propertiesValue.length;
   const indeterminate = propertiesValue.length > 0 && propertiesValue.length < options.length;
 

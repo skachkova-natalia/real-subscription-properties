@@ -44,12 +44,13 @@ export interface TableParamFilters {
 }
 
 export interface TableRowFilters {
-  substanceId: string;
-  modeId: string;
-  params: TableParamFilters & TableRowParamsFilters;
+  substance_name: string;
+  mode_name: string;
+  property: TableRowPropertyFilters;
+  params: TableParamFilters[];
 }
 
-export interface TableRowParamsFilters{
+export interface TableRowPropertyFilters{
   property: string;
   property_dimension: string;
 }

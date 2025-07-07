@@ -1,15 +1,16 @@
 import {sample} from 'effector';
 import {resetDomainStoresByEvents} from '@utils/effector';
-import {TableFilters} from '@src/types/filters';
+import {TableFilters, TableRowFilters} from '@src/types/filters';
 import {AppGate} from '@models/app';
 import {
+  $appliedFilters,
   $currentMode,
   $currentSubstance,
   applyFilters,
   setCurrentMode,
   setCurrentSubstance,
 } from '@models/filters';
-import {$data, $error, getTableFx, tableDomain} from '@models/propertiesTable/index';
+import {$data, $error, getTableFx, getTableRow, getTableRowFx, tableDomain} from '@models/propertiesTable/index';
 
 resetDomainStoresByEvents(tableDomain, AppGate.close);
 
@@ -36,11 +37,11 @@ sample({
   target: getTableFx,
 });
 
-// sample({
-//   clock: getTableRow,
-//   source: {substance_name: $currentSubstance, mode_name: $currentMode, appliedFilters: $appliedFilters},
-//   fn: ({substance_name, mode_name, appliedFilters}, params) => ({
-//     substance_name, mode_name, params: {...appliedFilters, ...params},
-//   } as TableRowFilters),
-//   target: getTableRowFx,
-// });
+sample({
+  clock: getTableRow,
+  source: {substance_name: $currentSubstance, mode_name: $currentMode, appliedFilters: $appliedFilters},
+  fn: ({substance_name, mode_name, appliedFilters}, property) => ({
+    substance_name, mode_name, property, params: appliedFilters,
+  } as TableRowFilters),
+  target: getTableRowFx,
+});

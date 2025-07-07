@@ -32,7 +32,7 @@ export const propertyTableService = bindAllMethods({
   },
   async getTableRow(params: TableRowFilters): Promise<TableRowResponse> {
     return (
-      await axiosApiInstance.post(`${BASE_URL}/getPropertiesTableRow`, params)
+      await axiosApiInstance.post(`${BASE_URL}/get_properties_table_row`, params)
     ).data;
   },
 });

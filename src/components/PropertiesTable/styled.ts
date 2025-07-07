@@ -22,7 +22,7 @@ export const SettingsContainer = styled.div`
 
 export const ButtonsContainer = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: flex-end;
   align-items: center;
   gap: 10px;

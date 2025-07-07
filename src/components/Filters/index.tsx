@@ -8,6 +8,7 @@ import i18n from 'i18next';
 import {ArrowRightOutlined} from '@ant-design/icons';
 import {$filters, applyFilters, setCurrentMode, setCurrentSubstance} from '@models/filters';
 import {$latexUnitsCode} from '@models/dictionary';
+import {color} from '@src/theme';
 
 export function Filters() {
   const {t} = useTranslation();
@@ -48,7 +49,6 @@ export function Filters() {
           value={currentSubstance}
           onChange={(e) => setCurrentSubstance(e)}
           placeholder={t('substance')}
-          style={{width: window.innerWidth > 768 ? 180 : 360}}
           loading={loadingSubstances}
           notFoundContent={t('no_data')}
         />
@@ -56,7 +56,6 @@ export function Filters() {
           value={currentMode}
           onChange={(e) => setCurrentMode(e)}
           placeholder={t('parameter_mode')}
-          style={{width: window.innerWidth > 920 ? 680 : 360}}
           listItemHeight={45}
           listHeight={250}
           loading={loadingModesParams}
@@ -79,7 +78,7 @@ export function Filters() {
         }}
       >
         {modesParams.map((param) => (
-          <S.Parameters key={param.id}>
+          <S.Parameter key={param.id}>
             <S.Label>{param.name[`${i18n.language}`]}</S.Label>
             <Form.Item name={param.id}>
               <Input
@@ -106,11 +105,13 @@ export function Filters() {
                 />
               </MathJaxContext>
             )}
-          </S.Parameters>
+          </S.Parameter>
         ))}
-        {modesParams.length > 0 && <Form.Item>
-          <Button htmlType='submit' icon={<ArrowRightOutlined />} />
-        </Form.Item>}
+        {modesParams.length > 0 && (
+          <Form.Item>
+            <Button type='primary' htmlType='submit' style={{backgroundColor: color.primary.s700}}>Расчитать <ArrowRightOutlined /></Button>
+          </Form.Item>
+        )}
       </S.StyledForm>
     </S.FiltersContainer>
   );

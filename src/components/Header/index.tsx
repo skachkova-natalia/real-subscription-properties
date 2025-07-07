@@ -31,7 +31,7 @@ export function Header() {
         </S.StyledTitle>
         {!user && (
           <S.ButtonsContainer>
-            <Button type='primary'>
+            <Button type='primary' style={{backgroundColor: color.primary.s700}}>
               <NavLink to='/login'>{t('sign_in')}</NavLink>
             </Button>
             <Button onClick={() => {

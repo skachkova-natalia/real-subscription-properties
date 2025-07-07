@@ -14,9 +14,5 @@ export interface TableResponse {
 }
 
 export interface TableRowResponse {
-  data: {
-    propertyId: string;
-    value: number;
-    dimension: string;
-  };
+  data: PropertyItem;
 }

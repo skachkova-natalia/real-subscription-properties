@@ -16,13 +16,13 @@ resetDomainStoresByEvents(tableDomain, AppGate.close);
 
 $data
   .on(getTableFx.doneData, (_, payload) => payload.data.map((item) => ({...item, key: item.property_literal})))
-  // .on(getTableRowFx.doneData, (state, payload) => state.map((item) => {
-  //     if (item.propertyId === payload.data?.propertyId) {
-  //       return {...item, value: payload.data.value, dimension: payload.data.dimension};
-  //     }
-  //     return item;
-  //   }),
-  // )
+  .on(getTableRowFx.doneData, (state, payload) => state.map((item) => {
+      if (item.property_literal === payload.data?.property_literal) {
+        return {...item, value: payload.data.value, dimension: payload.data.dimension};
+      }
+      return item;
+    }),
+  )
   .reset(setCurrentSubstance, setCurrentMode, applyFilters);
 $error
   .on(getTableFx.failData, (_, payload) => payload.detail)

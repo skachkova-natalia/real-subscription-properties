@@ -4,15 +4,9 @@ export interface PropertyItem {
   key?: string;
   property_literal: string;
   property_name: LocaleTranslation;
-  dimension: {
-    unit_simple: string;
-    unit_latex: string;
-  };
-  value: number;
-  available_dimensions: {
-    units_simple: string[];
-    units_latex: string[];
-  };
+  dimension: string;
+  value: string;
+  available_dimensions: string[];
 }
 
 export interface TableResponse {

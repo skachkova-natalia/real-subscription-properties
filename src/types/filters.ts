@@ -28,12 +28,7 @@ export interface Mode {
 export interface Parameter {
   id: string;
   name: LocaleTranslation;
-  units: Unit;
-}
-
-export interface Unit {
-  units_latex: string[];
-  units_simple: string[];
+  units: string[];
 }
 
 export interface TableFilters {
@@ -44,7 +39,7 @@ export interface TableFilters {
 
 export interface TableParamFilters {
   id: string;
-  values: number;
+  value: number;
   param_dimension: string;
 }
 
@@ -71,8 +66,5 @@ export interface PropertiesListResponse {
 export interface PropertyItem {
   literal: string;
   name: LocaleTranslation;
-  dimension_si: {
-    unit_simple: string;
-    unit_latex: string;
-  }
+  dimensions: string[];
 }

@@ -40,7 +40,7 @@ export default function PropertiesTable() {
       title: t('dimension'),
       dataIndex: 'dimension',
       key: 'dimension',
-      render: DimensionCell,
+      render: (_, row) => <DimensionCell {...row} />,
     },
   ];
 

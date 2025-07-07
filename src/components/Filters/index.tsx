@@ -3,11 +3,11 @@ import {useTranslation} from 'react-i18next';
 import {useUnit} from 'effector-react';
 import {Button, Form, Input, Select} from 'antd';
 import {MathJax, MathJaxContext} from 'better-react-mathjax';
-import {MATHJAX_DIMENSIONS} from '@src/constants';
 import * as S from './styled';
 import i18n from 'i18next';
 import {ArrowRightOutlined} from '@ant-design/icons';
 import {$filters, applyFilters, setCurrentMode, setCurrentSubstance} from '@models/filters';
+import {$latexUnitsCode} from '@models/dictionary';
 
 export function Filters() {
   const {t} = useTranslation();
@@ -20,6 +20,8 @@ export function Filters() {
     modesOptions,
     currentMode,
   } = useUnit($filters);
+  const latexUnitsCode = useUnit($latexUnitsCode);
+
   const [selectedDimensions, setSelectedDimensions] = useState<{[key: string]: string}>({});
   const [key, setKey] = useState(true);
 
@@ -28,14 +30,14 @@ export function Filters() {
       if (selectedDimensions[param.id]) {
         return acc;
       }
-      return ({...acc, [param.id]: param.units?.units_simple?.[0] || ''});
+      return ({...acc, [param.id]: param.units?.[0] || ''});
     }, selectedDimensions));
   }, [currentMode, modesParams]);
 
   const dimensionOptions = (units) => units.map((dimension) => ({
     key: dimension,
     value: dimension,
-    label: <MathJax>{MATHJAX_DIMENSIONS[dimension]}</MathJax>,
+    label: <MathJax>{latexUnitsCode[dimension]}</MathJax>,
   }));
 
   return (
@@ -70,9 +72,9 @@ export function Filters() {
         onFinish={(values) => {
           const filters = Object.keys(values || {}).map((key) => ({
             id: key,
-            values: Number(values?.[key]),
+            value: Number(values?.[key]),
             param_dimension: selectedDimensions[key],
-          }))
+          }));
           applyFilters(filters);
         }}
       >
@@ -92,10 +94,10 @@ export function Filters() {
                 required
               />
             </Form.Item>
-            {param.units?.units_simple?.length > 0 && (
+            {param.units?.length > 0 && (
               <MathJaxContext key={`${key}`}>
                 <Select
-                  options={dimensionOptions(param.units.units_simple)}
+                  options={dimensionOptions(param.units)}
                   value={selectedDimensions[param.id]}
                   onChange={(newValue) => {
                     setSelectedDimensions({...selectedDimensions, [param.id]: newValue});

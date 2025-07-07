@@ -1,5 +1,5 @@
 import {createGlobalStyle} from 'styled-components';
-import {font} from '@src/theme';
+import {breakpoint, font} from '@src/theme';
 
 export const GlobalStyle = createGlobalStyle`
   *,
@@ -12,11 +12,16 @@ export const GlobalStyle = createGlobalStyle`
   body {
     color: #000;
     margin: 0;
-      padding: 20px 60px;
+    padding: 20px 60px;
+    
+    @media (max-width: ${breakpoint.mobile}) {
+      padding: 20px;
+    }
 
     #root {
       overflow-x: hidden;
     }
+
     .ant-select-item-option-content {
       white-space: wrap !important;
     }

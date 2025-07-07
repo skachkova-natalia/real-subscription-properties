@@ -6,12 +6,14 @@ export const Container = styled.footer`
   bottom: 0;
   left: 0;
   width: 100%;
+  padding: 10px 40px;
   display: flex;
   align-items: center;
   justify-content: flex-end;
   gap: 16px;
-  padding: 10px 40px;
+  background-color: ${color.base.s0};
   box-shadow: 0 1px 6px rgb(0 0 0 / 15%);
+  z-index: 2;
 
   @media (max-width: ${breakpoint.tablet}) {
     padding: 15px 50px;

@@ -1,13 +1,13 @@
 import {combine, createDomain} from 'effector';
 import {propertyTableService} from '@services/propertyTableService';
 import {
-  Filter,
   Mode,
   Parameter,
   PropertyItem,
   Substance,
   TableParamFilters,
 } from '@src/types/filters';
+import {Option} from '@src/types/common';
 
 export const filtersDomain = createDomain();
 
@@ -16,10 +16,10 @@ export const getCalcModesInfoFx = filtersDomain.createEffect(propertyTableServic
 export const getPropertiesListFx = filtersDomain.createEffect(propertyTableService.getPropertiesList);
 
 export const $substances = filtersDomain.createStore<Substance[]>([]);
-export const $substancesOptions = filtersDomain.createStore<Filter[]>([]);
+export const $substancesOptions = filtersDomain.createStore<Option[]>([]);
 export const $currentSubstance = filtersDomain.createStore<string | null>(null);
 export const $modes = filtersDomain.createStore<Mode[]>([]);
-export const $modesOptions = filtersDomain.createStore<Filter[]>([]);
+export const $modesOptions = filtersDomain.createStore<Option[]>([]);
 export const $currentMode = filtersDomain.createStore<string | null>(null);
 export const $modesParams = filtersDomain.createStore<Parameter[]>([]);
 export const $propertiesList = filtersDomain.createStore<PropertyItem[]>([]);

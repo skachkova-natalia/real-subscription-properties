@@ -15,6 +15,7 @@ import * as S from './styled';
 import {$propertiesTable} from '@models/propertiesTable';
 import {openTableSettingsModal} from '@models/modals/tableSettingsModal';
 import {TableSettingsModal} from '@components/Modals/TableSettingsModal';
+import TableFilters from '@components/PropertiesTable/TableFilters';
 
 export default function PropertiesTable() {
   const {i18n, t} = useTranslation();
@@ -74,6 +75,7 @@ export default function PropertiesTable() {
     <>
       <TableSettingsModal />
       <S.TableContainer ref={tableRef}>
+        <TableFilters />
         {error && <S.Error>{error.msg[`${i18n.language}`]}</S.Error>}
         <S.ButtonsContainer>
           {Object.keys(propertiesList).length > 0 && (

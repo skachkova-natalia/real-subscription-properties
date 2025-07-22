@@ -1,10 +1,5 @@
 import {LocaleTranslation} from '@src/types/common';
 
-export interface Filter {
-  value: string;
-  label: string;
-}
-
 export interface Substance {
   name_en: string;
   name_ru: string;

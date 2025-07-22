@@ -6,3 +6,8 @@ export interface LocaleTranslation {
   ru: string;
   en: string;
 }
+
+export interface Option {
+  value: string;
+  label: string;
+}

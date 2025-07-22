@@ -1,0 +1,50 @@
+import styled from 'styled-components';
+import {Input, Select} from 'antd';
+import {breakpoint, color} from '@src/theme';
+
+export const FiltersGroup = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+
+  @media (max-width: ${breakpoint.laptop}) {
+    flex-direction: column;
+  }
+`;
+
+export const Filter = styled.div`
+  position: relative;
+  padding: 16px;
+  display: flex;
+  gap: 4px;
+  border: 1px solid ${color.base.s100};
+  border-radius: 8px;
+`;
+
+export const StyledSelect = styled(Select)`
+  min-width: 210px;
+  max-width: 210px;
+  width: 100%;
+
+  @media (max-width: ${breakpoint.laptop}) {
+    width: 220px;
+  }
+
+  @media (max-width: ${breakpoint.tablet}) {
+    width: 100%;
+    min-width: 180px;
+    max-width: 180px;
+  }
+`;
+
+export const StyledInput = styled(Input)`
+  min-width: 130px;
+  max-width: 130px;
+  width: 100%;
+`;
+
+export const DimensionSelect = styled(Select)`
+  min-width: 85px;
+  max-width: 85px;
+  width: 85px;
+`;

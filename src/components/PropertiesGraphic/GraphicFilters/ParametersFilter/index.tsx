@@ -52,7 +52,7 @@ export default function ParametersFilter({paramOptions, onPropertyChange, onVari
           />
         </Form.Item>
         <MathJaxContext key={selectedProperty}>
-          <Form.Item name={`property_dimension`} className='form-item'>
+          <Form.Item name={`dimension_response`} className='form-item'>
             <S.DimensionSelect
               options={propertyDimensionOptions}
               placeholder={t('dimension')}

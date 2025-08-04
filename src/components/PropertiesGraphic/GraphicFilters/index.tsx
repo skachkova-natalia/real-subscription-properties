@@ -29,7 +29,7 @@ export default function GraphicFilters() {
     setVariableParam('');
     form.setFieldsValue({
       'property_name': undefined,
-      'property_dimension': undefined,
+      'dimension_response': undefined,
       'variable_parameter.id': undefined,
       'variable_parameter.min': undefined,
       'variable_parameter.max': undefined,
@@ -40,7 +40,7 @@ export default function GraphicFilters() {
   }, [currentSubstance, currentMode]);
 
   const onPropertyChange = () => {
-    form.setFieldsValue({'property_dimension': undefined});
+    form.setFieldsValue({'dimension_response': undefined});
   };
 
   const onVariableParameterChange = (e: string) => {
@@ -62,7 +62,7 @@ export default function GraphicFilters() {
       mode_name: currentMode,
       substance_name: currentSubstance,
       property_name: value['property_name'],
-      property_dimension: value['property_dimension'],
+      dimension_response: value['dimension_response'],
       count: value['count'] || 1000,
       fixed_parameter: {
         id: paramOptions.find((param) => param.value !== variableParam)?.value,

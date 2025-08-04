@@ -2,7 +2,7 @@ export interface GraphicParams {
   substance_name: string;
   mode_name: string;
   property_name: string;
-  property_dimension: string;
+  dimension_response: string;
   count: number;
   fixed_parameter: {
     id: string;
@@ -17,7 +17,12 @@ export interface GraphicParams {
   },
 }
 
+export interface Points {
+  data: Point[];
+}
+
 export interface Point {
   x: number;
   y: number;
 }
+

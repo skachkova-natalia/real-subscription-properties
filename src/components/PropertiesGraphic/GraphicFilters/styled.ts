@@ -67,4 +67,5 @@ export const ParametersContainer = styled.div`
 
 export const StyledButton = styled(Button)`
   margin: 8px;
+  background-color: ${color.primary.s700};
 `;

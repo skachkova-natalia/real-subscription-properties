@@ -7,6 +7,7 @@ import {useTranslation} from 'react-i18next';
 import {useMemo} from 'react';
 import {useUnit} from 'effector-react';
 import {$latexUnitsCode} from '@models/dictionary';
+import {resetPoints} from '@models/propertiesGraphic';
 
 interface Props {
   param: Parameter;
@@ -33,6 +34,7 @@ export default function ParameterValuesFilter({param, isVariable}: Props) {
             <S.StyledInput
               inputMode='decimal'
               required
+              onChange={()=>resetPoints()}
             />
           </Form.Item>
           —
@@ -40,6 +42,7 @@ export default function ParameterValuesFilter({param, isVariable}: Props) {
             <S.StyledInput
               inputMode='decimal'
               required
+              onChange={()=>resetPoints()}
             />
           </Form.Item>
           <MathJaxContext key={param.id}>

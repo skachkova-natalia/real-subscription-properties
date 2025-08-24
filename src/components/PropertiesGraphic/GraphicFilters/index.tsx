@@ -3,20 +3,26 @@ import {useTranslation} from 'react-i18next';
 import {useUnit} from 'effector-react';
 import {$filters} from '@models/filters';
 import {Option} from '@src/types/common';
-import {useEffect, useMemo, useState} from 'react';
+import {useEffect, useMemo} from 'react';
 import i18n from 'i18next';
 import {ArrowRightOutlined} from '@ant-design/icons';
 import {useForm} from 'antd/es/form/Form';
 import ParameterValuesFilter from '@components/PropertiesGraphic/GraphicFilters/ParameterValuesFilter';
 import ParametersFilter from '@components/PropertiesGraphic/GraphicFilters/ParametersFilter';
 import {GraphicParams} from '@src/types/graphic';
-import {getPropertyPoints} from '@models/propertiesGraphic';
+import {
+  $graphic,
+  getPropertyPoints,
+  setFixedParameter,
+  setFixedParameterValues,
+  setVariableParameter,
+} from '@models/propertiesGraphic';
 
 export default function GraphicFilters() {
   const {t} = useTranslation();
   const [form] = useForm();
   const {modesParams, currentSubstance, currentMode} = useUnit($filters);
-  const [variableParam, setVariableParam] = useState<string>('');
+  const {variableParameter, fixedParameterValues} = useUnit($graphic);
 
   const paramOptions: Option[] = useMemo(() => {
     return modesParams.map((param) => ({
@@ -26,7 +32,7 @@ export default function GraphicFilters() {
   }, [modesParams]);
 
   useEffect(() => {
-    setVariableParam('');
+    setVariableParameter('');
     form.setFieldsValue({
       'property_name': undefined,
       'dimension_response': undefined,
@@ -44,7 +50,7 @@ export default function GraphicFilters() {
   };
 
   const onVariableParameterChange = (e: string) => {
-    setVariableParam(e);
+    setVariableParameter(e);
     form.setFieldsValue({
       'variable_parameter.min': undefined,
       'variable_parameter.max': undefined,
@@ -58,6 +64,16 @@ export default function GraphicFilters() {
     if (!value) {
       return;
     }
+
+    const fixedParameter = paramOptions.find((param) => param.value !== variableParameter)?.value;
+    if (Object.values(fixedParameterValues).some((param) => param === value['fixed_parameter.value'])) {
+      return;
+    }
+    if (fixedParameter) {
+      setFixedParameter(fixedParameter);
+    }
+    setFixedParameterValues({[`${fixedParameter}`]: value['fixed_parameter.value']});
+
     const params = {
       mode_name: currentMode,
       substance_name: currentSubstance,
@@ -65,7 +81,7 @@ export default function GraphicFilters() {
       dimension_response: value['dimension_response'],
       count: value['count'] || 1000,
       fixed_parameter: {
-        id: paramOptions.find((param) => param.value !== variableParam)?.value,
+        id: fixedParameter,
         value: value['fixed_parameter.value'],
         param_dimension: value['fixed_parameter.param_dimension'],
       },
@@ -93,10 +109,10 @@ export default function GraphicFilters() {
           onVariableParameterChange={onVariableParameterChange}
         />
         <S.ParametersContainer>
-          {variableParam && (
+          {variableParameter && (
             <S.Parameters>
               {modesParams.map((param) => (
-                <ParameterValuesFilter key={param.id} param={param} isVariable={param.id === variableParam} />
+                <ParameterValuesFilter key={param.id} param={param} isVariable={param.id === variableParameter} />
               ))}
             </S.Parameters>
           )}

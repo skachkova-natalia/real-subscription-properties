@@ -9,7 +9,7 @@ import {useTranslation} from 'react-i18next';
 import {useUnit} from 'effector-react';
 import {$filters} from '@models/filters';
 import {$latexUnitsCode} from '@models/dictionary';
-import {$graphic, setSelectedProperty} from '@models/propertiesGraphic';
+import {$graphic, resetPoints, setSelectedProperty} from '@models/propertiesGraphic';
 
 interface Props {
   paramOptions: Option[];
@@ -78,7 +78,8 @@ export default function ParametersFilter({paramOptions, onPropertyChange, onVari
       <S.Filter>
         <GroupLabel>Количество точек</GroupLabel>
         <Form.Item name={`count`} className='form-item'>
-          <S.StyledInput type='number' min={1} max={10000} />
+          <S.StyledInput type='number' min={1} max={10000}
+                         onChange={()=>resetPoints()}/>
         </Form.Item>
       </S.Filter>
     </S.FiltersGroup>

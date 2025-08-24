@@ -1,15 +1,42 @@
 import * as S from './styled';
-import {Line, LineChart, ResponsiveContainer, XAxis, YAxis, Tooltip} from 'recharts';
+import {Legend, Line, LineChart, ResponsiveContainer, Tooltip, TooltipContentProps, XAxis, YAxis} from 'recharts';
 import GraphicFilters from '@components/PropertiesGraphic/GraphicFilters';
 import {$graphic} from '@models/propertiesGraphic';
 import {useUnit} from 'effector-react';
 import {LoadingOutlined} from '@ant-design/icons';
-import {Spin, } from 'antd';
+import {Spin} from 'antd';
 import i18n from 'i18next';
+import {NameType, ValueType} from 'recharts/types/component/DefaultTooltipContent';
 
 export default function PropertiesGraphic() {
-  const {points, selectedProperty, loading, error} = useUnit($graphic);
+  const {points, selectedProperty, variableParameter, fixedParameter, fixedParameterValues, loading, error} = useUnit($graphic);
 
+  const lineKeys = points.length > 0
+    ? Object.keys(points[0]).filter(key => key !== 'x')
+    : [];
+
+  const lineColors = ['#0376BE', '#FF7F0E', '#2CA02C', '#D62728', '#9467BD', '#8C564B', '#7F7F7F', '#BCBD22', '#17BECF'];
+
+  const customTooltip = ({active, payload, label}: TooltipContentProps<ValueType, NameType>) => {
+    if (active && payload?.length) {
+      return (
+        <S.CustomTooltip>
+          {`${variableParameter}: ${label}`}<br />
+          {payload.map((entry, index) => (
+            <div key={index} style={{color: entry.color}}>
+              {`${selectedProperty} (при ${fixedParameter}=${fixedParameterValues[entry.dataKey]}): ${entry.value}`}
+            </div>
+          ))}
+        </S.CustomTooltip>
+      );
+    }
+    return null;
+  };
+
+  const formatXAxis = (tickItem) => {
+    return Math.round(tickItem).toString();
+  };
+  console.log(fixedParameterValues);
   return (
     <S.MainContainer>
       <GraphicFilters />
@@ -18,18 +45,27 @@ export default function PropertiesGraphic() {
         <Spin indicator={<LoadingOutlined spin />} spinning={loading}>
           <ResponsiveContainer width='100%' minHeight={300}>
             <LineChart data={points}>
-              <XAxis dataKey='x' />
-              <YAxis />
-              <Tooltip
-                formatter={(value) => Number(value).toFixed(6)}
-                labelFormatter={(label) => `${selectedProperty}: ${Math.round(label)}`}
+              <XAxis
+                dataKey='x'
+                tickFormatter={formatXAxis}
+                label={{value: `${variableParameter}`, position: 'insideBottomRight', offset: -5}}
               />
-              <Line
-                type='monotone'
-                dataKey='y'
-                stroke='#0376BE'
-                dot={false}
-                activeDot={{ r: 4, fill: '#0376BE' }}
+              <YAxis label={{value: `${selectedProperty}`, position: 'insideTopLeft'}} />
+              <Tooltip content={customTooltip} />
+              {lineKeys.map((key, index) => (
+                <Line
+                  key={key}
+                  type='monotone'
+                  dataKey={key}
+                  stroke={lineColors[index % lineColors.length]}
+                  dot={false}
+                  activeDot={{r: 4}}
+                />
+              ))}
+              <Legend
+                verticalAlign="top"
+                height={36}
+                formatter={(value) => <span style={{ color: '#333' }}>{fixedParameter} = {fixedParameterValues[value]}</span>}
               />
             </LineChart>
           </ResponsiveContainer>

@@ -36,7 +36,7 @@ export default function PropertiesGraphic() {
   const formatXAxis = (tickItem) => {
     return Math.round(tickItem).toString();
   };
-  console.log(fixedParameterValues);
+
   return (
     <S.MainContainer>
       <GraphicFilters />

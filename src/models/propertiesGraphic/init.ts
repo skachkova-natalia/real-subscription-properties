@@ -1,11 +1,19 @@
-import {resetDomainStoresByEvents} from '@utils/effector';
+import {forwardPayload, resetDomainStoresByEvents} from '@utils/effector';
 import {AppGate} from '@models/app';
-import {$error, $points, getPropertyPoints, getPropertyPointsFx, graphicDomain} from '@models/propertiesGraphic/index';
+import {
+  $error,
+  $points,
+  $selectedProperty,
+  getPropertyPoints,
+  getPropertyPointsFx,
+  graphicDomain, setSelectedProperty,
+} from '@models/propertiesGraphic/index';
 import {sample} from 'effector';
 
 resetDomainStoresByEvents(graphicDomain, AppGate.close);
 
 $points.on(getPropertyPointsFx.doneData, (_, payload) => payload.data);
+$selectedProperty.on(setSelectedProperty, forwardPayload());
 $error
   .on(getPropertyPointsFx.failData, (_, payload) => ({
     msg: {

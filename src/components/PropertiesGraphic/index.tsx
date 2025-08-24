@@ -1,15 +1,15 @@
 import * as S from './styled';
-import {CartesianGrid, Line, LineChart, ResponsiveContainer, XAxis, YAxis} from 'recharts';
+import {Line, LineChart, ResponsiveContainer, XAxis, YAxis, Tooltip} from 'recharts';
 import GraphicFilters from '@components/PropertiesGraphic/GraphicFilters';
 import {$graphic} from '@models/propertiesGraphic';
 import {useUnit} from 'effector-react';
 import {LoadingOutlined} from '@ant-design/icons';
-import {Spin} from 'antd';
+import {Spin, } from 'antd';
 import i18n from 'i18next';
 
 export default function PropertiesGraphic() {
-  const {points, loading, error} = useUnit($graphic);
-  console.log(points);
+  const {points, selectedProperty, loading, error} = useUnit($graphic);
+
   return (
     <S.MainContainer>
       <GraphicFilters />
@@ -18,10 +18,19 @@ export default function PropertiesGraphic() {
         <Spin indicator={<LoadingOutlined spin />} spinning={loading}>
           <ResponsiveContainer width='100%' minHeight={300}>
             <LineChart data={points}>
-              <CartesianGrid stroke='#eee' strokeDasharray='5 5' />
               <XAxis dataKey='x' />
               <YAxis />
-              <Line type='monotone' dataKey='y' stroke='#8884d8' />
+              <Tooltip
+                formatter={(value) => Number(value).toFixed(6)}
+                labelFormatter={(label) => `${selectedProperty}: ${Math.round(label)}`}
+              />
+              <Line
+                type='monotone'
+                dataKey='y'
+                stroke='#0376BE'
+                dot={false}
+                activeDot={{ r: 4, fill: '#0376BE' }}
+              />
             </LineChart>
           </ResponsiveContainer>
         </Spin>

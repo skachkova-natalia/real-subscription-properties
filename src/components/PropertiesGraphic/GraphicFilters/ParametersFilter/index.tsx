@@ -3,12 +3,13 @@ import {GroupLabel} from '@components/PropertiesGraphic/GraphicFilters/styled';
 import {Form} from 'antd';
 import {MathJax, MathJaxContext} from 'better-react-mathjax';
 import {Option} from '@src/types/common';
-import {useMemo, useState} from 'react';
+import {useMemo} from 'react';
 import i18n from 'i18next';
 import {useTranslation} from 'react-i18next';
 import {useUnit} from 'effector-react';
 import {$filters} from '@models/filters';
 import {$latexUnitsCode} from '@models/dictionary';
+import {$graphic, setSelectedProperty} from '@models/propertiesGraphic';
 
 interface Props {
   paramOptions: Option[];
@@ -18,9 +19,9 @@ interface Props {
 
 export default function ParametersFilter({paramOptions, onPropertyChange, onVariableParameterChange}: Props) {
   const {t} = useTranslation();
+  const {selectedProperty} = useUnit($graphic);
   const {propertiesList} = useUnit($filters);
   const latexUnitsCode = useUnit($latexUnitsCode);
-  const [selectedProperty, setSelectedProperty] = useState<string>('');
 
   const propertyOptions: Option[] = useMemo(() => {
     return propertiesList.map((prop) => ({

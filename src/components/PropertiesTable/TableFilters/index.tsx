@@ -8,14 +8,34 @@ import {useUnit} from 'effector-react';
 import {$latexUnitsCode} from '@models/dictionary';
 import {useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
+import {useLocation, useNavigate} from 'react-router';
+import {updateQueryParams} from '@utils/queryParamsHelper';
 
 export default function TableFilters() {
   const {t} = useTranslation();
+  const navigate = useNavigate();
+  const location = useLocation();
   const {modesParams, currentMode} = useUnit($filters);
   const latexUnitsCode = useUnit($latexUnitsCode);
-
+  const [form] = Form.useForm();
   const [selectedDimensions, setSelectedDimensions] = useState<{[key: string]: string}>({});
   const [key, setKey] = useState(true);
+
+  useEffect(() => {
+    if (!Object.keys(selectedDimensions).length) {
+      const searchParams = new URLSearchParams(location.search);
+      const properties = searchParams.get('tableParams') || '';
+      const defaultDimensions = {};
+      const defaultValues = {};
+      properties.split(',').forEach((item)=>{
+        const [prop, value, dimension] = item.split(':');
+        defaultDimensions[prop] = dimension;
+        defaultValues[prop] = value;
+      })
+      setSelectedDimensions(defaultDimensions);
+      form.setFieldsValue(defaultValues);
+    }
+  }, [location.search]);
 
   useEffect(() => {
     setSelectedDimensions(modesParams.reduce((acc, param) => {
@@ -32,17 +52,26 @@ export default function TableFilters() {
     label: <MathJax>{latexUnitsCode[dimension]}</MathJax>,
   }));
 
+  const onSubmit = (values) => {
+    const params = Object.entries(values || {})
+      .filter(([, value]) => !!value)
+      .map(([key, value]) => `${key}:${value}:${selectedDimensions[key]}`)
+      .join(',');
+    updateQueryParams(navigate, 'tableParams', params.toString());
+
+    const filters = Object.keys(values || {}).map((key) => ({
+      id: key,
+      value: Number(values?.[key]),
+      param_dimension: selectedDimensions[key],
+    }));
+    applyFilters(filters);
+  }
+
   return (
     <S.StyledForm
+      form={form}
       layout='inline'
-      onFinish={(values) => {
-        const filters = Object.keys(values || {}).map((key) => ({
-          id: key,
-          value: Number(values?.[key]),
-          param_dimension: selectedDimensions[key],
-        }));
-        applyFilters(filters);
-      }}
+      onFinish={onSubmit}
     >
       {modesParams.map((param) => (
         <S.Parameter key={param.id}>
@@ -58,6 +87,7 @@ export default function TableFilters() {
               style={{width: '120px'}}
               inputMode='decimal'
               required
+              allowClear
             />
           </Form.Item>
           {param.units?.length > 0 && (

@@ -1,4 +1,4 @@
-export interface GraphicParams {
+export interface GraphicFiltersParams {
   substance_name: string;
   mode_name: string;
   property_name: string;

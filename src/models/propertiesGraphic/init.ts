@@ -1,23 +1,27 @@
 import {forwardPayload, resetDomainStoresByEvents} from '@utils/effector';
 import {AppGate} from '@models/app';
 import {
-  $error, $fixedParameter,
+  $error,
+  $fixedParameter,
   $fixedParameterValues,
   $points,
   $selectedProperty,
   $variableParameter,
   getPropertyPoints,
   getPropertyPointsFx,
-  graphicDomain, resetPoints, setFixedParameter,
+  graphicDomain,
+  resetPoints,
+  setFixedParameter,
   setFixedParameterValues,
   setSelectedProperty,
   setVariableParameter,
 } from '@models/propertiesGraphic/index';
 import {sample} from 'effector';
+import {setCurrentMode, setCurrentSubstance} from '@models/filters';
 
 resetDomainStoresByEvents(graphicDomain, AppGate.close);
 
-$points.reset(resetPoints, setSelectedProperty, setVariableParameter);
+$points.reset(resetPoints, setSelectedProperty, setVariableParameter, getPropertyPointsFx.failData, setCurrentMode, setCurrentSubstance);
 $selectedProperty.on(setSelectedProperty, forwardPayload());
 $variableParameter.on(setVariableParameter, forwardPayload());
 $fixedParameter.on(setFixedParameter, forwardPayload());
@@ -42,16 +46,16 @@ sample({
 
 sample({
   clock: getPropertyPointsFx.doneData,
-  source: {fixedParameters:$fixedParameterValues, points: $points},
+  source: {fixedParameters: $fixedParameterValues, points: $points},
   fn: ({fixedParameters, points}, response) => {
     const key = Object.keys(fixedParameters).pop();
     let result: {[key: string]: number}[];
     if (!points.length) {
-      result = response.data.map((point)=>({x: point.x, [`${key}`]: point.y}))
+      result = response.data.map((point) => ({x: point.x, [`${key}`]: point.y}));
     } else {
-      result = points.map((point, index)=>({...point, [`${key}`]: response.data[index].y}))
+      result = points.map((point, index) => ({...point, [`${key}`]: response.data[index].y}));
     }
     return result || [];
   },
   target: $points,
-})
+});

@@ -1,6 +1,6 @@
 import {combine, createDomain} from 'effector';
 import {propertyGraphicService} from '@services/propertyGraphicService';
-import {GraphicParams} from '@src/types/graphic';
+import {GraphicFiltersParams} from '@src/types/graphic';
 import {ApiResponseError} from '@core/api';
 import {ErrorDescription} from '@src/types/common';
 
@@ -8,7 +8,7 @@ export const graphicDomain = createDomain();
 
 export const getPropertyPointsFx = graphicDomain.createEffect<typeof propertyGraphicService.getPropertyPoints, ApiResponseError>(propertyGraphicService.getPropertyPoints);
 
-export const getPropertyPoints = graphicDomain.createEvent<GraphicParams>();
+export const getPropertyPoints = graphicDomain.createEvent<GraphicFiltersParams>();
 export const setSelectedProperty = graphicDomain.createEvent<string>();
 export const setVariableParameter = graphicDomain.createEvent<string>();
 export const setFixedParameter = graphicDomain.createEvent< string>();

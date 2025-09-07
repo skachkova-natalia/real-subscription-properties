@@ -67,7 +67,7 @@ sample({
 });
 
 sample({
-  clock: [$currentMode, changeAppLanguage],
+  clock: [$currentMode, changeAppLanguage, $modes],
   source: {modes: $modes, currentMode: $currentMode},
   fn: ({modes, currentMode}) => modes.find((mode) => mode.mode_name === currentMode)?.parameters || [],
   target: $modesParams,

@@ -6,23 +6,57 @@ import {Option} from '@src/types/common';
 import {useEffect, useMemo} from 'react';
 import i18n from 'i18next';
 import {ArrowRightOutlined} from '@ant-design/icons';
-import {useForm} from 'antd/es/form/Form';
 import ParameterValuesFilter from '@components/PropertiesGraphic/GraphicFilters/ParameterValuesFilter';
 import ParametersFilter from '@components/PropertiesGraphic/GraphicFilters/ParametersFilter';
-import {GraphicParams} from '@src/types/graphic';
+import {GraphicFiltersParams} from '@src/types/graphic';
 import {
   $graphic,
   getPropertyPoints,
   setFixedParameter,
   setFixedParameterValues,
+  setSelectedProperty,
   setVariableParameter,
 } from '@models/propertiesGraphic';
+import {updateQueryParams} from '@utils/queryParamsHelper';
+import {useNavigate} from 'react-router';
+import {Form} from 'antd';
 
 export default function GraphicFilters() {
   const {t} = useTranslation();
-  const [form] = useForm();
+  const navigate = useNavigate();
+  const [form] = Form.useForm();
   const {modesParams, currentSubstance, currentMode} = useUnit($filters);
   const {variableParameter, fixedParameterValues} = useUnit($graphic);
+
+  useEffect(() => {
+    if (variableParameter) {
+      return;
+    }
+    const searchParams = new URLSearchParams(location.search);
+    const graphicParams =  searchParams.get('graphicParams');
+    if (!graphicParams) {
+      return;
+    }
+    const [prop, fixedParam, varParam] = graphicParams.split(';') || [];
+    const [property_name, dimension_response, count] = prop.split(':');
+    const [fixed_id, value, fixed_param_dimension] = fixedParam.split(':');
+    const [variable_id, min, max, variable_param_dimension] = varParam.split(':');
+    setSelectedProperty(property_name);
+    setFixedParameter(fixed_id);
+    setVariableParameter(variable_id);
+    form.setFieldsValue({
+      'property_name': property_name,
+      'dimension_response': dimension_response,
+      'count': count,
+      'fixed_parameter.id': fixed_id,
+      'fixed_parameter.value': value,
+      'fixed_parameter.param_dimension': fixed_param_dimension,
+      'variable_parameter.id': variable_id,
+      'variable_parameter.min': min,
+      'variable_parameter.max': max,
+      'variable_parameter.param_dimension': variable_param_dimension,
+    });
+  }, [location.search]);
 
   const paramOptions: Option[] = useMemo(() => {
     return modesParams.map((param) => ({
@@ -32,6 +66,9 @@ export default function GraphicFilters() {
   }, [modesParams]);
 
   useEffect(() => {
+    if (!variableParameter) {
+      return;
+    }
     setVariableParameter('');
     form.setFieldsValue({
       'property_name': undefined,
@@ -60,39 +97,42 @@ export default function GraphicFilters() {
     });
   };
 
-  const onSubmit = (value: unknown) => {
-    if (!value) {
+  const onSubmit = (values: unknown) => {
+    if (!values) {
       return;
     }
 
     const fixedParameter = paramOptions.find((param) => param.value !== variableParameter)?.value;
-    if (Object.values(fixedParameterValues).some((param) => param === value['fixed_parameter.value'])) {
+    if (Object.values(fixedParameterValues).some((param) => param === values['fixed_parameter.value'])) {
       return;
     }
     if (fixedParameter) {
       setFixedParameter(fixedParameter);
     }
-    setFixedParameterValues({[`${fixedParameter}`]: value['fixed_parameter.value']});
+    setFixedParameterValues({[`${fixedParameter}`]: values['fixed_parameter.value']});
 
-    const params = {
+    const params = `${values['property_name']}:${values['dimension_response']}:${values['count']};${fixedParameter}:${values['fixed_parameter.value']}:${values['fixed_parameter.param_dimension']};${values['variable_parameter.id']}:${values['variable_parameter.min']}:${values['variable_parameter.max']}:${values['variable_parameter.param_dimension']}`;
+    updateQueryParams(navigate, 'graphicParams', params.toString());
+
+    const filters = {
       mode_name: currentMode,
       substance_name: currentSubstance,
-      property_name: value['property_name'],
-      dimension_response: value['dimension_response'],
-      count: value['count'] || 1000,
+      property_name: values['property_name'],
+      dimension_response: values['dimension_response'],
+      count: values['count'] || 1000,
       fixed_parameter: {
         id: fixedParameter,
-        value: value['fixed_parameter.value'],
-        param_dimension: value['fixed_parameter.param_dimension'],
+        value: values['fixed_parameter.value'],
+        param_dimension: values['fixed_parameter.param_dimension'],
       },
       variable_parameter: {
-        id: value['variable_parameter.id'],
-        min: value['variable_parameter.min'],
-        max: value['variable_parameter.max'],
-        param_dimension: value['variable_parameter.param_dimension'],
+        id: values['variable_parameter.id'],
+        min: values['variable_parameter.min'],
+        max: values['variable_parameter.max'],
+        param_dimension: values['variable_parameter.param_dimension'],
       },
-    } as GraphicParams;
-    getPropertyPoints(params);
+    } as GraphicFiltersParams;
+    getPropertyPoints(filters);
   };
 
   return (

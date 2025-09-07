@@ -43,6 +43,7 @@ export function HamburgerMenu() {
       {isMenuOpen && (
         <Drawer onClose={() => setIsMenuOpen(false)} open={isMenuOpen} placement='left' width={250}>
           <S.MenuContainer>
+            <S.TopBlock>
             {!user && (
               <S.ButtonsContainer>
                 <Button type='primary'>
@@ -58,6 +59,7 @@ export function HamburgerMenu() {
               items={items}
               onClick={() => setIsMenuOpen(false)}
             />
+            </S.TopBlock>
             <S.Footer>
             {!!user && (
               <S.UserInfo>

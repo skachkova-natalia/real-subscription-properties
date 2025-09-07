@@ -16,6 +16,12 @@ export const MenuContainer = styled.div`
   justify-content: space-between;
 `;
 
+export const TopBlock = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+`;
+
 export const ButtonsContainer = styled.div`
   display: grid;
   flex-direction: row;

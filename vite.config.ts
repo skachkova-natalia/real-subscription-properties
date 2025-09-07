@@ -27,6 +27,9 @@ export default defineConfig({
       base: './',
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'pwa-180x180.png'],
+      workbox: {
+        cleanupOutdatedCaches: true,
+      },
       manifest: {
         name: 'Real Substance Properties',
         short_name: 'RSP',

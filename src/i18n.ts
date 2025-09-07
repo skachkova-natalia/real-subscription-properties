@@ -37,6 +37,10 @@ const resources = {
         message: 'Для подтвеждения изменения почты необходимо ввести пароль',
         success_email_change: 'Почта пользователя изменена. Необходимо заново войти в систему!',
       },
+      tabs: {
+        calculating: 'Расчет свойств',
+        graphic: 'График',
+      },
       sign_in: 'Вход',
       sign_out: 'Выход',
       registration: 'Регистрация',
@@ -56,6 +60,7 @@ const resources = {
       messages: {
         need_to_select_parameter: 'Для отображения свойств необходимо выбрать параметр',
       },
+      points_count: 'Количество точек',
     },
   },
   en: {
@@ -93,6 +98,10 @@ const resources = {
         message: 'Enter your password to change email, please.',
         success_email_change: 'User\'s email is changed. You need to login again',
       },
+      tabs: {
+        calculating: 'Properties calculating',
+        graphic: 'Graphic',
+      },
       sign_in: 'Sign in',
       sign_out: 'Sign out',
       registration: 'Registration',
@@ -112,6 +121,7 @@ const resources = {
       messages: {
         need_to_select_parameter: 'Select parameter to show substances, please',
       },
+      points_count: 'Points count',
     },
   },
 };

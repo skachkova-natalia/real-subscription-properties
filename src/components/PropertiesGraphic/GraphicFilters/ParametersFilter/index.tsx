@@ -84,7 +84,7 @@ export default function ParametersFilter({paramOptions, onPropertyChange, onVari
         </Form.Item>
       </S.Filter>
       <S.Filter>
-        <GroupLabel>Количество точек</GroupLabel>
+        <GroupLabel>{t('points_count')}</GroupLabel>
         <Form.Item name={`count`} className='form-item'>
           <S.StyledInput type='number' min={1} max={10000}
                          onChange={() => resetPoints()} />

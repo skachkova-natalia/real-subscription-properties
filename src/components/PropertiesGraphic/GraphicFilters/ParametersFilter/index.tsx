@@ -3,7 +3,7 @@ import {GroupLabel} from '@components/PropertiesGraphic/GraphicFilters/styled';
 import {Form} from 'antd';
 import {MathJax, MathJaxContext} from 'better-react-mathjax';
 import {Option} from '@src/types/common';
-import {useMemo} from 'react';
+import {useEffect, useMemo} from 'react';
 import i18n from 'i18next';
 import {useTranslation} from 'react-i18next';
 import {useUnit} from 'effector-react';
@@ -19,6 +19,7 @@ interface Props {
 
 export default function ParametersFilter({paramOptions, onPropertyChange, onVariableParameterChange}: Props) {
   const {t} = useTranslation();
+  const {setFieldValue} = Form.useFormInstance();
   const {selectedProperty} = useUnit($graphic);
   const {propertiesList} = useUnit($filters);
   const latexUnitsCode = useUnit($latexUnitsCode);
@@ -35,6 +36,13 @@ export default function ParametersFilter({paramOptions, onPropertyChange, onVari
       value: dimension,
       label: <MathJax>{latexUnitsCode[dimension]}</MathJax>,
     })) || [];
+  }, [selectedProperty]);
+
+  useEffect(() => {
+    if (!propertyDimensionOptions.length) {
+      return;
+    }
+    setFieldValue('dimension_response', propertyDimensionOptions[0]?.value)
   }, [selectedProperty]);
 
   return (
@@ -63,7 +71,7 @@ export default function ParametersFilter({paramOptions, onPropertyChange, onVari
         </MathJaxContext>
       </S.Filter>
       <S.Filter>
-        <GroupLabel>Варьируемый параметр</GroupLabel>
+        <GroupLabel>{t('substance')}</GroupLabel>
         <Form.Item name={`variable_parameter.id`} className='form-item'>
           <S.StyledSelect
             options={paramOptions}
@@ -79,9 +87,9 @@ export default function ParametersFilter({paramOptions, onPropertyChange, onVari
         <GroupLabel>Количество точек</GroupLabel>
         <Form.Item name={`count`} className='form-item'>
           <S.StyledInput type='number' min={1} max={10000}
-                         onChange={()=>resetPoints()}/>
+                         onChange={() => resetPoints()} />
         </Form.Item>
       </S.Filter>
     </S.FiltersGroup>
-  )
+  );
 }

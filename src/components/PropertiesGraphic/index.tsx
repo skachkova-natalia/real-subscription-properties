@@ -42,7 +42,7 @@ export default function PropertiesGraphic() {
           {`${variableParameter}: ${label}`}<br />
           {payload.map((entry, index) => (
             <div key={index} style={{color: entry.color}}>
-              {`${selectedProperty} (при ${fixedParameter}=${fixedParameterValues[entry.dataKey]}): ${entry.value}`}
+              {`${selectedProperty} (при ${fixedParameter}=${fixedParameterValues[entry.dataKey]}): ${Number(entry.value).toFixed(5)}`}
             </div>
           ))}
         </S.CustomTooltip>
@@ -52,7 +52,7 @@ export default function PropertiesGraphic() {
   };
 
   const formatXAxis = (tickItem) => {
-    return Math.round(tickItem).toString();
+    return Number(tickItem).toFixed(2);
   };
 
   return (

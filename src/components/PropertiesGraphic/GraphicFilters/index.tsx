@@ -82,6 +82,19 @@ export default function GraphicFilters() {
     });
   }, [currentSubstance, currentMode]);
 
+  useEffect(() => {
+    if (!variableParameter) {
+      return;
+    }
+    modesParams.forEach((param) => {
+      if (param.id === variableParameter) {
+        form.setFieldValue('variable_parameter.param_dimension', param.units[0]);
+      } else {
+        form.setFieldValue('fixed_parameter.param_dimension', param.units[0]);
+      }
+    })
+  }, [variableParameter]);
+
   const onPropertyChange = () => {
     form.setFieldsValue({'dimension_response': undefined});
   };

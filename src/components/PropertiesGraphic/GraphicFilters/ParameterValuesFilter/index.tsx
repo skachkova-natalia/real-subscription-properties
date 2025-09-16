@@ -51,6 +51,7 @@ export default function ParameterValuesFilter({param, isVariable}: Props) {
                 options={dimensionOptions}
                 placeholder={t('dimension')}
                 notFoundContent={t('no_data')}
+                onChange={() => resetPoints()}
               />
             </Form.Item>
           </MathJaxContext>
@@ -69,6 +70,7 @@ export default function ParameterValuesFilter({param, isVariable}: Props) {
                 options={dimensionOptions}
                 placeholder={t('dimension')}
                 notFoundContent={t('no_data')}
+                onChange={() => resetPoints()}
               />
             </Form.Item>
           </MathJaxContext>

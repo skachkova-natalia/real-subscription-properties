@@ -1,7 +1,7 @@
 import * as S from './styled';
 import {GroupLabel} from '@components/PropertiesGraphic/GraphicFilters/styled';
 import {Form} from 'antd';
-import {MathJax, MathJaxContext} from 'better-react-mathjax';
+import {MathJax} from 'better-react-mathjax';
 import {Option} from '@src/types/common';
 import {useEffect, useMemo} from 'react';
 import i18n from 'i18next';
@@ -10,6 +10,7 @@ import {useUnit} from 'effector-react';
 import {$filters} from '@models/filters';
 import {$latexUnitsCode} from '@models/dictionary';
 import {$graphic, resetPoints, setSelectedProperty} from '@models/propertiesGraphic';
+import MathJaxWrapper from '@components/MathJaxWrapper';
 
 interface Props {
   paramOptions: Option[];
@@ -60,7 +61,7 @@ export default function ParametersFilter({paramOptions, onPropertyChange, onVari
             notFoundContent={t('no_data')}
           />
         </Form.Item>
-        <MathJaxContext key={selectedProperty}>
+        <MathJaxWrapper key={selectedProperty}>
           <Form.Item name={`dimension_response`} className='form-item'>
             <S.DimensionSelect
               options={propertyDimensionOptions}
@@ -68,7 +69,7 @@ export default function ParametersFilter({paramOptions, onPropertyChange, onVari
               notFoundContent={t('no_data')}
             />
           </Form.Item>
-        </MathJaxContext>
+        </MathJaxWrapper>
       </S.Filter>
       <S.Filter>
         <GroupLabel>{t('substance')}</GroupLabel>

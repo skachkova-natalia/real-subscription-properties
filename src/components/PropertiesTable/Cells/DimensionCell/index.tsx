@@ -1,9 +1,10 @@
 import {Select} from 'antd';
-import {MathJax, MathJaxContext} from 'better-react-mathjax';
+import {MathJax} from 'better-react-mathjax';
 import {getTableRow} from '@models/propertiesTable';
 import {$latexUnitsCode} from '@models/dictionary';
 import {useUnit} from 'effector-react';
 import {useMemo} from 'react';
+import MathJaxWrapper from '@components/MathJaxWrapper';
 
 interface Props {
   dimension: string;
@@ -23,7 +24,7 @@ export function DimensionCell({dimension, property_literal, available_dimensions
   }, [available_dimensions, latexUnitsCode]);
 
   return (
-    <MathJaxContext key={`${dimension}`}>
+    <MathJaxWrapper key={`${dimension}`}>
       {available_dimensions && available_dimensions?.length > 0 && (
         <Select
           options={dimensionOptions}
@@ -34,6 +35,6 @@ export function DimensionCell({dimension, property_literal, available_dimensions
         />
       )}
       {(!available_dimensions || !available_dimensions?.length) && '—'}
-    </MathJaxContext>
+    </MathJaxWrapper>
   );
 }

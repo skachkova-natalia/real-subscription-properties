@@ -2,7 +2,7 @@ import {$filters, applyFilters} from '@models/filters';
 import * as S from './styled';
 import i18n from 'i18next';
 import {Form, Input, Select} from 'antd';
-import {MathJax, MathJaxContext} from 'better-react-mathjax';
+import {MathJax} from 'better-react-mathjax';
 import {ArrowRightOutlined} from '@ant-design/icons';
 import {useUnit} from 'effector-react';
 import {$latexUnitsCode} from '@models/dictionary';
@@ -10,6 +10,7 @@ import {useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {useLocation, useNavigate} from 'react-router';
 import {updateQueryParams} from '@utils/queryParamsHelper';
+import MathJaxWrapper from '@components/MathJaxWrapper';
 
 export default function TableFilters() {
   const {t} = useTranslation();
@@ -91,7 +92,7 @@ export default function TableFilters() {
             />
           </Form.Item>
           {param.units?.length > 0 && (
-            <MathJaxContext key={`${key}`}>
+            <MathJaxWrapper key={`${key}`}>
               <Select
                 options={dimensionOptions(param.units)}
                 value={selectedDimensions[param.id]}
@@ -100,7 +101,7 @@ export default function TableFilters() {
                   setKey((v) => !v);
                 }}
               />
-            </MathJaxContext>
+            </MathJaxWrapper>
           )}
         </S.Parameter>
       ))}

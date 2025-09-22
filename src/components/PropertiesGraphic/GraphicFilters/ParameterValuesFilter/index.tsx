@@ -8,6 +8,7 @@ import {useMemo} from 'react';
 import {useUnit} from 'effector-react';
 import {$latexUnitsCode} from '@models/dictionary';
 import {resetPoints} from '@models/propertiesGraphic';
+import MathJaxWrapper from '@components/MathJaxWrapper';
 
 interface Props {
   param: Parameter;
@@ -45,7 +46,7 @@ export default function ParameterValuesFilter({param, isVariable}: Props) {
               onChange={()=>resetPoints()}
             />
           </Form.Item>
-          <MathJaxContext key={param.id}>
+          <MathJaxWrapper key={param.id}>
             <Form.Item name={`variable_parameter.param_dimension`} className='form-item'>
               <S.DimensionSelect
                 options={dimensionOptions}
@@ -54,7 +55,7 @@ export default function ParameterValuesFilter({param, isVariable}: Props) {
                 onChange={() => resetPoints()}
               />
             </Form.Item>
-          </MathJaxContext>
+          </MathJaxWrapper>
         </S.Values>
       ) : (
         <S.Values>
@@ -64,7 +65,7 @@ export default function ParameterValuesFilter({param, isVariable}: Props) {
               required
             />
           </Form.Item>
-          <MathJaxContext key={param.id}>
+          <MathJaxContext key={param.id} hideUntilTypeset='first'>
             <Form.Item name={`fixed_parameter.param_dimension`} className='form-item'>
               <S.DimensionSelect
                 options={dimensionOptions}

@@ -2,7 +2,7 @@ import {Parameter} from '@src/types/filters';
 import * as S from './styled';
 import i18n from 'i18next';
 import {Form, Input} from 'antd';
-import {MathJax, MathJaxContext} from 'better-react-mathjax';
+import {MathJax} from 'better-react-mathjax';
 import {useTranslation} from 'react-i18next';
 import {useMemo} from 'react';
 import {useUnit} from 'effector-react';
@@ -65,7 +65,7 @@ export default function ParameterValuesFilter({param, isVariable}: Props) {
               required
             />
           </Form.Item>
-          <MathJaxContext key={param.id} hideUntilTypeset='first'>
+          <MathJaxWrapper key={param.id}>
             <Form.Item name={`fixed_parameter.param_dimension`} className='form-item'>
               <S.DimensionSelect
                 options={dimensionOptions}
@@ -74,7 +74,7 @@ export default function ParameterValuesFilter({param, isVariable}: Props) {
                 onChange={() => resetPoints()}
               />
             </Form.Item>
-          </MathJaxContext>
+          </MathJaxWrapper>
         </S.Values>
       )}
     </S.Parameter>

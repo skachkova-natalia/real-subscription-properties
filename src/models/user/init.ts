@@ -10,7 +10,7 @@ import {
   sendChangeEmail,
   sendResetPassword,
   sendResetPasswordFx,
-  sendResetPasswordSuccessFx, $changeEmailError,
+  sendResetPasswordSuccessFx, $changeEmailError, forgetPassword,
 } from '@models/user/index';
 import {AppGate} from '@models/app';
 import {sample} from 'effector';
@@ -47,6 +47,11 @@ sample({
   source: $user,
   filter: (user) => !!user?.email,
   fn: (user) => user?.email || '',
+  target: sendResetPasswordFx,
+});
+
+sample({
+  clock: forgetPassword,
   target: sendResetPasswordFx,
 });
 

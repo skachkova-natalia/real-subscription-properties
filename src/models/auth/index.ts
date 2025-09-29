@@ -11,7 +11,6 @@ export const loginFx = authDomain.createEffect<typeof authService.login, ApiResp
 export const getUserInfoFx = authDomain.createEffect(authService.getUserInfo);
 
 export const login = authDomain.createEvent<User>();
-export const sendResetPassword = authDomain.createEvent<string>();
 
 export const $user = authDomain.createStore<UserFull | null>(null);
 export const $isRegistered = authDomain.createStore<boolean>(false);

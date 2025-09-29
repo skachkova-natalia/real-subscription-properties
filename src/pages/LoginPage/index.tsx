@@ -1,11 +1,12 @@
 import {useTranslation} from 'react-i18next';
 import {Alert, Button, Form, Input, Typography} from 'antd';
-import {$loginPage, $user, login, sendResetPassword} from '@models/auth';
+import {$loginPage, $user, login} from '@models/auth';
 import {color} from '@src/theme';
 import * as S from './styled';
 import {useUnit} from 'effector-react';
 import {useNavigate} from 'react-router';
 import { useForm } from 'antd/lib/form/Form';
+import {forgetPassword} from '@models/user';
 
 export function LoginPage() {
   const {t, i18n} = useTranslation();
@@ -18,13 +19,13 @@ export function LoginPage() {
     navigate('/');
   }
 
-  const forgetPassword = () => {
+  const handleForgetPassword = () => {
     const email = form.getFieldValue('email');
     if (!email) {
       form.validateFields(['email']);
       return;
     }
-    sendResetPassword(email);
+    forgetPassword(email);
   };
 
   return (
@@ -62,7 +63,7 @@ export function LoginPage() {
           rules={[{required: true, message: 'Обязательное поле'}]}
         >
           <Input.Password />
-          <Button type='link' onClick={forgetPassword}>
+          <Button type='link' onClick={handleForgetPassword}>
             {t('user.forget_password')}
           </Button>
         </Form.Item>

@@ -19,6 +19,7 @@ export const errorFx = userDomain.createEffect({handler: () => showErrorNotifica
 export const sendVerifyEmail = userDomain.createEvent();
 export const sendChangeEmail = userDomain.createEvent<SendChangeEmailParams>();
 export const sendResetPassword = userDomain.createEvent();
+export const forgetPassword = userDomain.createEvent<string>();
 
 export const $sendingChangeEmail = sendChangeEmailFx.pending;
 export const $sendingResetPassword = sendResetPasswordFx.pending;

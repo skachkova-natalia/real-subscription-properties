@@ -59,20 +59,10 @@ export default defineConfig({
     outDir: 'build',
     chunkSizeWarningLimit: 600,
     rollupOptions: {
-      external: [],
       output: {
         manualChunks(id) {
           if (id.includes('node_modules')) {
-            if (id.includes('react-dom') || id.includes('/react/')) {
-              return 'vendor-react';
-            }
-
-            if (id.includes('@ff')) {
-              return 'vendor-ff';
-            }
-
-            const match = id.match(/node_modules[\\/]([^\\/]+)/);
-            return match ? `vendor-${match[1]}` : 'vendor';
+            return id.toString().split('node_modules/')[1].split('/')[0].toString();
           }
         },
       },

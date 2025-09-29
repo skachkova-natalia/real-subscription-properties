@@ -5,7 +5,7 @@ import {color} from '@src/theme';
 import * as S from './styled';
 import {useUnit} from 'effector-react';
 import {useNavigate} from 'react-router';
-import { useForm } from 'antd/lib/form/Form';
+import {useForm} from 'antd/es/form/Form';
 import {forgetPassword} from '@models/user';
 
 export function LoginPage() {

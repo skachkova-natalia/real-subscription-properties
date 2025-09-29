@@ -1,20 +1,31 @@
 import {useTranslation} from 'react-i18next';
 import {Alert, Button, Form, Input, Typography} from 'antd';
-import {$loginPage, $user, login} from '@models/auth';
+import {$loginPage, $user, login, sendResetPassword} from '@models/auth';
 import {color} from '@src/theme';
 import * as S from './styled';
 import {useUnit} from 'effector-react';
 import {useNavigate} from 'react-router';
+import { useForm } from 'antd/lib/form/Form';
 
 export function LoginPage() {
   const {t, i18n} = useTranslation();
-  const user = useUnit($user);
+  const [form] = useForm();
   const navigate = useNavigate();
+  const user = useUnit($user);
   const {isRegistered, error} = useUnit($loginPage);
 
   if (user) {
     navigate('/');
   }
+
+  const forgetPassword = () => {
+    const email = form.getFieldValue('email');
+    if (!email) {
+      form.validateFields(['email']);
+      return;
+    }
+    sendResetPassword(email);
+  };
 
   return (
     <S.Container>
@@ -26,6 +37,7 @@ export function LoginPage() {
         />
       )}
       <Form
+        form={form}
         autoComplete='off'
         validateTrigger='onBlur'
         onFinish={login}
@@ -50,6 +62,9 @@ export function LoginPage() {
           rules={[{required: true, message: 'Обязательное поле'}]}
         >
           <Input.Password />
+          <Button type='link' onClick={forgetPassword}>
+            {t('user.forget_password')}
+          </Button>
         </Form.Item>
         {error && <Typography.Text type='danger'>{error[`msg_user_${i18n.language}`]}</Typography.Text>}
         <S.ButtonContainer>

@@ -56,16 +56,16 @@ export function LoginPage() {
         >
           <Input />
         </Form.Item>
-        <Form.Item
+        <S.StyledFormItem
           label={t('password')}
           name='password'
           rules={[{required: true, message: 'Обязательное поле'}]}
         >
           <Input.Password />
-          <Button type='link' onClick={forgetPassword}>
-            {t('user.forget_password')}
-          </Button>
-        </Form.Item>
+        </S.StyledFormItem>
+        <S.StyledButton type='link' onClick={forgetPassword}>
+          {t('user.forget_password')}
+        </S.StyledButton>
         {error && <Typography.Text type='danger'>{error[`msg_user_${i18n.language}`]}</Typography.Text>}
         <S.ButtonContainer>
           <Button htmlType='submit' type='primary' style={{backgroundColor: color.primary.s700}}>

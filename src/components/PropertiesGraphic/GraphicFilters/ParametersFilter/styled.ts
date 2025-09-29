@@ -19,6 +19,10 @@ export const Filter = styled.div`
   gap: 4px;
   border: 1px solid ${color.base.s100};
   border-radius: 8px;
+
+  @media (max-width: ${breakpoint.mobile}) {
+    padding: 16px 4px;
+  }    
 `;
 
 export const PropertiesList = styled.div`

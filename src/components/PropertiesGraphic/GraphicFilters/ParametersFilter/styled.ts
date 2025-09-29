@@ -21,6 +21,20 @@ export const Filter = styled.div`
   border-radius: 8px;
 `;
 
+export const PropertiesList = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+`;
+
+export const PropertyItem = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+`;
+
 export const StyledSelect = styled(Select)`
   min-width: 210px;
   max-width: 210px;

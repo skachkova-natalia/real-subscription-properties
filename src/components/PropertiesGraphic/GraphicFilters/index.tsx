@@ -130,8 +130,10 @@ export default function GraphicFilters() {
     const filters = {
       mode_name: currentMode,
       substance_name: currentSubstance,
-      property_name: values['property_name'],
-      dimension_response: values['dimension_response'],
+      properties: values['properties'].map((prop)=> ({
+        name: prop['name'],
+        dimension: prop['dimension'],
+      })),
       count: values['count'] || 1000,
       fixed_parameter: {
         id: fixedParameter,

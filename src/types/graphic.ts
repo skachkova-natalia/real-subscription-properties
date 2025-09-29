@@ -1,8 +1,7 @@
 export interface GraphicFiltersParams {
   substance_name: string;
   mode_name: string;
-  property_name: string;
-  dimension_response: string;
+  properties: Property[];
   count: number;
   fixed_parameter: {
     id: string;
@@ -17,8 +16,17 @@ export interface GraphicFiltersParams {
   },
 }
 
+export interface Property {
+  name: string;
+  dimension: string;
+}
+
 export interface Points {
-  data: Point[];
+  data: PropertyPoint;
+}
+
+export interface PropertyPoint {
+  [key: string]: Point[];
 }
 
 export interface Point {

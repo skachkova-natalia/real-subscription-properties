@@ -44,18 +44,18 @@ sample({
   target: getPropertyPointsFx,
 });
 
-sample({
-  clock: getPropertyPointsFx.doneData,
-  source: {fixedParameters: $fixedParameterValues, points: $points},
-  fn: ({fixedParameters, points}, response) => {
-    const key = Object.keys(fixedParameters).pop();
-    let result: {[key: string]: number}[];
-    if (!points.length) {
-      result = response.data.map((point) => ({x: point.x, [`${key}`]: point.y}));
-    } else {
-      result = points.map((point, index) => ({...point, [`${key}`]: response.data[index].y}));
-    }
-    return result || [];
-  },
-  target: $points,
-});
+// sample({
+//   clock: getPropertyPointsFx.doneData,
+//   source: {fixedParameters: $fixedParameterValues, points: $points},
+//   fn: ({fixedParameters, points}, response) => {
+//     const key = Object.keys(fixedParameters).pop();
+//     let result: {[key: string]: number}[];
+//     if (!points.length) {
+//       result = response.data.map((point) => ({x: point.x, [`${key}`]: point.y}));
+//     } else {
+//       result = points.map((point, index) => ({...point, [`${key}`]: response.data[index].y}));
+//     }
+//     return result || [];
+//   },
+//   target: $points,
+// });

@@ -8,13 +8,11 @@ import {
   getUserInfoFx,
   login,
   loginFx,
-  sendResetPassword,
 } from '@models/auth/index';
 import {AppGate} from '@models/app';
 import {sample} from 'effector';
 import {registerFx} from '@models/registration';
 import {changeEmailFx} from '@models/changeEmail';
-import {sendResetPasswordFx} from '@models/user';
 
 resetDomainStoresByEvents(authDomain, AppGate.close);
 
@@ -47,8 +45,3 @@ sample({
   clock: login,
   target: loginFx,
 });
-
-sample({
-  clock: sendResetPassword,
-  target: sendResetPasswordFx,
-})

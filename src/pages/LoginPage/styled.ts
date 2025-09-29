@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import {NavLink} from 'react-router-dom';
 import {color} from '@src/theme';
-import {Button, Form} from 'antd';
 
 export const Container = styled.div`
   width: 100%;
@@ -10,11 +9,7 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 24px;
-`;
-
-export const StyledFormItem = styled(Form.Item)`
-  margin-bottom: 0;
+    gap: 24px;
 `;
 
 export const StyledNavLink = styled(NavLink)`
@@ -24,10 +19,6 @@ export const StyledNavLink = styled(NavLink)`
   &:hover {
     color: ${color.primary.s700};
   }
-`;
-
-export const StyledButton = styled(Button)`
-  margin: 0 0 16px 60px;
 `;
 
 export const ButtonContainer = styled.div`

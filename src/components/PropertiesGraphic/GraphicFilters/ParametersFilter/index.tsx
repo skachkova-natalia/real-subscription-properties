@@ -72,7 +72,7 @@ export default function ParametersFilter({paramOptions, onPropertyChange, onVari
         </MathJaxWrapper>
       </S.Filter>
       <S.Filter>
-        <GroupLabel>{t('substance')}</GroupLabel>
+        <GroupLabel>{t('parameter')}</GroupLabel>
         <Form.Item name={`variable_parameter.id`} className='form-item'>
           <S.StyledSelect
             options={paramOptions}

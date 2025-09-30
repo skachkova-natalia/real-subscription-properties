@@ -3,13 +3,13 @@ import {GroupLabel} from '@components/PropertiesGraphic/GraphicFilters/styled';
 import {Button, Form} from 'antd';
 import {MathJax} from 'better-react-mathjax';
 import {Option} from '@src/types/common';
-import {useEffect, useMemo, useState} from 'react';
+import {useMemo, useState} from 'react';
 import i18n from 'i18next';
 import {useTranslation} from 'react-i18next';
 import {useUnit} from 'effector-react';
 import {$filters} from '@models/filters';
 import {$latexUnitsCode} from '@models/dictionary';
-import {$graphic, resetPoints, setSelectedProperty} from '@models/propertiesGraphic';
+import {resetPoints} from '@models/propertiesGraphic';
 import MathJaxWrapper from '@components/MathJaxWrapper';
 import {DeleteOutlined, PlusOutlined} from '@ant-design/icons';
 
@@ -22,10 +22,9 @@ interface Props {
 export default function ParametersFilter({paramOptions, onPropertyChange, onVariableParameterChange}: Props) {
   const {t} = useTranslation();
   const {setFieldValue} = Form.useFormInstance();
-  const {selectedProperty} = useUnit($graphic);
   const {propertiesList} = useUnit($filters);
   const latexUnitsCode = useUnit($latexUnitsCode);
-  const [selectedProperties, setSelectedProperties] = useState<{[key: string]: string[]}>({});
+  const [selectedProperties, setSelectedProperties] = useState<Map<number, string[]>>(new Map());
 
   const propertyOptions: Option[] = useMemo(() => {
     return propertiesList.map((prop) => ({
@@ -34,25 +33,34 @@ export default function ParametersFilter({paramOptions, onPropertyChange, onVari
     })) || [];
   }, [propertiesList]);
 
-  const propertyDimensionOptions = useMemo(() => {
-    return propertiesList.find((prop) => prop.literal === selectedProperty)?.dimensions.map((dimension) => ({
+  const propertyDimensionOptions = (index: number) => {
+    return (selectedProperties?.get(index) || []).map((dimension) => ({
       value: dimension,
       label: <MathJax>{latexUnitsCode[dimension]}</MathJax>,
     })) || [];
-  }, [selectedProperty]);
+  };
 
-  useEffect(() => {
-    if (!propertyDimensionOptions.length) {
-      return;
+  const handlePropertyChange = (property: string, index: number, fieldName: number) => {
+    const dimensions = propertiesList.find((prop) => prop.literal === property)?.dimensions || [];
+    setSelectedProperties((prev) => {
+      const newMap = new Map(prev);
+      newMap.set(index, dimensions);
+      return newMap;
+    });
+    if (dimensions.length > 0) {
+      setFieldValue(
+        ['properties', fieldName, 'dimension'],
+        dimensions[0],
+      );
     }
-    setFieldValue('dimension_response', propertyDimensionOptions[0]?.value);
-  }, [selectedProperty]);
+    onPropertyChange();
+  };
 
   return (
     <S.FiltersGroup>
       <S.Filter>
         <GroupLabel>{t('property')}</GroupLabel>
-        <Form.List name='properties'>
+        <Form.List name='properties' initialValue={[{}]}>
           {(fields, {add, remove}) => (
             <S.PropertiesList>
               {fields.map((field, index) => (
@@ -65,27 +73,18 @@ export default function ParametersFilter({paramOptions, onPropertyChange, onVari
                     <S.StyledSelect
                       options={propertyOptions}
                       placeholder={t('property')}
-                      onChange={(e) => {
-                        setSelectedProperty(e as string);
-                        setSelectedProperties({
-                          ...selectedProperties,
-                          ...{
-                            [e as string]: propertiesList.find((prop) => prop.literal === selectedProperty)?.dimensions.map((dimension) => dimension) || [],
-                          },
-                        });
-                        onPropertyChange();
-                      }}
+                      onChange={(e) => handlePropertyChange(e as string, index, field.name)}
                       notFoundContent={t('no_data')}
                     />
                   </Form.Item>
-                  <MathJaxWrapper key={`${field.name}`}>
+                  <MathJaxWrapper key={`${field.key}`}>
                     <Form.Item
                       {...field}
                       name={[field.name, 'dimension']}
                       className='form-item'
                     >
                       <S.DimensionSelect
-                        options={[]}
+                        options={propertyDimensionOptions(index)}
                         placeholder={t('dimension')}
                         notFoundContent={t('no_data')}
                       />
@@ -95,7 +94,14 @@ export default function ParametersFilter({paramOptions, onPropertyChange, onVari
                     <Button
                       type='text'
                       size='small'
-                      onClick={() => remove(field.name)}
+                      onClick={() => {
+                        remove(field.name);
+                        setSelectedProperties((prev) => {
+                          const newMap = new Map(prev);
+                          newMap.delete(index);
+                          return newMap;
+                        });
+                      }}
                       icon={<DeleteOutlined />}
                     >
                     </Button>

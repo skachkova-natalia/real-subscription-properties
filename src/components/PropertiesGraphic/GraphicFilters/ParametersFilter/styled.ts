@@ -19,6 +19,24 @@ export const Filter = styled.div`
   gap: 4px;
   border: 1px solid ${color.base.s100};
   border-radius: 8px;
+
+  @media (max-width: ${breakpoint.mobile}) {
+    padding: 16px 4px;
+  }    
+`;
+
+export const PropertiesList = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+`;
+
+export const PropertyItem = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
 `;
 
 export const StyledSelect = styled(Select)`

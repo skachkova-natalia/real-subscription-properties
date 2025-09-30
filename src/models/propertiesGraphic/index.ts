@@ -1,6 +1,6 @@
 import {combine, createDomain} from 'effector';
 import {propertyGraphicService} from '@services/propertyGraphicService';
-import {GraphicFiltersParams} from '@src/types/graphic';
+import {GraphicFiltersParams,  PropertyPoint} from '@src/types/graphic';
 import {ApiResponseError} from '@core/api';
 import {ErrorDescription} from '@src/types/common';
 
@@ -15,7 +15,7 @@ export const setFixedParameter = graphicDomain.createEvent< string>();
 export const setFixedParameterValues = graphicDomain.createEvent<{[key: string]: string}>();
 export const resetPoints = graphicDomain.createEvent();
 
-export const $points = graphicDomain.createStore<{[key: string]: number}[]>([]);
+export const $points = graphicDomain.createStore<PropertyPoint>({});
 export const $selectedProperty = graphicDomain.createStore<string>('');
 export const $variableParameter = graphicDomain.createStore<string>('');
 export const $fixedParameter = graphicDomain.createStore<string>('');

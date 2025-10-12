@@ -13,8 +13,6 @@ import {
   $graphic,
   getPropertyPoints,
   setFixedParameter,
-  setFixedParameterValues,
-  setSelectedProperty,
   setVariableParameter,
 } from '@models/propertiesGraphic';
 import {updateQueryParams} from '@utils/queryParamsHelper';
@@ -26,7 +24,7 @@ export default function GraphicFilters() {
   const navigate = useNavigate();
   const [form] = Form.useForm();
   const {modesParams, currentSubstance, currentMode} = useUnit($filters);
-  const {variableParameter, fixedParameterValues} = useUnit($graphic);
+  const {variableParameter} = useUnit($graphic);
 
   useEffect(() => {
     if (variableParameter) {
@@ -37,16 +35,17 @@ export default function GraphicFilters() {
     if (!graphicParams) {
       return;
     }
-    const [prop, fixedParam, varParam] = graphicParams.split(';') || [];
-    const [property_name, dimension_response, count] = prop.split(':');
-    const [fixed_id, value, fixed_param_dimension] = fixedParam.split(':');
-    const [variable_id, min, max, variable_param_dimension] = varParam.split(':');
-    setSelectedProperty(property_name);
+    const [props, count, fixedParam, varParam] = graphicParams.split(';') || [];
+    const properties = props.split(',').map((prop) => {
+      const [name, dimension] = prop.split(':');
+      return ({name, dimension});
+    })
+    const [fixed_id, value, fixed_param_dimension] = fixedParam?.split(':') || [];
+    const [variable_id, min, max, variable_param_dimension] = varParam?.split(':') || [];
     setFixedParameter(fixed_id);
     setVariableParameter(variable_id);
     form.setFieldsValue({
-      'property_name': property_name,
-      'dimension_response': dimension_response,
+      'properties': properties,
       'count': count,
       'fixed_parameter.id': fixed_id,
       'fixed_parameter.value': value,
@@ -71,8 +70,7 @@ export default function GraphicFilters() {
     }
     setVariableParameter('');
     form.setFieldsValue({
-      'property_name': undefined,
-      'dimension_response': undefined,
+      'properties': [],
       'variable_parameter.id': undefined,
       'variable_parameter.min': undefined,
       'variable_parameter.max': undefined,
@@ -95,10 +93,6 @@ export default function GraphicFilters() {
     })
   }, [variableParameter]);
 
-  const onPropertyChange = () => {
-    form.setFieldsValue({'dimension_response': undefined});
-  };
-
   const onVariableParameterChange = (e: string) => {
     setVariableParameter(e);
     form.setFieldsValue({
@@ -116,15 +110,9 @@ export default function GraphicFilters() {
     }
 
     const fixedParameter = paramOptions.find((param) => param.value !== variableParameter)?.value;
-    if (Object.values(fixedParameterValues).some((param) => param === values['fixed_parameter.value'])) {
-      return;
-    }
-    if (fixedParameter) {
-      setFixedParameter(fixedParameter);
-    }
-    setFixedParameterValues({[`${fixedParameter}`]: values['fixed_parameter.value']});
 
-    const params = `${values['property_name']}:${values['dimension_response']}:${values['count']};${fixedParameter}:${values['fixed_parameter.value']}:${values['fixed_parameter.param_dimension']};${values['variable_parameter.id']}:${values['variable_parameter.min']}:${values['variable_parameter.max']}:${values['variable_parameter.param_dimension']}`;
+    const props = values['properties'].map((prop)=> `${prop['name']}:${prop['dimension']}`);
+    const params = `${props.join(',')};${values['count']};${fixedParameter}:${values['fixed_parameter.value']}:${values['fixed_parameter.param_dimension']};${values['variable_parameter.id']}:${values['variable_parameter.min']}:${values['variable_parameter.max']}:${values['variable_parameter.param_dimension']}`;
     updateQueryParams(navigate, 'graphicParams', params.toString());
 
     const filters = {
@@ -160,7 +148,6 @@ export default function GraphicFilters() {
       <S.FiltersContainer>
         <ParametersFilter
           paramOptions={paramOptions}
-          onPropertyChange={onPropertyChange}
           onVariableParameterChange={onVariableParameterChange}
         />
         <S.ParametersContainer>

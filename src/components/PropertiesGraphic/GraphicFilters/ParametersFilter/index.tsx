@@ -15,11 +15,10 @@ import {DeleteOutlined, PlusOutlined} from '@ant-design/icons';
 
 interface Props {
   paramOptions: Option[];
-  onPropertyChange: () => void;
   onVariableParameterChange: (e: string) => void;
 }
 
-export default function ParametersFilter({paramOptions, onPropertyChange, onVariableParameterChange}: Props) {
+export default function ParametersFilter({paramOptions, onVariableParameterChange}: Props) {
   const {t} = useTranslation();
   const {setFieldValue} = Form.useFormInstance();
   const {propertiesList} = useUnit($filters);
@@ -53,7 +52,6 @@ export default function ParametersFilter({paramOptions, onPropertyChange, onVari
         dimensions[0],
       );
     }
-    onPropertyChange();
   };
 
   return (

@@ -40,7 +40,7 @@ export default function Graphic({property, points}: Props) {
           {`${variableParameter}: ${label}`}<br />
           {payload.map((entry, index) => (
             <div key={index} style={{color: entry.color}}>
-              {`${property} (при ${fixedParameter}=${fixedParameterValues[entry.dataKey]}): ${Number(entry.value).toFixed(5)}`}
+              {`${property} (при ${fixedParameter}=${fixedParameterValues[property]}): ${Number(entry.value).toFixed(5)}`}
             </div>
           ))}
         </S.CustomTooltip>
@@ -59,8 +59,9 @@ export default function Graphic({property, points}: Props) {
         <Legend
           verticalAlign='top'
           height={36}
-          formatter={(value) => <span
-            style={{color: '#333'}}>{fixedParameter} = {fixedParameterValues[value]}</span>}
+          formatter={() => (
+            <span style={{color: '#333'}}>{fixedParameter} = {fixedParameterValues[property]}</span>
+          )}
         />
         <XAxis
           dataKey='x'

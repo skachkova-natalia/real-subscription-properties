@@ -13,6 +13,7 @@ import {
   $graphic,
   getPropertyPoints,
   setFixedParameter,
+  setFixedParameterValues,
   setVariableParameter,
 } from '@models/propertiesGraphic';
 import {updateQueryParams} from '@utils/queryParamsHelper';
@@ -111,8 +112,15 @@ export default function GraphicFilters() {
 
     const fixedParameter = paramOptions.find((param) => param.value !== variableParameter)?.value;
 
-    const props = values['properties'].map((prop)=> `${prop['name']}:${prop['dimension']}`);
-    const params = `${props.join(',')};${values['count']};${fixedParameter}:${values['fixed_parameter.value']}:${values['fixed_parameter.param_dimension']};${values['variable_parameter.id']}:${values['variable_parameter.min']}:${values['variable_parameter.max']}:${values['variable_parameter.param_dimension']}`;
+    const properties: string[] = [];
+    const fixedParameterValues = {};
+    values['properties'].forEach((prop)=> {
+      properties.push(`${prop['name']}:${prop['dimension']}`);
+      fixedParameterValues[`${prop['name']}`] = values['fixed_parameter.value'];
+    });
+    setFixedParameterValues(fixedParameterValues);
+
+    const params = `${properties.join(',')};${values['count']};${fixedParameter}:${values['fixed_parameter.value']}:${values['fixed_parameter.param_dimension']};${values['variable_parameter.id']}:${values['variable_parameter.min']}:${values['variable_parameter.max']}:${values['variable_parameter.param_dimension']}`;
     updateQueryParams(navigate, 'graphicParams', params.toString());
 
     const filters = {

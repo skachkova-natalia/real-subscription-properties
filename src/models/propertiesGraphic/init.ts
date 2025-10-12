@@ -27,11 +27,7 @@ $points
 $selectedProperty.on(setSelectedProperty, forwardPayload());
 $variableParameter.on(setVariableParameter, forwardPayload());
 $fixedParameter.on(setFixedParameter, forwardPayload());
-$fixedParameterValues.on(setFixedParameterValues, (state, payload) => {
-  const index = Object.keys(state).length + 1;
-  const key = Object.keys(payload)?.[0];
-  return ({...state, ...({[`${key}${index}`]: payload[key]})});
-}).reset(resetPoints, setSelectedProperty, setVariableParameter);
+$fixedParameterValues.on(setFixedParameterValues, forwardPayload()).reset(resetPoints, setSelectedProperty, setVariableParameter);
 $error
   .on(getPropertyPointsFx.failData, (_, payload) => ({
     msg: {

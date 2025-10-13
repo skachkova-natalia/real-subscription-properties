@@ -86,6 +86,29 @@ export default function Graphic({property, points}: Props) {
         display: true,
         position: 'top',
       },
+      tooltip: {
+        mode: 'index' as const,
+        intersect: false,
+        backgroundColor: 'rgba(30, 41, 59, 0.95)',
+        titleColor: 'rgb(203, 213, 225)',
+        bodyColor: 'rgb(203, 213, 225)',
+        borderColor: 'rgb(59, 130, 246)',
+        borderWidth: 1,
+        cornerRadius: 8,
+        padding: 12,
+        displayColors: true,
+        usePointStyle: true,
+        callbacks: {
+          title: function(tooltipItems) {
+            const item = tooltipItems[0];
+            return `${variableParameterName}: ${Number(item.parsed.x).toFixed(5)}`;
+          },
+          label: function(context) {
+            const label = `${propertyName} (при ${fixedParameter} = ${fixedParameterValues[property]})`;
+            return `${label}: ${Number(context.parsed.y).toFixed(5)}`;
+          },
+        }
+      },
       zoom: {
         pan: {
           enabled: true,

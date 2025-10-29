@@ -1,6 +1,6 @@
 import {defineConfig} from 'vite';
 import react from '@vitejs/plugin-react';
-// import {VitePWA} from 'vite-plugin-pwa';
+import {VitePWA} from 'vite-plugin-pwa';
 import svgr from "vite-plugin-svgr";
 import path from 'path';
 
@@ -23,37 +23,37 @@ export default defineConfig({
   plugins: [
     react(),
     svgr(),
-    // VitePWA({
-    //   base: './',
-    //   registerType: 'autoUpdate',
-    //   includeAssets: ['favicon.ico', 'pwa-180x180.png'],
-    //   workbox: {
-    //     cleanupOutdatedCaches: true,
-    //   },
-    //   manifest: {
-    //     name: 'Real Substance Properties',
-    //     short_name: 'RSP',
-    //     description: 'Real substance properties',
-    //     theme_color: '#ffffff',
-    //     icons: [
-    //       {
-    //         src: 'pwa-64x64.png',
-    //         sizes: '64x64',
-    //         type: 'image/png',
-    //       },
-    //       {
-    //         src: 'pwa-192x192.png',
-    //         sizes: '192x192',
-    //         type: 'image/png',
-    //       },
-    //       {
-    //         src: 'pwa-512x512.png',
-    //         sizes: '512x512',
-    //         type: 'image/png',
-    //       },
-    //     ],
-    //   },
-    // }),
+    VitePWA({
+      base: './',
+      registerType: 'autoUpdate',
+      includeAssets: ['favicon.ico', 'pwa-180x180.png'],
+      workbox: {
+        cleanupOutdatedCaches: true,
+      },
+      manifest: {
+        name: 'Real Substance Properties',
+        short_name: 'RSP',
+        description: 'Real substance properties',
+        theme_color: '#ffffff',
+        icons: [
+          {
+            src: 'pwa-64x64.png',
+            sizes: '64x64',
+            type: 'image/png',
+          },
+          {
+            src: 'pwa-192x192.png',
+            sizes: '192x192',
+            type: 'image/png',
+          },
+          {
+            src: 'pwa-512x512.png',
+            sizes: '512x512',
+            type: 'image/png',
+          },
+        ],
+      },
+    }),
   ],
   build: {
     outDir: 'build',

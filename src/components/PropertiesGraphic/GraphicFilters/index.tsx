@@ -3,7 +3,7 @@ import {useTranslation} from 'react-i18next';
 import {useUnit} from 'effector-react';
 import {$filters} from '@models/filters';
 import {Option} from '@src/types/common';
-import {useEffect, useLayoutEffect, useMemo, useRef} from 'react';
+import {useEffect, useMemo, useRef} from 'react';
 import i18n from 'i18next';
 import {ArrowRightOutlined, ShareAltOutlined} from '@ant-design/icons';
 import ParameterValuesFilter from '@components/PropertiesGraphic/GraphicFilters/ParameterValuesFilter';
@@ -36,7 +36,7 @@ export default function GraphicFilters() {
     })) || [];
   }, [modesParams]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (variableParameter || !formRef.current) {
       return;
     }
@@ -45,7 +45,6 @@ export default function GraphicFilters() {
     if (!graphicParams) {
       return;
     }
-    console.log(graphicParams);
     const [props, count, fixedParam, varParam] = graphicParams.split(';') || [];
     const properties = props.split(',').map((prop) => {
       const [name, dimension] = prop.split(':');

@@ -35,7 +35,7 @@ export default function ParametersFilter({paramOptions, onVariableParameterChang
   const propertyDimensionOptions = (index: number) => {
     let props = selectedProperties?.get(index) || [];
     if (!props.length) {
-      const property = String(getFieldValue(['properties', index, 'name'])) || '';
+      const property = getFieldValue(['properties', index, 'name']);
       props = propertiesList.find((prop) => prop.literal === property)?.dimensions || [];
     }
     return (props).map((dimension) => ({

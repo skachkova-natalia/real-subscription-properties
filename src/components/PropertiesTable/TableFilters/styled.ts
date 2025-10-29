@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import {Button, Form} from 'antd';
-import {color} from '@src/theme';
+import {breakpoint, color} from '@src/theme';
 
 export const StyledForm = styled(Form)`
   min-height: 32px;
@@ -22,6 +22,21 @@ export const Parameter = styled.div`
   gap: 4px;
 `;
 
-export const StyledButton = styled(Button)`
+export const ButtonsContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+`;
+
+export const SubmitButton = styled(Button)`
   background-color: ${color.primary.s700};
 `
+
+export const ShareButton = styled(Button)`
+  display: none;
+  
+  @media (max-width: ${breakpoint.mobile}) {
+    display: block;
+  }
+`;

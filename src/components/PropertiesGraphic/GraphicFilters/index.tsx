@@ -3,7 +3,7 @@ import {useTranslation} from 'react-i18next';
 import {useUnit} from 'effector-react';
 import {$filters} from '@models/filters';
 import {Option} from '@src/types/common';
-import {useEffect, useMemo} from 'react';
+import {useEffect, useMemo, useRef} from 'react';
 import i18n from 'i18next';
 import {ArrowRightOutlined} from '@ant-design/icons';
 import ParameterValuesFilter from '@components/PropertiesGraphic/GraphicFilters/ParameterValuesFilter';
@@ -17,18 +17,27 @@ import {
   setVariableParameter,
 } from '@models/propertiesGraphic';
 import {updateQueryParams} from '@utils/queryParamsHelper';
-import {useNavigate} from 'react-router';
+import {useLocation, useNavigate} from 'react-router';
 import {Form} from 'antd';
 
 export default function GraphicFilters() {
   const {t} = useTranslation();
   const navigate = useNavigate();
+  const location = useLocation();
   const [form] = Form.useForm();
+  const formRef = useRef(null);
   const {modesParams, currentSubstance, currentMode} = useUnit($filters);
   const {variableParameter} = useUnit($graphic);
 
+  const paramOptions: Option[] = useMemo(() => {
+    return modesParams.map((param) => ({
+      label: `${param.name[`${i18n.language}`]} (${param.id})`,
+      value: param.id,
+    })) || [];
+  }, [modesParams]);
+
   useEffect(() => {
-    if (variableParameter) {
+    if (variableParameter || !formRef.current) {
       return;
     }
     const searchParams = new URLSearchParams(location.search);
@@ -47,7 +56,7 @@ export default function GraphicFilters() {
     setVariableParameter(variable_id);
     form.setFieldsValue({
       'properties': properties,
-      'count': count,
+      'count': count || 1000,
       'fixed_parameter.id': fixed_id,
       'fixed_parameter.value': value,
       'fixed_parameter.param_dimension': fixed_param_dimension,
@@ -56,14 +65,7 @@ export default function GraphicFilters() {
       'variable_parameter.max': max,
       'variable_parameter.param_dimension': variable_param_dimension,
     });
-  }, [location.search]);
-
-  const paramOptions: Option[] = useMemo(() => {
-    return modesParams.map((param) => ({
-      label: `${param.name[`${i18n.language}`]} (${param.id})`,
-      value: param.id,
-    })) || [];
-  }, [modesParams]);
+  }, [location.search, formRef.current]);
 
   useEffect(() => {
     if (!variableParameter) {
@@ -148,8 +150,8 @@ export default function GraphicFilters() {
 
   return (
     <S.StyledForm
+      ref={formRef}
       form={form}
-      initialValues={{count: 1000}}
       layout='inline'
       onFinish={onSubmit}
     >

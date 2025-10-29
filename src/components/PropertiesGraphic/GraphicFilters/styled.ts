@@ -32,11 +32,11 @@ export const FiltersContainer = styled.div`
     gap: 8px;
   }
 
-  // @media (max-width: ${breakpoint.tablet}) {
+    // @media (max-width: ${breakpoint.tablet}) {
   //   .form-item {
   //     max-width: 85px;
   //   }
-  }
+}
 `;
 
 export const GroupLabel = styled(Typography)`
@@ -65,7 +65,22 @@ export const ParametersContainer = styled.div`
   }
 `;
 
-export const StyledButton = styled(Button)`
+export const ButtonsContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+`;
+
+export const SubmitButton = styled(Button)`
   margin: 8px;
   background-color: ${color.primary.s700};
+`;
+
+export const ShareButton = styled(Button)`
+  display: none;
+  
+  @media (max-width: ${breakpoint.mobile}) {
+    display: block;
+  }
 `;

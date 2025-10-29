@@ -3,9 +3,9 @@ import {useTranslation} from 'react-i18next';
 import {useUnit} from 'effector-react';
 import {$filters} from '@models/filters';
 import {Option} from '@src/types/common';
-import {useEffect, useMemo} from 'react';
+import {useEffect, useMemo, useRef} from 'react';
 import i18n from 'i18next';
-import {ArrowRightOutlined} from '@ant-design/icons';
+import {ArrowRightOutlined, ShareAltOutlined} from '@ant-design/icons';
 import ParameterValuesFilter from '@components/PropertiesGraphic/GraphicFilters/ParameterValuesFilter';
 import ParametersFilter from '@components/PropertiesGraphic/GraphicFilters/ParametersFilter';
 import {GraphicFiltersParams} from '@src/types/graphic';
@@ -17,22 +17,31 @@ import {
   setVariableParameter,
 } from '@models/propertiesGraphic';
 import {updateQueryParams} from '@utils/queryParamsHelper';
-import {useNavigate} from 'react-router';
-import {Form} from 'antd';
+import {useLocation, useNavigate} from 'react-router';
+import {Form, Tooltip} from 'antd';
 
 export default function GraphicFilters() {
   const {t} = useTranslation();
   const navigate = useNavigate();
+  const location = useLocation();
   const [form] = Form.useForm();
+  const formRef = useRef(null);
   const {modesParams, currentSubstance, currentMode} = useUnit($filters);
   const {variableParameter} = useUnit($graphic);
 
+  const paramOptions: Option[] = useMemo(() => {
+    return modesParams.map((param) => ({
+      label: `${param.name[`${i18n.language}`]} (${param.id})`,
+      value: param.id,
+    })) || [];
+  }, [modesParams]);
+
   useEffect(() => {
-    if (variableParameter) {
+    if (variableParameter || !formRef.current) {
       return;
     }
     const searchParams = new URLSearchParams(location.search);
-    const graphicParams =  searchParams.get('graphicParams');
+    const graphicParams = searchParams.get('graphicParams');
     if (!graphicParams) {
       return;
     }
@@ -40,14 +49,14 @@ export default function GraphicFilters() {
     const properties = props.split(',').map((prop) => {
       const [name, dimension] = prop.split(':');
       return ({name, dimension});
-    })
+    });
     const [fixed_id, value, fixed_param_dimension] = fixedParam?.split(':') || [];
     const [variable_id, min, max, variable_param_dimension] = varParam?.split(':') || [];
     setFixedParameter(fixed_id);
     setVariableParameter(variable_id);
     form.setFieldsValue({
       'properties': properties,
-      'count': count,
+      'count': count || 1000,
       'fixed_parameter.id': fixed_id,
       'fixed_parameter.value': value,
       'fixed_parameter.param_dimension': fixed_param_dimension,
@@ -56,14 +65,7 @@ export default function GraphicFilters() {
       'variable_parameter.max': max,
       'variable_parameter.param_dimension': variable_param_dimension,
     });
-  }, [location.search]);
-
-  const paramOptions: Option[] = useMemo(() => {
-    return modesParams.map((param) => ({
-      label: `${param.name[`${i18n.language}`]} (${param.id})`,
-      value: param.id,
-    })) || [];
-  }, [modesParams]);
+  }, [location.search, formRef.current]);
 
   useEffect(() => {
     if (!variableParameter) {
@@ -91,7 +93,7 @@ export default function GraphicFilters() {
       } else {
         form.setFieldValue('fixed_parameter.param_dimension', param.units[0]);
       }
-    })
+    });
   }, [variableParameter]);
 
   const onVariableParameterChange = (e: string) => {
@@ -114,7 +116,7 @@ export default function GraphicFilters() {
 
     const properties: string[] = [];
     const fixedParameterValues = {};
-    values['properties'].forEach((prop)=> {
+    values['properties'].forEach((prop) => {
       properties.push(`${prop['name']}:${prop['dimension']}`);
       fixedParameterValues[`${prop['name']}`] = values['fixed_parameter.value'];
     });
@@ -126,7 +128,7 @@ export default function GraphicFilters() {
     const filters = {
       mode_name: currentMode,
       substance_name: currentSubstance,
-      properties: values['properties'].map((prop)=> ({
+      properties: values['properties'].map((prop) => ({
         name: prop['name'],
         dimension: prop['dimension'],
       })),
@@ -148,8 +150,8 @@ export default function GraphicFilters() {
 
   return (
     <S.StyledForm
+      ref={formRef}
       form={form}
-      initialValues={{count: 1000}}
       layout='inline'
       onFinish={onSubmit}
     >
@@ -168,14 +170,25 @@ export default function GraphicFilters() {
           )}
         </S.ParametersContainer>
       </S.FiltersContainer>
-      <S.StyledButton
-        type='primary'
-        htmlType='submit'
-        icon={<ArrowRightOutlined />}
-        iconPosition='end'
-      >
-        {t('common.calculate')}
-      </S.StyledButton>
+      <S.ButtonsContainer>
+        <S.SubmitButton
+          type='primary'
+          htmlType='submit'
+          icon={<ArrowRightOutlined />}
+          iconPosition='end'
+        >
+          {t('common.calculate')}
+        </S.SubmitButton>
+        <Tooltip
+          title={t('common.share')}
+          placement='top'
+        >
+          <S.ShareButton
+            icon={<ShareAltOutlined />}
+            onClick={() => navigator.clipboard.writeText(window.location.href)}
+          />
+        </Tooltip>
+      </S.ButtonsContainer>
     </S.StyledForm>
   );
 }

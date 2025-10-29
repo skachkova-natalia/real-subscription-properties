@@ -20,7 +20,7 @@ interface Props {
 
 export default function ParametersFilter({paramOptions, onVariableParameterChange}: Props) {
   const {t} = useTranslation();
-  const {setFieldValue} = Form.useFormInstance();
+  const {setFieldValue, getFieldValue} = Form.useFormInstance();
   const {propertiesList} = useUnit($filters);
   const latexUnitsCode = useUnit($latexUnitsCode);
   const [selectedProperties, setSelectedProperties] = useState<Map<number, string[]>>(new Map());
@@ -33,7 +33,12 @@ export default function ParametersFilter({paramOptions, onVariableParameterChang
   }, [propertiesList]);
 
   const propertyDimensionOptions = (index: number) => {
-    return (selectedProperties?.get(index) || []).map((dimension) => ({
+    let props = selectedProperties?.get(index) || [];
+    if (!props.length) {
+      const property = getFieldValue(['properties', index, 'name']);
+      props = propertiesList.find((prop) => prop.literal === property)?.dimensions || [];
+    }
+    return (props).map((dimension) => ({
       value: dimension,
       label: <MathJax>{latexUnitsCode[dimension]}</MathJax>,
     })) || [];

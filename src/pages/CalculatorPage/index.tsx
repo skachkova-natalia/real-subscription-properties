@@ -13,7 +13,7 @@ export default function CalculatorPage() {
   const location = useLocation();
 
   const activeKey = useMemo(() => {
-    return location.pathname.replaceAll('/', '');
+    return location.pathname.replaceAll('/', '') || 'calculation';
   }, [location]);
 
   const items: TabsProps['items'] = [

@@ -181,7 +181,7 @@ export default function GraphicFilters() {
           {t('common.calculate')}
         </S.SubmitButton>
         <Tooltip
-          title={t('common.share')}
+          title={t('common.copied')}
           placement='top'
         >
           <S.ShareButton

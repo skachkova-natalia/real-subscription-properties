@@ -13,7 +13,6 @@ const resources = {
         cancel: 'Отмена',
         no_data: 'Нет данных',
         copied: 'Скопировано',
-        share: 'Поделиться расчетами',
         main_page: 'На главную',
         need: 'Необходимо',
         from: 'от',
@@ -61,6 +60,12 @@ const resources = {
       no_data: 'Нет данных',
       table: 'Таблица',
       table_settings: 'Настройка таблицы',
+      mixture: {
+        title: 'Добавление новой смеси',
+        name: 'Наименование',
+        description: 'Описание',
+        concentration: 'Концентрация',
+      },
       messages: {
         need_to_select_parameter: 'Для отображения свойств необходимо выбрать параметр',
       },
@@ -78,7 +83,6 @@ const resources = {
         add: 'Add',
         no_data: 'No data',
         copied: 'Copied',
-        share: 'Share calculations',
         main_page: 'Main page',
         need: 'Need to',
         from: 'from',
@@ -126,6 +130,12 @@ const resources = {
       no_data: 'No data',
       table: 'Table',
       table_settings: 'Table settings',
+      mixture: {
+        title: 'Add new mixture',
+        name: 'Name',
+        description: 'Description',
+        concentration: 'Сoncentration',
+      },
       messages: {
         need_to_select_parameter: 'Select parameter to show substances, please',
       },

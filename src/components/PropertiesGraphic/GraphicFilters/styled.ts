@@ -31,11 +31,6 @@ export const FiltersContainer = styled.div`
   @media (max-width: ${breakpoint.laptop}) {
     gap: 8px;
   }
-
-    // @media (max-width: ${breakpoint.tablet}) {
-  //   .form-item {
-  //     max-width: 85px;
-  //   }
 }
 `;
 

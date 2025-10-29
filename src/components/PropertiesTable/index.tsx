@@ -16,6 +16,7 @@ import {$propertiesTable} from '@models/propertiesTable';
 import {openTableSettingsModal} from '@models/modals/tableSettingsModal';
 import {TableSettingsModal} from '@components/Modals/TableSettingsModal';
 import TableFilters from '@components/PropertiesTable/TableFilters';
+import {AddMixModal} from '@components/Filters/AddMixModal';
 
 export default function PropertiesTable() {
   const {i18n, t} = useTranslation();
@@ -74,6 +75,7 @@ export default function PropertiesTable() {
   return (
     <>
       <TableSettingsModal />
+      <AddMixModal />
       <S.TableContainer ref={tableRef}>
         <TableFilters />
         {error && <S.Error>{error.msg[`${i18n.language}`]}</S.Error>}

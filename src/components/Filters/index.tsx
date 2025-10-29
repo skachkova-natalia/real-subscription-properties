@@ -1,10 +1,12 @@
 import {useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {useUnit} from 'effector-react';
-import {Select} from 'antd';
+import {Button, Select} from 'antd';
 import * as S from './styled';
 import {$filters, setCurrentMode, setCurrentSubstance} from '@models/filters';
 import {useLocation, useNavigate} from 'react-router';
+import {PlusOutlined} from '@ant-design/icons';
+import {openAddMixModal} from '@models/modals/addMixModal';
 
 export function Filters() {
   const {t} = useTranslation();
@@ -21,6 +23,7 @@ export function Filters() {
   } = useUnit($filters);
 
   const [selectedDimensions, setSelectedDimensions] = useState<{[key: string]: string}>({});
+  const [isSubstancesSelectOpen, setIsSubstancesSelectOpen] = useState<boolean>(false);
 
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
@@ -55,18 +58,43 @@ export function Filters() {
     navigate({search: queryString}, {replace: true});
   };
 
+  const AddSubstanceButton = (
+    <Button
+      type='link'
+      icon={<PlusOutlined />}
+      onClick={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        openAddMixModal();
+        setIsSubstancesSelectOpen(false);
+      }}
+    >
+      {t('common.add')}
+    </Button>
+  );
+
   return (
     <S.FiltersContainer>
       <S.Filters>
         <Select
-          options={substancesOptions}
+          options={[
+            ...substancesOptions,
+            {
+              label: AddSubstanceButton,
+              value: 'add',
+              disabled: true,
+            },
+          ]}
           value={currentSubstance}
-          onChange={currentSubstanceOnChange}
           placeholder={t('substance')}
-          loading={loadingSubstances}
           notFoundContent={t('no_data')}
+          loading={loadingSubstances}
+          open={isSubstancesSelectOpen}
+          onOpenChange={setIsSubstancesSelectOpen}
+          onChange={currentSubstanceOnChange}
         />
         <Select
+          options={modesOptions}
           value={currentMode}
           onChange={currentModeOnChange}
           placeholder={t('parameter_mode')}
@@ -74,11 +102,7 @@ export function Filters() {
           listHeight={250}
           loading={loadingModesParams}
           notFoundContent={t('no_data')}
-        >
-          {modesOptions.map((option) => (
-            <Select.Option key={option.value} value={option.value}>{option.label}</Select.Option>
-          ))}
-        </Select>
+        />
       </S.Filters>
     </S.FiltersContainer>
   );

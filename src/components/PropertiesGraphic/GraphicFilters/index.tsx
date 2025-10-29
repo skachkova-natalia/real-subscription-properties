@@ -3,7 +3,7 @@ import {useTranslation} from 'react-i18next';
 import {useUnit} from 'effector-react';
 import {$filters} from '@models/filters';
 import {Option} from '@src/types/common';
-import {useEffect, useLayoutEffect, useMemo, useRef} from 'react';
+import {useEffect, useMemo} from 'react';
 import i18n from 'i18next';
 import {ArrowRightOutlined} from '@ant-design/icons';
 import ParameterValuesFilter from '@components/PropertiesGraphic/GraphicFilters/ParameterValuesFilter';
@@ -17,27 +17,18 @@ import {
   setVariableParameter,
 } from '@models/propertiesGraphic';
 import {updateQueryParams} from '@utils/queryParamsHelper';
-import {useLocation, useNavigate} from 'react-router';
+import {useNavigate} from 'react-router';
 import {Form} from 'antd';
 
 export default function GraphicFilters() {
   const {t} = useTranslation();
   const navigate = useNavigate();
-  const location = useLocation();
   const [form] = Form.useForm();
-  const formRef = useRef(null);
   const {modesParams, currentSubstance, currentMode} = useUnit($filters);
   const {variableParameter} = useUnit($graphic);
 
-  const paramOptions: Option[] = useMemo(() => {
-    return modesParams.map((param) => ({
-      label: `${param.name[`${i18n.language}`]} (${param.id})`,
-      value: param.id,
-    })) || [];
-  }, [modesParams]);
-
-  useLayoutEffect(() => {
-    if (variableParameter || !formRef.current) {
+  useEffect(() => {
+    if (variableParameter) {
       return;
     }
     const searchParams = new URLSearchParams(location.search);
@@ -45,7 +36,6 @@ export default function GraphicFilters() {
     if (!graphicParams) {
       return;
     }
-    console.log(graphicParams);
     const [props, count, fixedParam, varParam] = graphicParams.split(';') || [];
     const properties = props.split(',').map((prop) => {
       const [name, dimension] = prop.split(':');
@@ -57,7 +47,7 @@ export default function GraphicFilters() {
     setVariableParameter(variable_id);
     form.setFieldsValue({
       'properties': properties,
-      'count': count || 1000,
+      'count': count,
       'fixed_parameter.id': fixed_id,
       'fixed_parameter.value': value,
       'fixed_parameter.param_dimension': fixed_param_dimension,
@@ -66,7 +56,14 @@ export default function GraphicFilters() {
       'variable_parameter.max': max,
       'variable_parameter.param_dimension': variable_param_dimension,
     });
-  }, [location.search, formRef.current]);
+  }, [location.search]);
+
+  const paramOptions: Option[] = useMemo(() => {
+    return modesParams.map((param) => ({
+      label: `${param.name[`${i18n.language}`]} (${param.id})`,
+      value: param.id,
+    })) || [];
+  }, [modesParams]);
 
   useEffect(() => {
     if (!variableParameter) {
@@ -151,8 +148,8 @@ export default function GraphicFilters() {
 
   return (
     <S.StyledForm
-      ref={formRef}
       form={form}
+      initialValues={{count: 1000}}
       layout='inline'
       onFinish={onSubmit}
     >

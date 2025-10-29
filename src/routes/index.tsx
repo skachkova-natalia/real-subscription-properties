@@ -6,8 +6,6 @@ import {ProfilePage} from '@pages/ProfilePage';
 import VerificationPage from '@pages/VerificationPage';
 import ChangeEmailPage from '@pages/ChangeEmailPage';
 import CalculatorPage from '@pages/CalculatorPage';
-import PropertiesTable from '@components/PropertiesTable';
-import PropertiesGraphic from '@components/PropertiesGraphic';
 
 export const router = createBrowserRouter([{
   element: <App />,
@@ -16,20 +14,6 @@ export const router = createBrowserRouter([{
     {
       path: '/',
       element: <CalculatorPage />,
-      children: [
-        {
-          path: '*',
-          element: <PropertiesTable />,
-        },
-        {
-          path: '/calculation',
-          element: <PropertiesTable />,
-        },
-        {
-          path: '/graphic',
-          element: <PropertiesGraphic />,
-        }
-      ],
     },
     {
       path: '/login',

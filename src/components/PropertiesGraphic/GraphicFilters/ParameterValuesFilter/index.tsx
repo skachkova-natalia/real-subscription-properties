@@ -35,7 +35,7 @@ export default function ParameterValuesFilter({param, isVariable}: Props) {
             <S.StyledInput
               inputMode='decimal'
               required
-              onChange={()=>resetPoints()}
+              onChange={() => resetPoints()}
             />
           </Form.Item>
           —
@@ -43,7 +43,7 @@ export default function ParameterValuesFilter({param, isVariable}: Props) {
             <S.StyledInput
               inputMode='decimal'
               required
-              onChange={()=>resetPoints()}
+              onChange={() => resetPoints()}
             />
           </Form.Item>
           <MathJaxWrapper key={param.id}>

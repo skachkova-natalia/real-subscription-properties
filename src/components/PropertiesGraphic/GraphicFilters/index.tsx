@@ -152,6 +152,7 @@ export default function GraphicFilters() {
     <S.StyledForm
       ref={formRef}
       form={form}
+      initialValues={{count: 1000}}
       layout='inline'
       onFinish={onSubmit}
     >

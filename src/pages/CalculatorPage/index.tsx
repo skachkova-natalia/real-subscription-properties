@@ -27,7 +27,7 @@ export default function CalculatorPage() {
   ];
 
   const handleOnChange = (path: string) => {
-    navigate(`${path}/${location.search}`);
+    navigate(`${path}${location.search}`);
   };
 
   return (

@@ -80,7 +80,7 @@ export default function ParametersFilter({paramOptions, onVariableParameterChang
                       notFoundContent={t('no_data')}
                     />
                   </Form.Item>
-                  <MathJaxWrapper key={`${field.key}`}>
+                  <MathJaxWrapper key={`dimension_${field.key}`}>
                     <Form.Item
                       {...field}
                       name={[field.name, 'dimension']}

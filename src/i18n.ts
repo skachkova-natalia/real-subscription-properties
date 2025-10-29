@@ -41,7 +41,7 @@ const resources = {
         success_email_change: 'Почта пользователя изменена. Необходимо заново войти в систему!',
       },
       tabs: {
-        calculating: 'Расчет свойств',
+        calculation: 'Расчет свойств',
         graphic: 'График',
       },
       sign_in: 'Вход',
@@ -106,7 +106,7 @@ const resources = {
         success_email_change: 'User\'s email is changed. You need to login again',
       },
       tabs: {
-        calculating: 'Properties calculating',
+        calculation: 'Properties calculating',
         graphic: 'Graphic',
       },
       sign_in: 'Sign in',

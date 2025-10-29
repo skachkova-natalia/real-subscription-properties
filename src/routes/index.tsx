@@ -1,4 +1,4 @@
-import {createBrowserRouter} from 'react-router-dom';
+import {createBrowserRouter, Navigate} from 'react-router-dom';
 import App from '@components/App';
 import {LoginPage} from '@pages/LoginPage';
 import {RegisterPage} from '@pages/RegisterPage';
@@ -18,8 +18,8 @@ export const router = createBrowserRouter([{
       element: <CalculatorPage />,
       children: [
         {
-          path: '*',
-          element: <PropertiesTable />,
+          index: true,
+          element: <Navigate to="/calculation" replace />,
         },
         {
           path: '/calculation',

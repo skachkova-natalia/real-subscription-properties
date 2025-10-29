@@ -23,37 +23,37 @@ export default defineConfig({
   plugins: [
     react(),
     svgr(),
-    VitePWA({
-      base: './',
-      registerType: 'autoUpdate',
-      includeAssets: ['favicon.ico', 'pwa-180x180.png'],
-      workbox: {
-        cleanupOutdatedCaches: true,
-      },
-      manifest: {
-        name: 'Real Substance Properties',
-        short_name: 'RSP',
-        description: 'Real substance properties',
-        theme_color: '#ffffff',
-        icons: [
-          {
-            src: 'pwa-64x64.svg',
-            sizes: '64x64',
-            type: 'image/png',
-          },
-          {
-            src: 'pwa-192x192.svg',
-            sizes: '192x192',
-            type: 'image/png',
-          },
-          {
-            src: 'pwa-512x512.svg',
-            sizes: '512x512',
-            type: 'image/png',
-          },
-        ],
-      },
-    }),
+    // VitePWA({
+    //   base: './',
+    //   registerType: 'autoUpdate',
+    //   includeAssets: ['favicon.ico', 'pwa-180x180.png'],
+    //   workbox: {
+    //     cleanupOutdatedCaches: true,
+    //   },
+    //   manifest: {
+    //     name: 'Real Substance Properties',
+    //     short_name: 'RSP',
+    //     description: 'Real substance properties',
+    //     theme_color: '#ffffff',
+    //     icons: [
+    //       {
+    //         src: 'pwa-64x64.svg',
+    //         sizes: '64x64',
+    //         type: 'image/png',
+    //       },
+    //       {
+    //         src: 'pwa-192x192.svg',
+    //         sizes: '192x192',
+    //         type: 'image/png',
+    //       },
+    //       {
+    //         src: 'pwa-512x512.svg',
+    //         sizes: '512x512',
+    //         type: 'image/png',
+    //       },
+    //     ],
+    //   },
+    // }),
   ],
   build: {
     outDir: 'build',

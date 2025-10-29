@@ -1,9 +1,9 @@
 import {$filters, applyFilters} from '@models/filters';
 import * as S from './styled';
 import i18n from 'i18next';
-import {Form, Input, Select, Tooltip} from 'antd';
+import {Form, Input, Select} from 'antd';
 import {MathJax} from 'better-react-mathjax';
-import {ArrowRightOutlined, ShareAltOutlined} from '@ant-design/icons';
+import {ArrowRightOutlined} from '@ant-design/icons';
 import {useUnit} from 'effector-react';
 import {$latexUnitsCode} from '@models/dictionary';
 import {useEffect, useState} from 'react';
@@ -106,25 +106,16 @@ export default function TableFilters() {
         </S.Parameter>
       ))}
       {modesParams.length > 0 && (
-        <S.ButtonsContainer>
-          <S.SubmitButton
+        <Form.Item>
+          <S.StyledButton
             type='primary'
             htmlType='submit'
             icon={<ArrowRightOutlined />}
             iconPosition='end'
           >
             {t('common.calculate')}
-          </S.SubmitButton>
-          <Tooltip
-            title={t('common.share')}
-            placement='top'
-          >
-            <S.ShareButton
-              icon={<ShareAltOutlined />}
-              onClick={() => navigator.clipboard.writeText(window.location.href)}
-            />
-          </Tooltip>
-        </S.ButtonsContainer>
+          </S.StyledButton>
+        </Form.Item>
       )}
     </S.StyledForm>
   );

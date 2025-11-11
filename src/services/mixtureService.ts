@@ -1,6 +1,6 @@
 import {bindAllMethods} from '@utils/binder';
 import {axiosApiInstance, BASE_URL} from '@core/api';
-import {Mixture} from '@src/types/mxture';
+import {Mixture, MixturesResponse} from '@src/types/mixture';
 
 export const mixtureService = bindAllMethods({
   async addNewMixture(params: Mixture): Promise<void> {
@@ -8,9 +8,9 @@ export const mixtureService = bindAllMethods({
       await axiosApiInstance.post(`${BASE_URL}/add_phase`, params)
     ).data;
   },
-  async getUsersMixtures(): Promise<Mixture[]> {
+  async getUsersMixtures(): Promise<MixturesResponse> {
     return (
-      await axiosApiInstance.post(`${BASE_URL}/get_users_phase`)
+      await axiosApiInstance.get(`${BASE_URL}/get_users_phase`)
     ).data;
   },
 });

@@ -1,7 +1,7 @@
 import {combine, createDomain} from 'effector';
 import {modalStateFactory} from '@utils/modalStateFactory';
 import {mixtureService} from '@services/mixtureService';
-import {Mixture} from '@src/types/mxture';
+import {Mixture} from '@src/types/mixture';
 import {showSuccessNotification} from '@utils/notification';
 import {ApiResponseError} from '@core/api';
 import {ErrorDescription} from '@src/types/common';

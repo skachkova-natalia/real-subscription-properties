@@ -9,6 +9,7 @@ import {
 } from '@src/types/filters';
 import {Option} from '@src/types/common';
 import {mixtureService} from '@services/mixtureService';
+import {MixtureExtended} from '@src/types/mixture';
 
 export const filtersDomain = createDomain();
 
@@ -18,6 +19,7 @@ export const getCalcModesInfoFx = filtersDomain.createEffect(propertyTableServic
 export const getPropertiesListFx = filtersDomain.createEffect(propertyTableService.getPropertiesList);
 
 export const $substances = filtersDomain.createStore<Substance[]>([]);
+export const $mixtures = filtersDomain.createStore<MixtureExtended[]>([]);
 export const $substancesOptions = filtersDomain.createStore<Option[]>([]);
 export const $mixturesOptions = filtersDomain.createStore<Option[]>([]);
 export const $currentSubstance = filtersDomain.createStore<string | null>(null);

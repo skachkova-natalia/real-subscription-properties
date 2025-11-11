@@ -3,6 +3,7 @@ import {
   $appliedFilters,
   $currentMode,
   $currentSubstance,
+  $mixtures,
   $modes,
   $modesOptions,
   $modesParams,
@@ -14,7 +15,8 @@ import {
   filtersDomain,
   getAvailableSubstanceFx,
   getCalcModesInfoFx,
-  getPropertiesListFx, getUsersMixturesFx,
+  getPropertiesListFx,
+  getUsersMixturesFx,
   setCurrentMode,
   setCurrentSubstance,
   setSelectedProperties,
@@ -27,6 +29,7 @@ import i18n from 'i18next';
 resetDomainStoresByEvents(filtersDomain, AppGate.close);
 
 $substances.on(getAvailableSubstanceFx.doneData, (_, payload) => payload.data);
+$mixtures.on(getUsersMixturesFx.doneData, (_, payload) => payload.data);
 $currentSubstance.on(setCurrentSubstance, forwardPayload());
 $modes.on(getCalcModesInfoFx.doneData, (_, payload) => payload.data);
 $currentMode
@@ -47,12 +50,18 @@ sample({
 });
 
 sample({
-  clock: [$substances, changeAppLanguage],
-  source: $substances,
-  fn: (substances) => substances.map((substance) => ({
-    value: substance.substance_name,
-    label: `${substance[`name_${i18n.language}`]} (${substance.substance_name})`,
-  })),
+  clock: [$mixtures, $substances, changeAppLanguage],
+  source: {substances: $substances, mixtures: $mixtures},
+  fn: ({substances, mixtures}) => [
+    ...substances.map((substance) => ({
+      value: substance.substance_name,
+      label: `${substance[`name_${i18n.language}`]} (${substance.substance_name})`,
+    })),
+    ...mixtures.map((mixture) => ({
+      value: mixture.phase_id.toString(),
+      label: `${mixture.name} (${mixture.components.map((component)=> `${component.name} - ${component.concentration}`).join(', ')})`,
+    })),
+  ],
   target: $substancesOptions,
 });
 

@@ -41,7 +41,7 @@ export function LoginPage() {
         form={form}
         autoComplete='off'
         validateTrigger='onBlur'
-        onFinish={login}
+        onFinish={(values) => login(values)}
         style={{maxWidth: 600}}
       >
         <Form.Item
@@ -63,9 +63,6 @@ export function LoginPage() {
           rules={[{required: true, message: 'Обязательное поле'}]}
         >
           <Input.Password />
-          <Button type='link' onClick={handleForgetPassword}>
-            {t('user.forget_password')}
-          </Button>
         </Form.Item>
         {error && <Typography.Text type='danger'>{error[`msg_user_${i18n.language}`]}</Typography.Text>}
         <S.ButtonContainer>
@@ -78,6 +75,9 @@ export function LoginPage() {
             </Button>
           </S.StyledNavLink>
         </S.ButtonContainer>
+        <Button type='link' onClick={handleForgetPassword}>
+          {t('user.forget_password')}
+        </Button>
       </Form>
     </S.Container>
   );

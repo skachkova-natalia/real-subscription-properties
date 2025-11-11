@@ -14,7 +14,7 @@ import {
   filtersDomain,
   getAvailableSubstanceFx,
   getCalcModesInfoFx,
-  getPropertiesListFx,
+  getPropertiesListFx, getUsersMixturesFx,
   setCurrentMode,
   setCurrentSubstance,
   setSelectedProperties,
@@ -43,7 +43,7 @@ $appliedFilters.on(applyFilters, forwardPayload());
 
 sample({
   clock: AppGate.open,
-  target: getAvailableSubstanceFx,
+  target: [getAvailableSubstanceFx, getUsersMixturesFx],
 });
 
 sample({

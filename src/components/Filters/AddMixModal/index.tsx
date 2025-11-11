@@ -1,14 +1,15 @@
 import {useUnit} from 'effector-react';
 import {useTranslation} from 'react-i18next';
-import {Button, Form, Input, Modal} from 'antd';
+import {Button, Form, Input, Modal, Typography} from 'antd';
 import {$mixModal, addMixture, closeAddMixModal} from '@models/modals/addMixModal';
 import {DeleteOutlined, PlusOutlined} from '@ant-design/icons';
 import {$filters} from '@models/filters';
+import i18n from 'i18next';
 import * as S from './styled';
 
 export function AddMixModal() {
   const {t} = useTranslation();
-  const {isOpen} = useUnit($mixModal);
+  const {isOpen, addMixtureError} = useUnit($mixModal);
   const {substancesOptions} = useUnit($filters);
 
   return (
@@ -101,6 +102,7 @@ export function AddMixModal() {
             </Form.List>
           </S.Filter>
         </S.FormContainer>
+        {addMixtureError && (<Typography.Text type='danger'>{addMixtureError[`msg_user_${i18n.language}`]}</Typography.Text>)}
         <S.ButtonsContainer>
           <Button
             key='submit'

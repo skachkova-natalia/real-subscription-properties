@@ -8,4 +8,9 @@ export const mixtureService = bindAllMethods({
       await axiosApiInstance.post(`${BASE_URL}/add_phase`, params)
     ).data;
   },
+  async getUsersMixtures(): Promise<Mixture[]> {
+    return (
+      await axiosApiInstance.post(`${BASE_URL}/get_users_phase`)
+    ).data;
+  },
 });

@@ -23,6 +23,7 @@ export const StyledNavLink = styled(NavLink)`
 
 export const ButtonContainer = styled.div`
   width: 100%;
+  margin-top: 32px;
   display: grid;
   gap: 10px;
   grid-template-columns: 1fr 1fr;

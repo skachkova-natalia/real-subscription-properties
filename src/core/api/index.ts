@@ -1,4 +1,4 @@
-import axios, {AxiosError, AxiosResponse, InternalAxiosRequestConfig} from 'axios';
+import axios, {AxiosError, AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig} from 'axios';
 import {LocaleTranslation} from '@src/types/common';
 
 export const BASE_URL = 'https://rsp-api.online/dev';
@@ -27,6 +27,7 @@ export interface ApiResponseError extends Error {
   detail?: ErrorDetail;
 }
 export const REFRESH_ACCESS_TOKEN_ROUTE = `/login/refresh_tokens`;
+let refreshTokenPromise: null | Promise<void> = null;
 
 const axiosApiInstance = axios.create({
   headers: {
@@ -56,13 +57,34 @@ async function onRequestInterceptor(
 }
 
 async function onErrorInterceptor(e: AxiosError<ApiResponse>): Promise<AxiosResponse<ApiResponse>> {
-  const {response} = e;
+  const {response, config} = e;
+  let httpCode: null | number = null;
   let result: null | {[key: string]: unknown} = null;
   let detail: null | ErrorDetail = null;
   if (response) {
+    httpCode = response.status;
     detail = response.data.detail;
     if (response.data.result) {
       result = response.data.result;
+    }
+  }
+
+  if (httpCode === 401) {
+    try {
+      if (!refreshTokenPromise) {
+        refreshTokenPromise = refreshAccessToken();
+      }
+
+      await refreshTokenPromise;
+      refreshTokenPromise = null;
+
+      if (config) {
+        config.headers.Authorization = `Bearer ${getTokens()?.accessToken}`;
+      }
+
+      return await axiosApiInstance.request(config as AxiosRequestConfig);
+    } catch (refreshTokenError) {
+      refreshTokenPromise = null;
     }
   }
 
@@ -87,6 +109,11 @@ export function getTokens() {
     window.location.href = '/';
     return {};
   }
+}
+
+async function refreshAccessToken(): Promise<void> {
+  const req = {refreshToken: getTokens().refreshToken || ''};
+  await axiosApiInstance.post(REFRESH_ACCESS_TOKEN_ROUTE, req);
 }
 
 export function logout() {

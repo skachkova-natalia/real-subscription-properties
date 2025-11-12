@@ -5,6 +5,7 @@ import {useTranslation} from 'react-i18next';
 import {useLocation, useNavigate} from 'react-router';
 import {useMemo} from 'react';
 import {Outlet} from 'react-router-dom';
+import {AddMixModal} from '@components/Filters/AddMixModal';
 
 export default function CalculatorPage() {
   const {t} = useTranslation();
@@ -32,6 +33,7 @@ export default function CalculatorPage() {
 
   return (
     <S.MainContainer>
+      <AddMixModal />
       <Filters />
       <Tabs defaultActiveKey={activeKey} items={items} onChange={handleOnChange} />
       <Outlet />

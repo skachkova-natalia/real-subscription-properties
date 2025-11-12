@@ -25,6 +25,7 @@ import {AppGate, changeAppLanguage} from '@models/app';
 import {sample} from 'effector';
 import {PropertiesFilters} from '@src/types/filters';
 import i18n from 'i18next';
+import {addMixtureFx} from '@models/modals/addMixModal';
 
 resetDomainStoresByEvents(filtersDomain, AppGate.close);
 
@@ -46,7 +47,12 @@ $appliedFilters.on(applyFilters, forwardPayload());
 
 sample({
   clock: AppGate.open,
-  target: [getAvailableSubstanceFx, getUsersMixturesFx],
+  target: getAvailableSubstanceFx,
+});
+
+sample({
+  clock: [AppGate.open, addMixtureFx.doneData],
+  target: getUsersMixturesFx,
 });
 
 sample({

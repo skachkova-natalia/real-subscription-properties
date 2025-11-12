@@ -31,6 +31,7 @@ export function AddMixModal() {
         <S.FormContainer>
           <Form.Item
             name='name'
+            rules={[{required: true, message: 'Обязательное поле'}]}
             className='form-item'
           >
             <Input placeholder={t('mixture.name')} />
@@ -51,6 +52,7 @@ export function AddMixModal() {
                       <Form.Item
                         {...field}
                         name={[field.name, 'name']}
+                        rules={[{required: true, message: 'Обязательное поле'}]}
                         className='form-item'
                       >
                         <S.StyledSelect
@@ -62,6 +64,7 @@ export function AddMixModal() {
                       <Form.Item
                         {...field}
                         name={[field.name, 'concentration']}
+                        rules={[{required: true, message: 'Обязательное поле'}]}
                         className='form-item'
                       >
                         <Input

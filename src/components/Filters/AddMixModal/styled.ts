@@ -23,7 +23,7 @@ export const ComponentsList = styled.div`
 export const ComponentItem = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-start;
   gap: 4px;
 `;
 

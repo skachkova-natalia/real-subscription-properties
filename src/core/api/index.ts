@@ -46,7 +46,7 @@ async function onRequestInterceptor(
   let accessToken = getTokens()?.accessToken;
 
   if (url === REFRESH_ACCESS_TOKEN_ROUTE) {
-    accessToken = getTokens()?.refreshToken;
+    accessToken = getTokens()?.refresh_token;
   }
 
   if (accessToken && clientConfig.headers) {
@@ -103,7 +103,7 @@ export function getTokens() {
     );
     return {
       accessToken: access_token || '',
-      refreshToken: refresh_token || '',
+      refresh_token: refresh_token || '',
     };
   } catch (error) {
     window.location.href = '/';
@@ -112,7 +112,7 @@ export function getTokens() {
 }
 
 async function refreshAccessToken(): Promise<void> {
-  const req = {refreshToken: getTokens().refreshToken || ''};
+  const req = {refresh_token: getTokens().refresh_token || ''};
   await axiosApiInstance.post(REFRESH_ACCESS_TOKEN_ROUTE, req);
 }
 

@@ -3,6 +3,7 @@ import {
   $appliedFilters,
   $currentMode,
   $currentSubstance,
+  $isMixture,
   $mixtures,
   $modes,
   $modesOptions,
@@ -15,10 +16,12 @@ import {
   filtersDomain,
   getAvailableSubstanceFx,
   getCalcModesInfoFx,
+  getMixtureCalcModesInfoFx, getMixturePropertiesListFx,
   getPropertiesListFx,
   getUsersMixturesFx,
   setCurrentMode,
   setCurrentSubstance,
+  setIsMixture,
   setSelectedProperties,
 } from '@models/filters/index';
 import {AppGate, changeAppLanguage} from '@models/app';
@@ -32,16 +35,17 @@ resetDomainStoresByEvents(filtersDomain, AppGate.close);
 $substances.on(getAvailableSubstanceFx.doneData, (_, payload) => payload.data);
 $mixtures.on(getUsersMixturesFx.doneData, (_, payload) => payload.data);
 $currentSubstance.on(setCurrentSubstance, forwardPayload());
-$modes.on(getCalcModesInfoFx.doneData, (_, payload) => payload.data);
+$isMixture.on(setIsMixture, forwardPayload());
+$modes.on([getCalcModesInfoFx.doneData, getMixtureCalcModesInfoFx.doneData], (_, payload) => payload.data);
 $currentMode
   .on(setCurrentMode, forwardPayload())
   .reset(setCurrentSubstance);
 $propertiesList
-  .on(getPropertiesListFx.doneData, (_, payload) => payload.data)
+  .on([getPropertiesListFx.doneData, getMixturePropertiesListFx.doneData], (_, payload) => payload.data)
   .reset(setCurrentSubstance, setCurrentMode);
 $selectedProperties
   .on(setSelectedProperties, forwardPayload())
-  .on(getPropertiesListFx.doneData, (_, payload) => payload.data.map((e) => e.literal))
+  .on([getPropertiesListFx.doneData, getMixturePropertiesListFx.doneData], (_, payload) => payload.data.map((e) => e.literal))
   .reset(setCurrentSubstance, setCurrentMode);
 $appliedFilters.on(applyFilters, forwardPayload());
 
@@ -65,7 +69,9 @@ sample({
     })),
     ...mixtures.map((mixture) => ({
       value: mixture.phase_id.toString(),
-      label: `${mixture.name} (${mixture.components.map((component)=> `${component.name} - ${component.concentration}`).join(', ')})`,
+      label: `${mixture.name} (${mixture.components.map((component) => `${component.name} - ${component.concentration}`).join(', ')})`,
+      isMixture: true,
+      name: mixture.name,
     })),
   ],
   target: $substancesOptions,
@@ -90,12 +96,32 @@ sample({
 
 sample({
   clock: setCurrentSubstance,
+  source: $isMixture,
+  filter: (isMixture) => !isMixture,
+  fn: (_, substanceName) => substanceName,
   target: getCalcModesInfoFx,
 });
 
 sample({
+  clock: setCurrentSubstance,
+  source: $isMixture,
+  filter: (isMixture) => isMixture,
+  fn: (_, substanceName) => substanceName,
+  target: getMixtureCalcModesInfoFx,
+});
+
+sample({
   clock: setCurrentMode,
-  source: $currentSubstance,
-  fn: (substance_name, mode_name) => ({substance_name, mode_name} as PropertiesFilters),
+  source: {currentSubstance: $currentSubstance, isMixture: $isMixture},
+  filter: ({isMixture}) => !isMixture,
+  fn: ({currentSubstance}, modeName) => ({substance_name: currentSubstance, mode_name: modeName} as PropertiesFilters),
   target: getPropertiesListFx,
+});
+
+sample({
+  clock: setCurrentMode,
+  source: {currentSubstance: $currentSubstance, isMixture: $isMixture},
+  filter: ({isMixture}) => isMixture,
+  fn: ({currentSubstance}, modeName) => ({substance_name: currentSubstance, mode_name: modeName} as PropertiesFilters),
+  target: getMixturePropertiesListFx,
 });

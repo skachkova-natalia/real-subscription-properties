@@ -3,7 +3,7 @@ import {useTranslation} from 'react-i18next';
 import {useUnit} from 'effector-react';
 import {Button, Select} from 'antd';
 import * as S from './styled';
-import {$filters, setCurrentMode, setCurrentSubstance} from '@models/filters';
+import {$filters, setCurrentMode, setCurrentSubstance, setIsMixture} from '@models/filters';
 import {useLocation, useNavigate} from 'react-router';
 import {PlusOutlined} from '@ant-design/icons';
 import {openAddMixModal} from '@models/modals/addMixModal';
@@ -46,8 +46,15 @@ export function Filters() {
     }, selectedDimensions));
   }, [currentMode, modesParams]);
 
-  const currentSubstanceOnChange = (e) => {
-    setCurrentSubstance(e);
+  const currentSubstanceOnChange = (e, option) => {
+    console.log(option, e);
+    if (option['isMixture']) {
+      setIsMixture(true);
+      setCurrentSubstance(option['name']);
+    } else {
+      setIsMixture(false);
+      setCurrentSubstance(e);
+    }
     const queryString = `currentSubstance=${e}`;
     navigate({search: queryString}, {replace: true});
   };

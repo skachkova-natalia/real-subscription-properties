@@ -6,17 +6,26 @@ import {
   $appliedFilters,
   $currentMode,
   $currentSubstance,
+  $isMixture,
   applyFilters,
   setCurrentMode,
   setCurrentSubstance,
 } from '@models/filters';
-import {$data, $error, getTableFx, getTableRow, getTableRowFx, tableDomain} from '@models/propertiesTable/index';
+import {
+  $data,
+  $error,
+  getMixtureTableFx, getMixtureTableRowFx,
+  getTableFx,
+  getTableRow,
+  getTableRowFx,
+  tableDomain,
+} from '@models/propertiesTable/index';
 
 resetDomainStoresByEvents(tableDomain, AppGate.close);
 
 $data
-  .on(getTableFx.doneData, (_, payload) => payload.data.map((item) => ({...item, key: item.property_literal})))
-  .on(getTableRowFx.doneData, (state, payload) => state.map((item) => {
+  .on([getTableFx.doneData, getMixtureTableFx.doneData], (_, payload) => payload.data.map((item) => ({...item, key: item.property_literal})))
+  .on([getTableRowFx.doneData, getMixtureTableRowFx.doneData], (state, payload) => state.map((item) => {
       if (item.property_literal === payload.data?.property_literal) {
         return {...item, value: payload.data.value, dimension: payload.data.dimension};
       }
@@ -25,23 +34,55 @@ $data
   )
   .reset(setCurrentSubstance, setCurrentMode, applyFilters);
 $error
-  .on(getTableFx.failData, (_, payload) => payload.detail)
-  .reset(setCurrentSubstance, setCurrentMode, applyFilters, getTableFx.doneData);
+  .on([getTableFx.failData, getMixtureTableFx.failData], (_, payload) => payload.detail)
+  .reset(setCurrentSubstance, setCurrentMode, applyFilters, getTableFx.doneData, getMixtureTableFx.doneData);
 
 sample({
   clock: applyFilters,
-  source: {substance_name: $currentSubstance, mode_name: $currentMode},
-  fn: ({substance_name, mode_name}, params) => ({
-    substance_name, mode_name, params,
+  source: {currentSubstance: $currentSubstance, currentMode: $currentMode, isMixture: $isMixture},
+  filter: ({isMixture}) => !isMixture,
+  fn: ({currentSubstance, currentMode}, params) => ({
+    substance_name: currentSubstance,
+    mode_name: currentMode,
+    params,
   } as TableFilters),
   target: getTableFx,
 });
 
 sample({
+  clock: applyFilters,
+  source: {currentSubstance: $currentSubstance, currentMode: $currentMode, isMixture: $isMixture},
+  filter: ({isMixture}) => isMixture,
+  fn: ({currentSubstance, currentMode}, params) => ({
+    substance_name: currentSubstance,
+    mode_name: currentMode,
+    params,
+  } as TableFilters),
+  target: getMixtureTableFx,
+});
+
+sample({
   clock: getTableRow,
-  source: {substance_name: $currentSubstance, mode_name: $currentMode, appliedFilters: $appliedFilters},
-  fn: ({substance_name, mode_name, appliedFilters}, property) => ({
-    substance_name, mode_name, property, params: appliedFilters,
+  source: {currentSubstance: $currentSubstance, currentMode: $currentMode, appliedFilters: $appliedFilters, isMixture: $isMixture},
+  filter: ({isMixture}) => !isMixture,
+  fn: ({currentSubstance, currentMode, appliedFilters}, property) => ({
+    substance_name: currentSubstance,
+    mode_name: currentMode,
+    property,
+    params: appliedFilters,
   } as TableRowFilters),
   target: getTableRowFx,
+});
+
+sample({
+  clock: getTableRow,
+  source: {currentSubstance: $currentSubstance, currentMode: $currentMode, appliedFilters: $appliedFilters, isMixture: $isMixture},
+  filter: ({isMixture}) => isMixture,
+  fn: ({currentSubstance, currentMode, appliedFilters}, property) => ({
+    substance_name: currentSubstance,
+    mode_name: currentMode,
+    property,
+    params: appliedFilters,
+  } as TableRowFilters),
+  target: getMixtureTableRowFx,
 });

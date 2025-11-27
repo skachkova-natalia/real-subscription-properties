@@ -65,6 +65,7 @@ export default function TableFilters() {
       value: Number(values?.[key]),
       param_dimension: selectedDimensions[key],
     }));
+    console.log(filters);
     applyFilters(filters);
   }
 

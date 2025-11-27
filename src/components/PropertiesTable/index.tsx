@@ -70,13 +70,14 @@ export default function PropertiesTable() {
     XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
     XLSX.writeFile(workbook, 'Таблица свойств веществ.xlsx');
   };
+  console.log(error);
 
   return (
     <>
       <TableSettingsModal />
       <S.TableContainer ref={tableRef}>
         <TableFilters />
-        {error && <S.Error>{error.msg[`${i18n.language}`]}</S.Error>}
+        {error && <S.Error>{error[`msg_user_${i18n.language}`]}</S.Error>}
         <S.ButtonsContainer>
           {Object.keys(propertiesList).length > 0 && (
             <S.SettingsContainer>

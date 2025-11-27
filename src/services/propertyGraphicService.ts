@@ -8,4 +8,9 @@ export const propertyGraphicService = bindAllMethods({
       await axiosApiInstance.post(`${BASE_URL}/get_table_for_property`, params)
     ).data;
   },
+  async getMixturePropertyPoints(params: GraphicFiltersParams): Promise<Points> {
+    return (
+      await axiosApiInstance.post(`${BASE_URL}/calc_graph_phase`, params)
+    ).data;
+  },
 });

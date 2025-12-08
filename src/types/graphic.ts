@@ -29,6 +29,12 @@ export interface PropertyPoint {
   [key: string]: Point[];
 }
 
+export interface GraphicPoint {
+  [key: string]: {
+    [value: string]: Point[];
+  };
+}
+
 export interface Point {
   x: number;
   y: number;

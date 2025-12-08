@@ -12,9 +12,8 @@ export const Error = styled.span`
   font-size: 12px;
 `;
 
-export const CustomTooltip = styled.div`
+export const FixedParameter = styled.div`
   display: flex;
-  flex-direction: column;
-  gap: 4px;
-  background-color: ${color.base.s0};
+  flex-direction: row;
+  align-items: center;
 `;

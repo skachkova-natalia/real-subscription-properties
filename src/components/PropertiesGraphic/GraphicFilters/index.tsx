@@ -12,6 +12,7 @@ import {GraphicFiltersParams} from '@src/types/graphic';
 import {
   $graphic,
   getPropertyPoints,
+  setFilters,
   setFixedParameter,
   setFixedParameterValues,
   setVariableParameter,
@@ -118,9 +119,9 @@ export default function GraphicFilters() {
     const fixedParameterValues = {};
     values['properties'].forEach((prop) => {
       properties.push(`${prop['name']}:${prop['dimension']}`);
-      fixedParameterValues[`${prop['name']}`] = values['fixed_parameter.value'];
+      fixedParameterValues[`${prop['name']}`] = [values['fixed_parameter.value']];
     });
-    setFixedParameterValues(fixedParameterValues);
+    setFixedParameterValues([values['fixed_parameter.value']]);
 
     const params = `${properties.join(',')};${values['count']};${fixedParameter}:${values['fixed_parameter.value']}:${values['fixed_parameter.param_dimension']};${values['variable_parameter.id']}:${values['variable_parameter.min']}:${values['variable_parameter.max']}:${values['variable_parameter.param_dimension']}`;
     updateQueryParams(navigate, 'graphicParams', params.toString());
@@ -145,7 +146,8 @@ export default function GraphicFilters() {
         param_dimension: values['variable_parameter.param_dimension'],
       },
     } as GraphicFiltersParams;
-    getPropertyPoints(filters);
+    setFilters(filters);
+    getPropertyPoints();
   };
 
   return (

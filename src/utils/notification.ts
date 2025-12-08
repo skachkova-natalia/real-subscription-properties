@@ -1,16 +1,16 @@
 import { notification } from 'antd';
 
-export function showSuccessNotification(message: string = 'Запрос отправлен', description?: string) {
+export function showSuccessNotification(title: string = 'Запрос отправлен', description?: string) {
   notification.success({
-    message,
+    title,
     description,
     duration: 3,
   });
 }
 
-export function showErrorNotification(message: string = 'Запрос отправлен', description?: string) {
+export function showErrorNotification(title: string = 'Запрос отправлен', description?: string) {
   notification.error({
-    message,
+    title,
     description,
     duration: 3,
   });

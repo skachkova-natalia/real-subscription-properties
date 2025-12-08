@@ -23,9 +23,15 @@ export default function PropertiesGraphic() {
   const [newValue, setNewValue] = useState<string>('');
 
   const onAdd = () => {
-    if (newValue) {
+    if (newValue && filters) {
       setFixedParameterValues([...fixedParameterValues, newValue]);
-      setFilters({...filters, ['fixed_parameter.value']: newValue} as GraphicFiltersParams);
+      setFilters({
+        ...filters,
+        fixed_parameter: {
+          ...filters.fixed_parameter,
+          value: Number(newValue),
+        },
+      } as GraphicFiltersParams);
       getPropertyPoints();
     }
     setNewValue('');

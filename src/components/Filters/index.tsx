@@ -47,7 +47,6 @@ export function Filters() {
   }, [currentMode, modesParams]);
 
   const currentSubstanceOnChange = (e, option) => {
-    console.log(option, e);
     if (option['isMixture']) {
       setIsMixture(true);
       setCurrentSubstance(option['name']);

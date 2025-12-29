@@ -65,7 +65,6 @@ export default function TableFilters() {
       value: Number(values?.[key]),
       param_dimension: selectedDimensions[key],
     }));
-    console.log(filters);
     applyFilters(filters);
   }
 
@@ -112,7 +111,7 @@ export default function TableFilters() {
             type='primary'
             htmlType='submit'
             icon={<ArrowRightOutlined />}
-            iconPosition='end'
+            iconPlacement='end'
           >
             {t('common.calculate')}
           </S.SubmitButton>

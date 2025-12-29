@@ -7,7 +7,7 @@ import {ErrorDescription} from '@src/types/common';
 export const graphicDomain = createDomain();
 
 export const getPropertyPointsFx = graphicDomain.createEffect<typeof propertyGraphicService.getPropertyPoints, ApiResponseError>(propertyGraphicService.getPropertyPoints);
-export const getMixturePropertyPointsFx = graphicDomain.createEffect<typeof propertyGraphicService.getMixturePropertyPoints, ApiResponseError>(propertyGraphicService.getPropertyPoints);
+export const getMixturePropertyPointsFx = graphicDomain.createEffect<typeof propertyGraphicService.getMixturePropertyPoints, ApiResponseError>(propertyGraphicService.getMixturePropertyPoints);
 
 export const setFilters = graphicDomain.createEvent<GraphicFiltersParams>();
 export const getPropertyPoints = graphicDomain.createEvent();

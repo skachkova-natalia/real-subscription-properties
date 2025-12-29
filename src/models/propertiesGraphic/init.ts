@@ -49,10 +49,11 @@ sample({
 sample({
   clock: getPropertyPoints,
   source: {isMixture: $isMixture, filters: $filters},
-  filter: ({isMixture, filters}) => !isMixture && !!filters,
+  filter: ({isMixture, filters}) => isMixture && !!filters,
   fn: ({filters}) => filters as GraphicFiltersParams,
   target: getMixturePropertyPointsFx,
 });
+
 sample({
   clock: [getPropertyPointsFx.doneData, getMixturePropertyPointsFx.doneData],
   source: {fixedValues: $fixedParameterValues, points: $points},

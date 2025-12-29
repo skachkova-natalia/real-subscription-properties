@@ -70,7 +70,6 @@ export default function PropertiesTable() {
     XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
     XLSX.writeFile(workbook, 'Таблица свойств веществ.xlsx');
   };
-  console.log(error);
 
   return (
     <>

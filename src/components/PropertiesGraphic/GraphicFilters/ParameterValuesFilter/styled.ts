@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import {breakpoint} from '@src/theme';
-import {Input, Select} from 'antd';
+import {Input} from 'antd';
+import {SelectComponent} from '@ui-kit/Select';
 
 export const Parameter = styled.div`
   display: flex;
@@ -26,7 +27,7 @@ export const Values = styled.div`
   gap: 4px;
 `;
 
-export const DimensionSelect = styled(Select)`
+export const DimensionSelect = styled(SelectComponent)`
   min-width: 85px;
   max-width: 85px;
 `;

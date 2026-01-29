@@ -1,21 +1,27 @@
 import {forwardPayload, resetDomainStoresByEvents} from '@utils/effector';
 import {AppGate} from '@models/app';
 import {
-  $error, $filters,
+  $error,
+  $filters,
   $fixedParameter,
+  $fixedParameterDimension,
   $fixedParameterValues,
   $points,
   $selectedProperty,
   $variableParameter,
+  $variableParameterDimension,
   getMixturePropertyPointsFx,
   getPropertyPoints,
   getPropertyPointsFx,
   graphicDomain,
-  resetPoints, setFilters,
+  resetPoints,
+  setFilters,
   setFixedParameter,
+  setFixedParameterDimension,
   setFixedParameterValues,
   setSelectedProperty,
   setVariableParameter,
+  setVariableParameterDimension,
 } from '@models/propertiesGraphic/index';
 import {sample} from 'effector';
 import {$isMixture, setCurrentMode, setCurrentSubstance} from '@models/filters';
@@ -27,7 +33,9 @@ $filters.on(setFilters, forwardPayload());
 $points.reset(resetPoints, setSelectedProperty, setVariableParameter, getPropertyPointsFx.failData, getMixturePropertyPointsFx.failData, setCurrentMode, setCurrentSubstance);
 $selectedProperty.on(setSelectedProperty, forwardPayload());
 $variableParameter.on(setVariableParameter, forwardPayload());
+$variableParameterDimension.on(setVariableParameterDimension, forwardPayload());
 $fixedParameter.on(setFixedParameter, forwardPayload());
+$fixedParameterDimension.on(setFixedParameterDimension, forwardPayload());
 $fixedParameterValues.on(setFixedParameterValues, forwardPayload()).reset(resetPoints, setSelectedProperty, setVariableParameter);
 $error
   .on([getPropertyPointsFx.failData, getMixturePropertyPointsFx.failData], (_, payload) => ({

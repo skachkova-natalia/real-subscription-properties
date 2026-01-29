@@ -1,6 +1,7 @@
 import styled from 'styled-components';
-import {Select, Typography} from 'antd';
+import {Typography} from 'antd';
 import {breakpoint, color} from '@src/theme';
+import {SelectComponent} from '@ui-kit/Select';
 
 export const FormContainer = styled.div`
   margin: 24px 0;
@@ -47,7 +48,7 @@ export const GroupLabel = styled(Typography)`
   color: ${color.base.s800};
 `;
 
-export const StyledSelect = styled(Select)`
+export const StyledSelect = styled(SelectComponent)`
   min-width: 210px;
   max-width: 210px;
   width: 100%;

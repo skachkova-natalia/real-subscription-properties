@@ -1,10 +1,10 @@
-import {Select} from 'antd';
 import {MathJax} from 'better-react-mathjax';
 import {getTableRow} from '@models/propertiesTable';
 import {$latexUnitsCode} from '@models/dictionary';
 import {useUnit} from 'effector-react';
 import {useMemo} from 'react';
 import MathJaxWrapper from '@components/MathJaxWrapper';
+import {SelectComponent} from '@ui-kit/Select';
 
 interface Props {
   dimension: string;
@@ -26,7 +26,7 @@ export function DimensionCell({dimension, property_literal, available_dimensions
   return (
     <MathJaxWrapper key={`${dimension}`}>
       {available_dimensions && available_dimensions?.length > 0 && (
-        <Select
+        <SelectComponent
           options={dimensionOptions}
           value={dimension}
           onChange={(newValue) => {

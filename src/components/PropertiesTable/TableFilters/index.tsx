@@ -1,7 +1,7 @@
 import {$filters, applyFilters} from '@models/filters';
 import * as S from './styled';
 import i18n from 'i18next';
-import {Form, Input, Select, Tooltip} from 'antd';
+import {Form, Input, Tooltip} from 'antd';
 import {MathJax} from 'better-react-mathjax';
 import {ArrowRightOutlined, ShareAltOutlined} from '@ant-design/icons';
 import {useUnit} from 'effector-react';
@@ -11,6 +11,7 @@ import {useTranslation} from 'react-i18next';
 import {useLocation, useNavigate} from 'react-router';
 import {updateQueryParams} from '@utils/queryParamsHelper';
 import MathJaxWrapper from '@components/MathJaxWrapper';
+import {SelectComponent} from '@ui-kit/Select';
 
 export default function TableFilters() {
   const {t} = useTranslation();
@@ -93,7 +94,7 @@ export default function TableFilters() {
           </Form.Item>
           {param.units?.length > 0 && (
             <MathJaxWrapper key={`${key}`}>
-              <Select
+              <SelectComponent
                 options={dimensionOptions(param.units)}
                 value={selectedDimensions[param.id]}
                 onChange={(newValue) => {

@@ -14,8 +14,10 @@ import {
   getPropertyPoints,
   setFilters,
   setFixedParameter,
+  setFixedParameterDimension,
   setFixedParameterValues,
   setVariableParameter,
+  setVariableParameterDimension,
 } from '@models/propertiesGraphic';
 import {updateQueryParams} from '@utils/queryParamsHelper';
 import {useLocation, useNavigate} from 'react-router';
@@ -28,7 +30,7 @@ export default function GraphicFilters() {
   const [form] = Form.useForm();
   const formRef = useRef(null);
   const {modesParams, currentSubstance, currentMode} = useUnit($filters);
-  const {variableParameter} = useUnit($graphic);
+  const {variableParameter, fixedParameter} = useUnit($graphic);
 
   const paramOptions: Option[] = useMemo(() => {
     return modesParams.map((param) => ({
@@ -54,7 +56,9 @@ export default function GraphicFilters() {
     const [fixed_id, value, fixed_param_dimension] = fixedParam?.split(':') || [];
     const [variable_id, min, max, variable_param_dimension] = varParam?.split(':') || [];
     setFixedParameter(fixed_id);
+    setFixedParameterDimension(fixed_param_dimension);
     setVariableParameter(variable_id);
+    setVariableParameterDimension(variable_param_dimension);
     form.setFieldsValue({
       'properties': properties,
       'count': count || 1000,
@@ -91,14 +95,20 @@ export default function GraphicFilters() {
     modesParams.forEach((param) => {
       if (param.id === variableParameter) {
         form.setFieldValue('variable_parameter.param_dimension', param.units[0]);
+        setVariableParameterDimension(param.units[0]);
       } else {
         form.setFieldValue('fixed_parameter.param_dimension', param.units[0]);
+        setFixedParameterDimension(param.units[0]);
       }
     });
   }, [variableParameter]);
 
   const onVariableParameterChange = (e: string) => {
     setVariableParameter(e);
+    const fixedParam = paramOptions.find((param) => param.value !== e)?.value;
+    if (fixedParam) {
+      setFixedParameter(fixedParam);
+    }
     form.setFieldsValue({
       'variable_parameter.min': undefined,
       'variable_parameter.max': undefined,
@@ -112,8 +122,6 @@ export default function GraphicFilters() {
     if (!values) {
       return;
     }
-
-    const fixedParameter = paramOptions.find((param) => param.value !== variableParameter)?.value;
 
     const properties: string[] = [];
     const fixedParameterValues = {};
@@ -178,7 +186,7 @@ export default function GraphicFilters() {
           type='primary'
           htmlType='submit'
           icon={<ArrowRightOutlined />}
-          iconPosition='end'
+          iconPlacement='end'
         >
           {t('common.calculate')}
         </S.SubmitButton>

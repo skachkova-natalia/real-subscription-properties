@@ -51,26 +51,23 @@ const LINE_COLORS = [
 
 export default function Graphic({property, points}: Props) {
   const {modesParams, propertiesList} = useUnit($filters);
-  const {
-    fixedParameter,
-    variableParameter,
-  } = useUnit($graphic);
+  const {fixedParameter, fixedParameterDimension, variableParameter, variableParameterDimension} = useUnit($graphic);
 
   const propertyName: string = useMemo(() => {
     const prop = propertiesList.find((prop) => prop.literal === property);
     if (!prop) {
       return property;
     }
-    return `${prop.name[`${i18n.language}`]} (${prop.literal})`;
-  }, [propertiesList]);
+    return `${prop.name[`${i18n.language}`]} (${prop.literal}), ${fixedParameterDimension}`;
+  }, [propertiesList, fixedParameterDimension]);
 
   const variableParameterName: string = useMemo(() => {
     const prop = modesParams.find((prop) => prop.id === variableParameter);
     if (!prop) {
       return variableParameter;
     }
-    return `${prop.name[`${i18n.language}`]} (${prop.id})`;
-  }, [fixedParameter, variableParameter, modesParams]);
+    return `${prop.name[`${i18n.language}`]} (${prop.id}), ${variableParameterDimension}`;
+  }, [fixedParameter, variableParameterDimension, variableParameter, modesParams]);
 
   const chartDatasets = useMemo(() => {
     const fixedParamValues = Object.keys(points);

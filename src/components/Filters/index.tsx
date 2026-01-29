@@ -7,6 +7,7 @@ import {$filters, setCurrentMode, setCurrentSubstance, setIsMixture} from '@mode
 import {useLocation, useNavigate} from 'react-router';
 import {PlusOutlined} from '@ant-design/icons';
 import {openAddMixModal} from '@models/modals/addMixModal';
+import {SelectComponent} from '@ui-kit/Select';
 
 export function Filters() {
   const {t} = useTranslation();
@@ -56,6 +57,7 @@ export function Filters() {
     }
     const queryString = `currentSubstance=${e}`;
     navigate({search: queryString}, {replace: true});
+    setIsSubstancesSelectOpen(false);
   };
 
   const currentModeOnChange = (e) => {
@@ -99,7 +101,7 @@ export function Filters() {
           onOpenChange={setIsSubstancesSelectOpen}
           onChange={currentSubstanceOnChange}
         />
-        <Select
+        <SelectComponent
           options={modesOptions}
           value={currentMode}
           onChange={currentModeOnChange}

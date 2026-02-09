@@ -12,7 +12,6 @@ export function AddMixModal() {
   const {t} = useTranslation();
   const {isOpen, loading, addMixtureError} = useUnit($mixModal);
   const {substancesOptions} = useUnit($filters);
-  console.log(addMixtureError);
 
   return (
     <Modal

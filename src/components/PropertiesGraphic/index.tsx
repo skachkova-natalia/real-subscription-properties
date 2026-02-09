@@ -18,6 +18,7 @@ export default function PropertiesGraphic() {
     loading,
     error,
     fixedParameter,
+    fixedParameterDimension,
     fixedParameterValues,
   } = useUnit($graphic);
   const [newValue, setNewValue] = useState<string>('');
@@ -55,7 +56,7 @@ export default function PropertiesGraphic() {
               onChange={(e) => setNewValue(e.target.value as string)}
               style={{width: '100px'}}
               inputMode='decimal'
-              placeholder={`${fixedParameter} = `}
+              placeholder={`${fixedParameter} = (${fixedParameterDimension})`}
               required
               allowClear
             />

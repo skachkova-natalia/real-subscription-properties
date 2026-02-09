@@ -7,7 +7,7 @@ import {useTranslation} from 'react-i18next';
 import {useMemo} from 'react';
 import {useUnit} from 'effector-react';
 import {$latexUnitsCode} from '@models/dictionary';
-import {resetPoints, setFixedParameterDimension, setVariableParameterDimension} from '@models/propertiesGraphic';
+import {resetPoints} from '@models/propertiesGraphic';
 import MathJaxWrapper from '@components/MathJaxWrapper';
 
 interface Props {
@@ -54,7 +54,6 @@ export default function ParameterValuesFilter({param, isVariable}: Props) {
                 notFoundContent={t('no_data')}
                 onChange={(value) => {
                   resetPoints();
-                  setVariableParameterDimension(value as string);
                 }}
               />
             </Form.Item>
@@ -74,9 +73,8 @@ export default function ParameterValuesFilter({param, isVariable}: Props) {
                 options={dimensionOptions}
                 placeholder={t('dimension')}
                 notFoundContent={t('no_data')}
-                onChange={(value) => {
+                onChange={() => {
                   resetPoints();
-                  setFixedParameterDimension(value as string);
                 }}
               />
             </Form.Item>

@@ -6,11 +6,13 @@ import {DeleteOutlined, PlusOutlined} from '@ant-design/icons';
 import {$filters} from '@models/filters';
 import i18n from 'i18next';
 import * as S from './styled';
+import {SelectComponent} from '@ui-kit/Select';
 
 export function AddMixModal() {
   const {t} = useTranslation();
-  const {isOpen, addMixtureError} = useUnit($mixModal);
+  const {isOpen, loading, addMixtureError} = useUnit($mixModal);
   const {substancesOptions} = useUnit($filters);
+  console.log(addMixtureError);
 
   return (
     <Modal
@@ -40,7 +42,7 @@ export function AddMixModal() {
             name='description'
             className='form-item'
           >
-            <Input placeholder={t('mixture.description')}/>
+            <Input placeholder={t('mixture.description')} />
           </Form.Item>
           <S.Filter>
             <S.GroupLabel>Компоненты</S.GroupLabel>
@@ -51,11 +53,12 @@ export function AddMixModal() {
                     <S.ComponentItem key={field.key}>
                       <Form.Item
                         {...field}
+                        key={`name-${field.key}`}
                         name={[field.name, 'name']}
                         rules={[{required: true, message: 'Обязательное поле'}]}
-                        className='form-item'
+                        className='form-item select'
                       >
-                        <S.StyledSelect
+                        <SelectComponent
                           options={substancesOptions}
                           placeholder={t('property')}
                           notFoundContent={t('no_data')}
@@ -63,6 +66,7 @@ export function AddMixModal() {
                       </Form.Item>
                       <Form.Item
                         {...field}
+                        key={`concentration-${field.key}`}
                         name={[field.name, 'concentration']}
                         rules={[{required: true, message: 'Обязательное поле'}]}
                         className='form-item'
@@ -105,12 +109,14 @@ export function AddMixModal() {
             </Form.List>
           </S.Filter>
         </S.FormContainer>
-        {addMixtureError && (<Typography.Text type='danger'>{addMixtureError[`msg_user_${i18n.language}`]}</Typography.Text>)}
+        {addMixtureError && (
+          <Typography.Text type='danger'>{addMixtureError.msg[`${i18n.language}`]}</Typography.Text>)}
         <S.ButtonsContainer>
           <Button
             key='submit'
             htmlType='submit'
             type='primary'
+            loading={loading}
           >
             {t('common.add')}
           </Button>

@@ -1,16 +1,31 @@
 import styled from 'styled-components';
 import {Typography} from 'antd';
 import {breakpoint, color} from '@src/theme';
-import {SelectComponent} from '@ui-kit/Select';
 
 export const FormContainer = styled.div`
   margin: 24px 0;
   display: flex;
   flex-direction: column;
   gap: 24px;
-  
+
   .form-item {
     margin: 0;
+  }
+
+  .select {
+    min-width: 210px;
+    max-width: 210px;
+    width: 100%;
+
+    @media (max-width: ${breakpoint.laptop}) {
+      width: 220px;
+    }
+
+    @media (max-width: ${breakpoint.tablet}) {
+      width: 100%;
+      min-width: 180px;
+      max-width: 180px;
+    }
   }
 `;
 
@@ -48,20 +63,7 @@ export const GroupLabel = styled(Typography)`
   color: ${color.base.s800};
 `;
 
-export const StyledSelect = styled(SelectComponent)`
-  min-width: 210px;
-  max-width: 210px;
-  width: 100%;
-
-  @media (max-width: ${breakpoint.laptop}) {
-    width: 220px;
-  }
-
-  @media (max-width: ${breakpoint.tablet}) {
-    width: 100%;
-    min-width: 180px;
-    max-width: 180px;
-  }
+export const SelectContainer = styled.div`
 `;
 
 export const ButtonsContainer = styled.div`

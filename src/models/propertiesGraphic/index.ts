@@ -11,33 +11,28 @@ export const getMixturePropertyPointsFx = graphicDomain.createEffect<typeof prop
 
 export const setFilters = graphicDomain.createEvent<GraphicFiltersParams>();
 export const getPropertyPoints = graphicDomain.createEvent();
-export const setSelectedProperty = graphicDomain.createEvent<string>();
+export const setSelectedProperty = graphicDomain.createEvent();
 export const setVariableParameter = graphicDomain.createEvent<string>();
-export const setVariableParameterDimension = graphicDomain.createEvent<string>();
 export const setFixedParameter = graphicDomain.createEvent<string>();
-export const setFixedParameterDimension = graphicDomain.createEvent<string>();
 export const setFixedParameterValues = graphicDomain.createEvent<string[]>();
 export const resetPoints = graphicDomain.createEvent();
 
 export const $filters = graphicDomain.createStore<GraphicFiltersParams | null>(null);
 export const $points = graphicDomain.createStore<GraphicPoint>({});
-export const $selectedProperty = graphicDomain.createStore<string>('');
 export const $variableParameter = graphicDomain.createStore<string>('');
-export const $variableParameterDimension = graphicDomain.createStore<string>('');
 export const $fixedParameter = graphicDomain.createStore<string>('');
-export const $fixedParameterDimension = graphicDomain.createStore<string>('');
 export const $fixedParameterValues = graphicDomain.createStore<string[]>([]);
 export const $error = graphicDomain.createStore<ErrorDescription | null>(null);
 
 export const $graphic = combine({
   filters: $filters,
   points: $points,
-  selectedProperty: $selectedProperty,
+  selectedProperties: $filters.map((e) => e?.properties || []),
   variableParameter: $variableParameter,
-  variableParameterDimension: $variableParameterDimension,
+  variableParameterDimension: $filters.map((e) => e?.variable_parameter.param_dimension || ''),
   fixedParameterValues: $fixedParameterValues,
   fixedParameter: $fixedParameter,
-  fixedParameterDimension: $fixedParameterDimension,
+  fixedParameterDimension: $filters.map((e) => e?.fixed_parameter.param_dimension || ''),
   error: $error,
   loading: getPropertyPointsFx.pending,
 });

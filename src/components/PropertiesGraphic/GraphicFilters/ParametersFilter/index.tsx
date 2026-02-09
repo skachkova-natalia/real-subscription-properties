@@ -127,7 +127,7 @@ export default function ParametersFilter({paramOptions, onVariableParameterChang
         <Form.Item name={`variable_parameter.id`} className='form-item'>
           <S.StyledSelect
             options={paramOptions}
-            placeholder={t('substance')}
+            placeholder={t('parameter')}
             onChange={(e) => {
               onVariableParameterChange(e as string);
             }}

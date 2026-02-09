@@ -51,14 +51,15 @@ const LINE_COLORS = [
 
 export default function Graphic({property, points}: Props) {
   const {modesParams, propertiesList} = useUnit($filters);
-  const {fixedParameter, fixedParameterDimension, variableParameter, variableParameterDimension} = useUnit($graphic);
+  const {selectedProperties, fixedParameter, fixedParameterDimension, variableParameter, variableParameterDimension} = useUnit($graphic);
 
   const propertyName: string = useMemo(() => {
     const prop = propertiesList.find((prop) => prop.literal === property);
     if (!prop) {
       return property;
     }
-    return `${prop.name[`${i18n.language}`]} (${prop.literal}), ${fixedParameterDimension}`;
+    const selectedProp = selectedProperties.find((prop) => prop.name === property)?.dimension || '';
+    return `${prop.name[`${i18n.language}`]} (${prop.literal}), ${selectedProp}`;
   }, [propertiesList, fixedParameterDimension]);
 
   const variableParameterName: string = useMemo(() => {
@@ -80,7 +81,7 @@ export default function Graphic({property, points}: Props) {
 
       const backgroundColor = borderColor.replace('rgb(', 'rgba(').replace(')', ', 0.1)');
       return {
-        label: `${fixedParameter} = ${fixedValue}`,
+        label: `${fixedParameter} = ${fixedValue} ${fixedParameterDimension}`,
         data: dataPoints,
         borderColor: borderColor,
         backgroundColor: backgroundColor,

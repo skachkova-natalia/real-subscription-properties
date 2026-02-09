@@ -14,10 +14,8 @@ import {
   getPropertyPoints,
   setFilters,
   setFixedParameter,
-  setFixedParameterDimension,
   setFixedParameterValues,
   setVariableParameter,
-  setVariableParameterDimension,
 } from '@models/propertiesGraphic';
 import {updateQueryParams} from '@utils/queryParamsHelper';
 import {useLocation, useNavigate} from 'react-router';
@@ -56,9 +54,7 @@ export default function GraphicFilters() {
     const [fixed_id, value, fixed_param_dimension] = fixedParam?.split(':') || [];
     const [variable_id, min, max, variable_param_dimension] = varParam?.split(':') || [];
     setFixedParameter(fixed_id);
-    setFixedParameterDimension(fixed_param_dimension);
     setVariableParameter(variable_id);
-    setVariableParameterDimension(variable_param_dimension);
     form.setFieldsValue({
       'properties': properties,
       'count': count || 1000,
@@ -95,10 +91,8 @@ export default function GraphicFilters() {
     modesParams.forEach((param) => {
       if (param.id === variableParameter) {
         form.setFieldValue('variable_parameter.param_dimension', param.units[0]);
-        setVariableParameterDimension(param.units[0]);
       } else {
         form.setFieldValue('fixed_parameter.param_dimension', param.units[0]);
-        setFixedParameterDimension(param.units[0]);
       }
     });
   }, [variableParameter]);

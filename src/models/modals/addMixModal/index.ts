@@ -23,5 +23,6 @@ export const {
 
 export const $mixModal = combine({
   isOpen: $isOpen,
+  loading: addMixtureFx.pending,
   addMixtureError: $addMixtureError,
 });

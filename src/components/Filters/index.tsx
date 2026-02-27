@@ -3,9 +3,9 @@ import {useTranslation} from 'react-i18next';
 import {useUnit} from 'effector-react';
 import {Button, Select} from 'antd';
 import * as S from './styled';
-import {$filters, setCurrentMode, setCurrentSubstance, setIsMixture} from '@models/filters';
+import {$filters, deleteMixture, setCurrentMode, setCurrentSubstance, setIsMixture} from '@models/filters';
 import {useLocation, useNavigate} from 'react-router';
-import {PlusOutlined} from '@ant-design/icons';
+import {DeleteOutlined, PlusOutlined} from '@ant-design/icons';
 import {openAddMixModal} from '@models/modals/addMixModal';
 import {SelectComponent} from '@ui-kit/Select';
 
@@ -34,7 +34,7 @@ export function Filters() {
     const substance = searchParams.get('currentSubstance') || '';
     if (substance) {
       const isMixture = substancesOptions.find((option) => option.value === substance)?.['isMixture'] || false;
-      setIsMixture(isMixture)
+      setIsMixture(isMixture);
       setCurrentSubstance(substance);
     }
     const mode = searchParams.get('currentMode') || '';
@@ -85,6 +85,23 @@ export function Filters() {
     </Button>
   );
 
+  const renderOptions = (option) => (
+    <S.Option>
+      <span>{option.label}</span>
+      {option.data['isMixture'] && (
+        <Button
+          type='text'
+          size='small'
+          icon={<DeleteOutlined />}
+          onClick={(e) => {
+            e.stopPropagation();
+            deleteMixture(option.value);
+          }}
+        />
+      )}
+    </S.Option>
+  );
+
   return (
     <S.FiltersContainer>
       <S.Filters>
@@ -104,6 +121,7 @@ export function Filters() {
           open={isSubstancesSelectOpen}
           onOpenChange={setIsSubstancesSelectOpen}
           onChange={currentSubstanceOnChange}
+          optionRender={renderOptions}
         />
         <SelectComponent
           options={modesOptions}

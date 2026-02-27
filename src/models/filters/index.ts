@@ -20,6 +20,7 @@ export const getCalcModesInfoFx = filtersDomain.createEffect(propertyTableServic
 export const getMixtureCalcModesInfoFx = filtersDomain.createEffect(propertyTableService.getMixtureCalcModesInfo);
 export const getPropertiesListFx = filtersDomain.createEffect(propertyTableService.getPropertiesList);
 export const getMixturePropertiesListFx = filtersDomain.createEffect(propertyTableService.getMixturePropertiesList);
+export const deleteMixtureFx = filtersDomain.createEffect(mixtureService.deleteMixture);
 
 export const $substances = filtersDomain.createStore<Substance[]>([]);
 export const $mixtures = filtersDomain.createStore<MixtureExtended[]>([]);
@@ -40,6 +41,7 @@ export const setIsMixture = filtersDomain.createEvent<boolean>();
 export const setCurrentMode = filtersDomain.createEvent<string>();
 export const setSelectedProperties = filtersDomain.createEvent<string[]>();
 export const applyFilters = filtersDomain.createEvent<TableParamFilters[]>();
+export const deleteMixture = filtersDomain.createEvent<string>();
 
 export const $filters = combine({
   substancesOptions: $substancesOptions,

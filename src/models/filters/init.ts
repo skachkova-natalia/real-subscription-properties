@@ -13,6 +13,8 @@ import {
   $substances,
   $substancesOptions,
   applyFilters,
+  deleteMixture,
+  deleteMixtureFx,
   filtersDomain,
   getAvailableSubstanceFx,
   getCalcModesInfoFx,
@@ -57,7 +59,7 @@ sample({
 });
 
 sample({
-  clock: [AppGate.open, addMixtureFx.doneData, getUserInfoFx.doneData],
+  clock: [AppGate.open, addMixtureFx.doneData, getUserInfoFx.doneData, deleteMixtureFx.doneData],
   source: $user,
   filter: (user) => !!user,
   target: getUsersMixturesFx,
@@ -128,4 +130,9 @@ sample({
   filter: ({isMixture}) => isMixture,
   fn: ({currentSubstance}, modeName) => ({substance_name: currentSubstance, mode_name: modeName} as PropertiesFilters),
   target: getMixturePropertiesListFx,
+});
+
+sample({
+  clock: deleteMixture,
+  target: deleteMixtureFx,
 });

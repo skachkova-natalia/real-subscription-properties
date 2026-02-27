@@ -19,3 +19,10 @@ export const Filters = styled.div`
     grid-template-columns: 100%;
   }
 `;
+
+export const Option = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;

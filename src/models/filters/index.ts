@@ -10,6 +10,7 @@ import {
 import {Option} from '@src/types/common';
 import {mixtureService} from '@services/mixtureService';
 import {MixtureExtended} from '@src/types/mixture';
+import {pending} from 'patronum';
 
 export const filtersDomain = createDomain();
 
@@ -43,7 +44,7 @@ export const applyFilters = filtersDomain.createEvent<TableParamFilters[]>();
 export const $filters = combine({
   substancesOptions: $substancesOptions,
   mixturesOptions: $mixturesOptions,
-  loadingSubstances: getAvailableSubstanceFx.pending,
+  loadingSubstances: pending([getAvailableSubstanceFx, getUsersMixturesFx]),
   currentSubstance: $currentSubstance,
   modesParams: $modesParams,
   loadingModesParams: getCalcModesInfoFx.pending,

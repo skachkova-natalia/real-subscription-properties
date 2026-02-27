@@ -20,9 +20,9 @@ export const propertyTableService = bindAllMethods({
       await axiosApiInstance.get(`${BASE_URL}/get_calc_modes_info?substance_name=${substance_name}`)
     ).data;
   },
-  async getMixtureCalcModesInfo(substance_name: string): Promise<ModesResponse> {
+  async getMixtureCalcModesInfo(phase_id: string): Promise<ModesResponse> {
     return (
-      await axiosApiInstance.get(`${BASE_URL}/get_calc_modes_info_phase?substance_name=${substance_name}`)
+      await axiosApiInstance.get(`${BASE_URL}/get_calc_modes_info_phase?phase_id=${phase_id}`)
     ).data;
   },
   async getPropertiesList({substance_name, mode_name}: PropertiesFilters): Promise<PropertiesListResponse> {
@@ -32,7 +32,7 @@ export const propertyTableService = bindAllMethods({
   },
   async getMixturePropertiesList({substance_name, mode_name}: PropertiesFilters): Promise<PropertiesListResponse> {
     return (
-      await axiosApiInstance.post(`${BASE_URL}/get_properties_list_phase?phase_name=${substance_name}&mode_name=${mode_name}`)
+      await axiosApiInstance.post(`${BASE_URL}/get_properties_list_phase?phase_id=${substance_name}&mode_name=${mode_name}`)
     ).data;
   },
   async getTable(params: TableFilters): Promise<TableResponse> {

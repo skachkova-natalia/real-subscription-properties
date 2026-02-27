@@ -76,7 +76,7 @@ export default function PropertiesTable() {
       <TableSettingsModal />
       <S.TableContainer ref={tableRef}>
         <TableFilters />
-        {error && <S.Error>{error[`msg_user_${i18n.language}`]}</S.Error>}
+        {error && <S.Error>{error.msg[`${i18n.language}`]}</S.Error>}
         <S.ButtonsContainer>
           {Object.keys(propertiesList).length > 0 && (
             <S.SettingsContainer>

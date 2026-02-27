@@ -16,7 +16,8 @@ import {
   filtersDomain,
   getAvailableSubstanceFx,
   getCalcModesInfoFx,
-  getMixtureCalcModesInfoFx, getMixturePropertiesListFx,
+  getMixtureCalcModesInfoFx,
+  getMixturePropertiesListFx,
   getPropertiesListFx,
   getUsersMixturesFx,
   setCurrentMode,
@@ -29,6 +30,7 @@ import {sample} from 'effector';
 import {PropertiesFilters} from '@src/types/filters';
 import i18n from 'i18next';
 import {addMixtureFx} from '@models/modals/addMixModal';
+import {$user, getUserInfoFx} from '@models/auth';
 
 resetDomainStoresByEvents(filtersDomain, AppGate.close);
 
@@ -55,7 +57,9 @@ sample({
 });
 
 sample({
-  clock: [AppGate.open, addMixtureFx.doneData],
+  clock: [AppGate.open, addMixtureFx.doneData, getUserInfoFx.doneData],
+  source: $user,
+  filter: (user) => !!user,
   target: getUsersMixturesFx,
 });
 

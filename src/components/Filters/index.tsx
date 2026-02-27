@@ -27,16 +27,21 @@ export function Filters() {
   const [isSubstancesSelectOpen, setIsSubstancesSelectOpen] = useState<boolean>(false);
 
   useEffect(() => {
+    if (!substancesOptions.length) {
+      return;
+    }
     const searchParams = new URLSearchParams(location.search);
     const substance = searchParams.get('currentSubstance') || '';
     if (substance) {
+      const isMixture = substancesOptions.find((option) => option.value === substance)?.['isMixture'] || false;
+      setIsMixture(isMixture)
       setCurrentSubstance(substance);
     }
     const mode = searchParams.get('currentMode') || '';
     if (mode) {
       setCurrentMode(mode);
     }
-  }, []);
+  }, [loadingSubstances]);
 
   useEffect(() => {
     setSelectedDimensions(modesParams.reduce((acc, param) => {
@@ -50,11 +55,10 @@ export function Filters() {
   const currentSubstanceOnChange = (e, option) => {
     if (option['isMixture']) {
       setIsMixture(true);
-      setCurrentSubstance(option['name']);
     } else {
       setIsMixture(false);
-      setCurrentSubstance(e);
     }
+    setCurrentSubstance(e);
     const queryString = `currentSubstance=${e}`;
     navigate({search: queryString}, {replace: true});
     setIsSubstancesSelectOpen(false);

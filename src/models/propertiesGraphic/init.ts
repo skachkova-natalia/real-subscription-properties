@@ -32,8 +32,8 @@ $fixedParameterValues.on(setFixedParameterValues, forwardPayload()).reset(resetP
 $error
   .on([getPropertyPointsFx.failData, getMixturePropertyPointsFx.failData], (_, payload) => ({
     msg: {
-      ru: payload?.detail?.['msg_user_ru'] || '',
-      en: payload?.detail?.['msg_user_en'] || '',
+      ru: payload?.detail?.msg.ru || '',
+      en: payload?.detail?.msg.en || '',
     },
   }))
   .reset(getPropertyPoints);

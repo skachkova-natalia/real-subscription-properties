@@ -4,6 +4,7 @@ import {initReactI18next} from 'react-i18next';
 const resources = {
   ru: {
     translation: {
+      title: 'Библиотека свойств реальных веществ',
       common: {
         select_all: 'Выбрать все',
         apply: 'Применить',
@@ -74,6 +75,7 @@ const resources = {
   },
   en: {
     translation: {
+      title: 'Real substance properties',
       common: {
         select_all: 'Select all',
         apply: 'Apply',

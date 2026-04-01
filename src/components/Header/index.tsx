@@ -27,7 +27,7 @@ export function Header() {
       <S.MenuContainer>
         <S.StyledTitle onClick={() => navigate('/')}>
           <LogoSvg width={40} height={40} />
-          RSP
+           {t('title')} (RSP)
         </S.StyledTitle>
         {!user && (
           <S.ButtonsContainer>

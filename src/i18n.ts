@@ -9,7 +9,7 @@ const resources = {
         select_all: 'Выбрать все',
         apply: 'Применить',
         confirm: 'Подтвердить',
-        calculate: 'Расчитать',
+        calculate: 'Рассчитать',
         add: 'Добавить',
         cancel: 'Отмена',
         no_data: 'Нет данных',

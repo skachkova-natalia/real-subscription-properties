@@ -16,18 +16,22 @@ export function HamburgerMenu() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   type MenuItem = Required<MenuProps>['items'][number];
 
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+
   const items: MenuItem[] = [
     {
       key: 'main',
-      label: <NavLink to='/'>{t('table')}</NavLink>,
-      icon: <TableOutlined  />,
+      label: <NavLink to='/' onClick={() => closeMenu()}>{t('table')}</NavLink>,
+      icon: <TableOutlined />,
     },
     {
       type: 'divider',
     },
     ...(user ? [{
       key: 'profile',
-      label: <NavLink to='/profile'>{t('user.personal_account')}</NavLink>,
+      label: <NavLink to='/profile' onClick={() => closeMenu()}>{t('user.personal_account')}</NavLink>,
       icon: <UserOutlined />,
     },
       {
@@ -44,34 +48,34 @@ export function HamburgerMenu() {
         <Drawer onClose={() => setIsMenuOpen(false)} open={isMenuOpen} placement='left' width={250}>
           <S.MenuContainer>
             <S.TopBlock>
-            {!user && (
-              <S.ButtonsContainer>
-                <Button type='primary'>
-                  <NavLink to='/login'>{t('sign_in')}</NavLink>
-                </Button>
-                <Button>
-                  <NavLink to='/register'>{t('registration')}</NavLink>
-                </Button>
-              </S.ButtonsContainer>
-            )}
-            <Menu
-              mode='inline'
-              items={items}
-              onClick={() => setIsMenuOpen(false)}
-            />
+              {!user && (
+                <S.ButtonsContainer>
+                  <Button type='primary'>
+                    <NavLink to='/login' onClick={() => closeMenu()}>{t('sign_in')}</NavLink>
+                  </Button>
+                  <Button>
+                    <NavLink to='/register' onClick={() => closeMenu()}>{t('registration')}</NavLink>
+                  </Button>
+                </S.ButtonsContainer>
+              )}
+              <Menu
+                mode='inline'
+                items={items}
+                onClick={() => setIsMenuOpen(false)}
+              />
             </S.TopBlock>
             <S.Footer>
-            {!!user && (
-              <S.UserInfo>
-                <UserOutlined />
-                {user.name}
-              </S.UserInfo>
-            )}
-            <S.ContactInfo>
-              <Button icon={<TelegramIconSvg width={14} height={14} fill={color.base.s600} />}>Напишите нам в
-                Telegram</Button>
-              <Typography.Link href='mailto:support@rsp.ru'>email: support@rsp.ru</Typography.Link>
-            </S.ContactInfo>
+              {!!user && (
+                <S.UserInfo>
+                  <UserOutlined />
+                  {user.name}
+                </S.UserInfo>
+              )}
+              <S.ContactInfo>
+                <Button icon={<TelegramIconSvg width={14} height={14} fill={color.base.s600} />}>Напишите нам в
+                  Telegram</Button>
+                <Typography.Link href='mailto:support@rsp.ru'>email: support@rsp.ru</Typography.Link>
+              </S.ContactInfo>
             </S.Footer>
           </S.MenuContainer>
         </Drawer>

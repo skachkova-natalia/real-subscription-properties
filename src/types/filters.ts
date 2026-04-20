@@ -32,6 +32,12 @@ export interface TableFilters {
   params: TableParamFilters[];
 }
 
+export interface TablePhaseFilters {
+  phase_id: string;
+  mode_name: string;
+  params: TableParamFilters[];
+}
+
 export interface TableParamFilters {
   id: string;
   value: number;

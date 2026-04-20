@@ -5,7 +5,9 @@ import {
   PropertiesFilters,
   PropertiesListResponse,
   SubstanceFiltersResponse,
-  TableFilters, TableRowFilters,
+  TableFilters,
+  TablePhaseFilters,
+  TableRowFilters,
 } from '@src/types/filters';
 import {TableResponse, TableRowResponse} from '@src/types/table';
 
@@ -40,7 +42,7 @@ export const propertyTableService = bindAllMethods({
       await axiosApiInstance.post(`${BASE_URL}/get_properties_table`, params)
     ).data;
   },
-  async getMixtureTable(params: TableFilters): Promise<TableResponse> {
+  async getMixtureTable(params: TablePhaseFilters): Promise<TableResponse> {
     return (
       await axiosApiInstance.post(`${BASE_URL}/phase_calc`, params)
     ).data;
@@ -50,7 +52,7 @@ export const propertyTableService = bindAllMethods({
       await axiosApiInstance.post(`${BASE_URL}/get_properties_table_row`, params)
     ).data;
   },
-  async getMixtureTableRow(params: TableRowFilters): Promise<TableRowResponse> {
+  async getMixtureTableRow(params: TablePhaseFilters): Promise<TableRowResponse> {
     return (
       await axiosApiInstance.post(`${BASE_URL}/phase_calc_row`, params)
     ).data;

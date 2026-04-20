@@ -9,7 +9,7 @@ export const tableDomain = createDomain();
 
 export const getTableFx = tableDomain.createEffect<typeof propertyTableService.getTable,
   ApiResponseError>(propertyTableService.getTable);
-export const getMixtureTableFx = tableDomain.createEffect<typeof propertyTableService.getTable,
+export const getMixtureTableFx = tableDomain.createEffect<typeof propertyTableService.getMixtureTable,
   ApiResponseError>(propertyTableService.getMixtureTable);
 export const getTableRowFx = tableDomain.createEffect(propertyTableService.getTableRow);
 export const getMixtureTableRowFx = tableDomain.createEffect(propertyTableService.getMixtureTableRow);

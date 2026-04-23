@@ -18,6 +18,6 @@ $verificationSuccess.on(verifyFx.doneData, () => true).reset(verifyFx);
 sample({
   clock: VerificationPageGate.open,
   filter: (id) => !!id,
-  fn: (id) => id,
+  fn: (id) => id || '',
   target: verifyFx,
 });

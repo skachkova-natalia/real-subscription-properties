@@ -20,7 +20,8 @@ import {
 } from '@models/propertiesGraphic/index';
 import {sample} from 'effector';
 import {$isMixture, setCurrentMode, setCurrentSubstance} from '@models/filters';
-import {GraphicFiltersParams, GraphicPoint, Point} from '@src/types/graphic';
+import {GraphicFiltersParams, GraphicFiltersPhaseParams, Point} from '@src/types/graphic';
+import {cloneDeep} from 'lodash';
 
 resetDomainStoresByEvents(graphicDomain, AppGate.close);
 
@@ -50,7 +51,7 @@ sample({
   clock: getPropertyPoints,
   source: {isMixture: $isMixture, filters: $filters},
   filter: ({isMixture, filters}) => isMixture && !!filters,
-  fn: ({filters}) => filters as GraphicFiltersParams,
+  fn: ({filters}) => ({...filters, phase_id: filters?.substance_name} as GraphicFiltersPhaseParams),
   target: getMixturePropertyPointsFx,
 });
 
@@ -58,7 +59,7 @@ sample({
   clock: [getPropertyPointsFx.doneData, getMixturePropertyPointsFx.doneData],
   source: {fixedValues: $fixedParameterValues, points: $points},
   fn: ({fixedValues, points}, response) => {
-    const result: GraphicPoint = points;
+    const result = cloneDeep(points);
     const value = fixedValues[fixedValues.length - 1];
     const props = Object.keys(response.data);
 

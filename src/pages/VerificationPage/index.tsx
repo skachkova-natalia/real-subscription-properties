@@ -1,18 +1,18 @@
-import {useLocation, useNavigate} from 'react-router';
-import * as S from './styled';
+import {useNavigate} from 'react-router';
 import {Alert, Button, Spin, Typography} from 'antd';
 import {useTranslation} from 'react-i18next';
 import {LoadingOutlined} from '@ant-design/icons';
 import {useGate, useUnit} from 'effector-react';
 import {$verificationPage, VerificationPageGate} from '@models/verification';
 import i18n from 'i18next';
+import {useSearchParams} from 'react-router-dom';
+import * as S from './styled';
 
 export default function VerificationPage() {
   const {t} = useTranslation();
   const navigate = useNavigate();
-  const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const id = queryParams.get('id');
+  const [searchParams] = useSearchParams();
+  const id = searchParams.get('id');
   useGate(VerificationPageGate, id);
   const {error, loading, success} = useUnit($verificationPage);
 

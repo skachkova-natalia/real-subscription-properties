@@ -10,9 +10,9 @@ export const userService = bindAllMethods({
     ).data;
   },
 
-  async verifyEmail(): Promise<Tokens> {
+  async verifyEmail(verify_token: string): Promise<Tokens> {
     return (
-      await axiosApiInstance.get(`${BASE_URL}/auth/verify_user`)
+      await axiosApiInstance.get(`${BASE_URL}/auth/verify_user`, {params: {verify_token}})
     ).data;
   },
 

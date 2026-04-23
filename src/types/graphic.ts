@@ -16,6 +16,24 @@ export interface GraphicFiltersParams {
   },
 }
 
+export interface GraphicFiltersPhaseParams {
+  phase_id: string;
+  mode_name: string;
+  properties: Property[];
+  count: number;
+  fixed_parameter: {
+    id: string;
+    value: number;
+    param_dimension: string;
+  },
+  variable_parameter: {
+    id: string;
+    min: number;
+    max: number;
+    param_dimension: string;
+  },
+}
+
 export interface Property {
   name: string;
   dimension: string;
